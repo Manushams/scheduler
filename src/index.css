@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Abel', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+li{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.navbar{
+  position: fixed; 
+  left: 0;
+  top: 0;
+  background: #364F6B;
+  width: 5rem;
+  height: 100vh;
+  display: flex;
+  /* grid-template-columns: 1fr; */
+  align-items: center;
+  grid-gap: 1rem;
+}
+
+
+.nav-item{
+  width: 4rem;
+  height: 4rem;
+  background:#3f5c7c;
+  border-radius: 50%;
+  margin-left: -2em;
+  margin-bottom: 1rem;
+}
+
+.nav-link{
+  position: relative;
+  font-size: 2rem;
+  top: 17%;
+  left: 15%;
+}
+
+.main{
+  margin-left: 5rem;
+}
+
+.table{
+  width: 100%;
+  padding: 1rem;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.top-bar{
+  width: 100%;
+  padding-left: 1rem;
+  display: flex;
+  grid-auto-columns: auto;
+  border: 1px #000 solid;
+  align-items: center;
+  padding: 0;
+  height: 4rem;
+}
+.top-bar h3{
+  margin-left: 1rem;
+  width: 40%;
+  font-size: 1.4rem;
+}
+
+.top-bar ul{
+  width: 50%;
+  text-align: end;
+}
+.top-bar a{
+  color: #000000;
+}
+
+.top-bar li{
+  display: inline;
+  margin-right: 1.4rem;
+  font-size: 1.1rem;
+}
+
+.table-heading-first{
+  width: 8rem;
+}
+
+.table-heading{
+  text-align: start;
+  padding-left: .3rem;
+}
+
+.table-row{
+  height: 2rem;
+}
+
+
+
+
+
+

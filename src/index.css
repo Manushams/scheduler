@@ -6,6 +6,7 @@ body {
   font-family: 'Abel', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 li{
@@ -78,6 +79,7 @@ table, th, td {
   top: 0;
   position: sticky;
   z-index: 4;
+  overflow: hidden;
 }
 .top-bar h3{
   margin-left: 1rem;

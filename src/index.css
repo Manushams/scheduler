@@ -74,6 +74,10 @@ table, th, td {
   align-items: center;
   padding: 0;
   height: 4rem;
+  background: #ffffff;
+  top: 0;
+  position: sticky;
+  z-index: 4;
 }
 .top-bar h3{
   margin-left: 1rem;
@@ -105,11 +109,27 @@ table, th, td {
 }
 
 .table-row{
-  height: 2rem;
+  height: 4rem;
 }
 
+.table-row-heading th{
+  height: 8rem;
+}
 
+table {
 
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+}
+th {
+  position: sticky;
+  top: 4rem; 
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  background: #ffffff;
+}
 
-
-
+.table-heading-first{
+  z-index: 3;
+}

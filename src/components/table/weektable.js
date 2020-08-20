@@ -25,6 +25,12 @@ class Weektable extends React.Component {
         })
     }
 
+    loop = (i, item) => {
+        for (let x = 0; x<i; x++){
+            console.log(item)
+        }
+    }
+
     componentDidMount() {
         this.hours();
     }
@@ -39,6 +45,7 @@ class Weektable extends React.Component {
         const weekDate = [dateToday - dayWeek +1,dateToday + dayWeek -1 ] 
         
         
+ 
         const tableRow =
             <>
                 {hours && hours.map((hour) => {
@@ -46,22 +53,18 @@ class Weektable extends React.Component {
                         <>
                             <tr className='table-row'>
                                 <th rowSpan="2" className='table-dataf'>{hour}</th>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
+                                {Array.apply(0, Array(7)).map(a => {
+                                    return(
+                                        <td className='table-data'></td>                                
+                                    )
+                                })}
                             </tr>
                             <tr className='table-row'>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
-                                <td className='table-data'></td>
+                                {Array.apply(0, Array(7)).map(a => {
+                                    return(
+                                        <td className='table-data'></td>                                
+                                    )
+                                })}
                             </tr>
                         </>
                     )

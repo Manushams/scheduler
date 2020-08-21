@@ -44,7 +44,9 @@ class Weektable extends React.Component {
         const month = today.getMonth() 
         const weekDate = [dateToday - dayWeek +1,dateToday + dayWeek -1 ] 
         
-        
+        const weekDays = moment.weekdaysShort()
+        weekDays.splice(0, 1);
+        weekDays.push('Sun')   
  
         const tableRow =
             <>
@@ -53,16 +55,22 @@ class Weektable extends React.Component {
                         <>
                             <tr className='table-row'>
                                 <th rowSpan="2" className='table-dataf'>{hour}</th>
-                                {Array.apply(0, Array(7)).map(a => {
+                                {Array.apply(0, Array(7)).map((a, i) => {
                                     return(
-                                        <td className='table-data'></td>                                
+                                        <td 
+                                            className='table-data'
+                                            key = {i}
+                                            ></td>                                
                                     )
                                 })}
                             </tr>
                             <tr className='table-row'>
-                                {Array.apply(0, Array(7)).map(a => {
+                                {Array.apply(0, Array(7)).map((a, i) => {
                                     return(
-                                        <td className='table-data'></td>                                
+                                        <td 
+                                            className='table-data'
+                                            key={i}    
+                                        ></td>                                
                                     )
                                 })}
                             </tr>
@@ -89,14 +97,19 @@ class Weektable extends React.Component {
                     <tbody>
 
                         <tr className='table-row table-row-heading '>
-                            <th className='table-heading table-heading-first'></th>
-                            <th className='table-heading'>Mon <br />{weekDate[0]}</th>
-                            <th className='table-heading'>Tue <br />{weekDate[0] + 1} </th>
-                            <th className='table-heading'>Wed <br />{weekDate[0] + 2}</th>
-                            <th className='table-heading'>Thu <br />{weekDate[0] + 3}</th>
-                            <th className='table-heading'>Fri <br />{weekDate[0] + 4}</th>
-                            <th className='table-heading'>Sat <br />{weekDate[0] + 5} </th>
-                            <th className='table-heading'>Sun <br />{weekDate[0] + 6}</th>
+                        <th className='table-heading table-heading-first'></th>
+                            {[0,1,2,3,4,5,6].map((a, i) => {
+                                return(
+                                    <th 
+                                        className='table-heading'
+                                        key={i}    
+                                    >
+                                        {weekDays[a]} <br />{weekDate[0] + a}
+                                    </th>
+                                )
+                            })}
+                            
+                            
                         </tr>
                         {tableRow}
                     </tbody>

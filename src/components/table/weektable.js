@@ -4,7 +4,12 @@ import moment from 'moment';
 class Weektable extends React.Component {
 
     state = {
-        hours: []
+        hours: [],
+        modalEnable: false
+    }
+
+    componentDidMount() {
+        this.hours();
     }
 
     hours = () => {
@@ -25,14 +30,12 @@ class Weektable extends React.Component {
         })
     }
 
-    loop = (i, item) => {
-        for (let x = 0; x<i; x++){
-            console.log(item)
-        }
-    }
-
-    componentDidMount() {
-        this.hours();
+    onClickHandle = (e) => {
+        console.log(e.target)
+        e.target.classList.add('s')
+        this.setState({
+            modalEnable: true
+        })
     }
 
     render() {
@@ -47,6 +50,21 @@ class Weektable extends React.Component {
         const weekDays = moment.weekdaysShort()
         weekDays.splice(0, 1);
         weekDays.push('Sun')   
+
+        const modal = <>
+            <form action="">
+                <div>
+                    <label htmlFor="eventName">
+                        Name
+                    </label>
+                    <input 
+                        type="text" 
+                        placeholder='Name of event'    
+                        id='eventName'
+                    />
+                </div>
+            </form>
+        </>
  
         const tableRow =
             <>
@@ -60,6 +78,7 @@ class Weektable extends React.Component {
                                         <td 
                                             className='table-data'
                                             key = {i}
+                                            onClick = {this.onClickHandle}
                                             ></td>                                
                                     )
                                 })}
@@ -70,6 +89,7 @@ class Weektable extends React.Component {
                                         <td 
                                             className='table-data'
                                             key={i}    
+                                            onClick = {this.onClickHandle}
                                         ></td>                                
                                     )
                                 })}

@@ -64,7 +64,8 @@ class Weektable extends React.Component {
         const dayWeek = today.getDay()
         const year = today.getFullYear()
         const month = today.getMonth() 
-        const weekDate = [dateToday - dayWeek +1,dateToday + dayWeek -1 ] 
+        const weekDate = [dateToday - dayWeek +1,dateToday - dayWeek + 7 ] 
+        console.log(dayWeek)
         
         const weekDays = moment.weekdaysShort()
         weekDays.splice(0, 1);

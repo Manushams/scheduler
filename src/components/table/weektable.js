@@ -1,11 +1,15 @@
 import React from 'react';
 import moment from 'moment';
+import Modal from './modal'
 
 class Weektable extends React.Component {
 
     state = {
         hours: [],
-        modalEnable: false
+        modalEnable: false,
+        startTime: '',
+        endtime: '',
+        day: ''
     }
 
     componentDidMount() {
@@ -31,15 +35,30 @@ class Weektable extends React.Component {
     }
 
     onClickHandle = (e) => {
-        console.log(e.target)
-        e.target.classList.add('s')
         this.setState({
-            modalEnable: true
+            startTime: e.target.parentElement.id
         })
+        console.log(e.target.parentElement.parentElement)
+        const tbody = e.target.parentElement.parentElement
+        var th = tbody.querySelectorAll('.table-heading')
+
+        var columnNum = e.target.cellIndex
+
+        if(e.target.parentElement.rowIndex % 2 === 0){
+            columnNum = e.target.cellIndex + 1
+        }
+
+        const day = th[columnNum].innerHTML.slice(8,)
+        console.log('day' , day)
+
+        console.log(document.querySelector('.top-bar h3').innerHTML.slice(14,))
+
+
+
     }
 
     render() {
-        const { hours } = this.state
+        const { hours, startTime } = this.state
         const today = new Date()
         const dateToday = today.getDate();
         const dayWeek = today.getDay()
@@ -51,39 +70,32 @@ class Weektable extends React.Component {
         weekDays.splice(0, 1);
         weekDays.push('Sun')   
 
-        const modal = <>
-            <form action="">
-                <div>
-                    <label htmlFor="eventName">
-                        Name
-                    </label>
-                    <input 
-                        type="text" 
-                        placeholder='Name of event'    
-                        id='eventName'
-                    />
-                </div>
-            </form>
-        </>
+       
  
         const tableRow =
             <>
                 {hours && hours.map((hour) => {
                     return (
                         <>
-                            <tr className='table-row'>
+                            <tr 
+                                className='table-row'
+                                id = {hour}    
+                            >
                                 <th rowSpan="2" className='table-dataf'>{hour}</th>
                                 {Array.apply(0, Array(7)).map((a, i) => {
                                     return(
                                         <td 
-                                            className='table-data'
+                                            className='table-data' 
                                             key = {i}
                                             onClick = {this.onClickHandle}
-                                            ></td>                                
+                                        ></td>                                
                                     )
                                 })}
                             </tr>
-                            <tr className='table-row'>
+                            <tr 
+                                className='table-row'
+                                id = {hour.slice(0,3) + '30'}
+                            >
                                 {Array.apply(0, Array(7)).map((a, i) => {
                                     return(
                                         <td 
@@ -134,6 +146,7 @@ class Weektable extends React.Component {
                         {tableRow}
                     </tbody>
                 </table>
+                <Modal startTime = {startTime}/>
             </div>
         )
     }

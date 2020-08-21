@@ -140,3 +140,39 @@ th {
 .table-heading-first{
   z-index: 3;
 }
+
+.modal{
+  position: fixed;
+  top: 30%;
+  left: 33%;
+  width: 30rem;
+  background: #3d5af1;
+  text-align: start;
+  border-radius: 5px;
+  border: 1px solid #364F6B;
+  z-index: 4;
+}
+
+.form{
+  padding: 2rem;
+}
+
+.modal-title{
+  width: 100%;
+  position: relative;
+  left: 0;
+  top: 0;
+  background: #ffffff;
+  height: 4rem;
+  display: flex;
+  align-content: center;
+  /* padding-left: 2rem; */
+   justify-content: center; 
+}
+
+.modal > input, label{
+  display: block;
+  margin-top: 1rem;
+  color: #ffffff;
+  font-size: 1.4rem;
+}

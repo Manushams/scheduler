@@ -1,49 +1,46 @@
 import React from 'react'
 
-const Modal = ({startTime}) => {
+const Modal = ({ startTime }) => {
+    
     return (
         <div className='modal'>
             <div className='modal-title'>
                 <h3>Add an Event</h3>
             </div>
-            <form action="" className='form'>
-                <div>
-                    <label htmlFor="eventName">
-                        Name
-                </label>
-                    <input
+            <form action="">
+                <div className='input-field'>
+                    <label htmlFor="eventName">Event/Task Name</label>
+                    <input 
+                        placeholder = 'Type here...'
                         type="text"
-                        placeholder='Name of event'
                         id='eventName'
                     />
                 </div>
-                <div>
-                    <label htmlFor="timeStart">
-                        Start
-                </label>
-                    <input
-                        type="time"
-                        value={startTime}
-                        id='timeStart'
-                    />
+                <div className='input-field-time'>
+                    <div className='time-field'>
+                        <label htmlFor="timeStart">Start</label>
+                        <input 
+                            type='time'
+                            id='timeStart'
+                            value={startTime}
+                        />
+                    </div>
+                    <div className='time-field'>
+                        <label htmlFor="timeEnd">End</label>
+                        <input 
+                            type='time'
+                            id='timeEnd'
+                        />
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="timeEnd">
-                        End
-                </label>
-                    <input
-                        type="time"
-                        id='timeEnd'
-                    />
+                <div className='input-field'>
+                    <label htmlFor="day">Day</label>
+                    <input type="date"/>
                 </div>
-                <div>
-                    <label htmlFor="day">
-                        Day
-                </label>
-                    <input
-                        type="date"
-                        id='day'
-                    />
+                <div className='input-field'>
+                    <button className='submit-btn'>
+                        Submit
+                    </button>
                 </div>
             </form>
         </div>

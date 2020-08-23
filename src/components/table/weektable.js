@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 import Modal from './modal'
+import {connect} from 'react-redux'
+import {openModal} from '../../store/actions/toggleModalAction'
 
 class Weektable extends React.Component {
 
@@ -9,7 +11,17 @@ class Weektable extends React.Component {
         modalEnable: false,
         startTime: '',
         endtime: '',
-        day: ''
+        day: '',
+        weekDays: {
+            0: 7,
+            1: 6,
+            2: 5,
+            3: 4,
+            4: 3,
+            3: 2,
+            2: 1,
+            1: 0
+        }
     }
 
     componentDidMount() {
@@ -35,10 +47,8 @@ class Weektable extends React.Component {
     }
 
     onClickHandle = (e) => {
-        this.setState({
-            startTime: e.target.parentElement.id
-        })
-        console.log(e.target.parentElement.parentElement)
+        this.props.openModal()
+    
         const tbody = e.target.parentElement.parentElement
         var th = tbody.querySelectorAll('.table-heading')
 
@@ -49,30 +59,32 @@ class Weektable extends React.Component {
         }
 
         const day = th[columnNum].innerHTML.slice(8,)
-        console.log('day' , day)
-
-        console.log(document.querySelector('.top-bar h3').innerHTML.slice(14,))
-
-
-
+    
+        //console.log(document.querySelector('.top-bar h3').innerHTML.slice(14,))
     }
 
     render() {
         const { hours, startTime } = this.state
+        const {modalEnable} = this.props
+
         const today = new Date()
         const dateToday = today.getDate();
-        const dayWeek = today.getDay()
+        const dayWeek = this.state.weekDays[today.getDay() ]
         const year = today.getFullYear()
         const month = today.getMonth() 
         const weekDate = [dateToday - dayWeek +1,dateToday - dayWeek + 7 ] 
-        console.log(dayWeek)
+
+        console.log('today',today)
+        console.log('dateToday',dateToday)
+        console.log('dayWeek',dayWeek)
+        console.log('year',year)
+        console.log('month',month)
+        console.log('weekDate',weekDate)
         
         const weekDays = moment.weekdaysShort()
         weekDays.splice(0, 1);
         weekDays.push('Sun')   
 
-       
- 
         const tableRow =
             <>
                 {hours && hours.map((hour) => {
@@ -147,10 +159,26 @@ class Weektable extends React.Component {
                         {tableRow}
                     </tbody>
                 </table>
-                <Modal startTime = {startTime}/>
+                {modalEnable ? 
+                    <Modal 
+                        startTime = {startTime}  
+                    /> : null
+                }
             </div>
         )
     }
 }
 
-export default Weektable
+const mapStateToProps = (state) => {
+    return{
+        modalEnable: state.modalEnable
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        openModal: () => dispatch(openModal())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Weektable);

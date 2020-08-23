@@ -1,11 +1,19 @@
-import React from 'react'
+import React from 'react';
+import {closeModal} from '../../store/actions/toggleModalAction';
+import {connect} from 'react-redux'
 
-const Modal = ({ startTime }) => {
-    
+class Modal extends React.Component{
+    render(){    
+    const {  startTime } = this.props
+
     return (
         <div className='modal'>
             <div className='modal-title'>
                 <h3>Add an Event</h3>
+                <i onClick = {() => this.props.closeModal()}
+                >
+                    x
+                </i>
             </div>
             <form action="">
                 <div className='input-field'>
@@ -45,6 +53,13 @@ const Modal = ({ startTime }) => {
             </form>
         </div>
     )
+    }
 }
 
-export default Modal
+const mapDispatchToProps = (dispatch) => {
+    return{
+        closeModal: () => dispatch(closeModal())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Modal);

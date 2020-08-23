@@ -18,9 +18,9 @@ class Weektable extends React.Component {
             2: 5,
             3: 4,
             4: 3,
-            3: 2,
-            2: 1,
-            1: 0
+            5: 2,
+            6: 1,
+            7: 0
         }
     }
 
@@ -69,7 +69,7 @@ class Weektable extends React.Component {
 
         const today = new Date()
         const dateToday = today.getDate();
-        const dayWeek = this.state.weekDays[today.getDay() ]
+        const dayWeek = today.getDay() === 0 ? this.state.weekDays[today.getDay() ] : today.getDay()
         const year = today.getFullYear()
         const month = today.getMonth() 
         const weekDate = [dateToday - dayWeek +1,dateToday - dayWeek + 7 ] 

@@ -44,6 +44,7 @@ class Weektable extends React.Component {
     }
 
     onClickHandle = (e) => {
+        e.preventDefault()
         this.props.openModal()
 
         this.setState({
@@ -177,8 +178,9 @@ class Weektable extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state)
     return{
-        modalEnable: state.modalEnable
+        modalEnable: state.toggleModal.modalEnable
     }
 }
 

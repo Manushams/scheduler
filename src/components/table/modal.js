@@ -1,5 +1,6 @@
 import React from 'react';
 import {closeModal} from '../../store/actions/toggleModalAction';
+import {addTask} from '../../store/actions/addTaskAction'
 import {connect} from 'react-redux'
 
 class Modal extends React.Component{
@@ -9,10 +10,17 @@ class Modal extends React.Component{
     }
 
     onChangeHandle = e => {
+        e.preventDefault();
         this.setState({
             [e.target.id]: e.target.value
         })
         console.log(e)
+    }
+
+    onSubmitHandler = (e) => {
+        e.preventDefault();
+        const newTask = {...this.state}
+        this.props.addTask(newTask)
     }
 
     render(){    
@@ -65,7 +73,10 @@ class Modal extends React.Component{
                     />
                 </div>
                 <div className='input-field'>
-                    <button className='submit-btn'>
+                    <button 
+                        className='submit-btn'
+                        onSubmit = {this.onSubmitHandler}
+                    >
                         Submit
                     </button>
                 </div>
@@ -77,7 +88,8 @@ class Modal extends React.Component{
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        closeModal: () => dispatch(closeModal())
+        closeModal: () => dispatch(closeModal()),
+        addTask: task => dispatch(addTask(task))
     }
 }
 

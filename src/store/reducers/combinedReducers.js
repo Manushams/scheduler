@@ -1,20 +1,6 @@
-const initState = {
-    modalEnable: false
-}
+import {combineReducers} from 'redux'
+import {toggleModal} from './toggleModal'
 
-export const reducers = (state = initState, action) => {
-    switch(action.type){
-        case 'CLOSE_MODAL':
-            return{
-                ...state,
-                modalEnable: false
-            }
-        case 'OPEN_MODAL':
-            return{
-                ...state,
-                modalEnable: true
-            }    
-        default:
-            return state   
-    }
-}
+export const rootReducer = combineReducers({
+    toggleModal
+})

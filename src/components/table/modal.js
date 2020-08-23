@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 class Modal extends React.Component{
 
     state = {
-        timeStart: ''
+        timeStart: '',
     }
 
     onChangeHandle = e => {

@@ -3,8 +3,21 @@ import {closeModal} from '../../store/actions/toggleModalAction';
 import {connect} from 'react-redux'
 
 class Modal extends React.Component{
+
+    state = {
+        timeStart: ''
+    }
+
+    onChangeHandle = e => {
+        this.setState({
+            [e.target.id]: e.target.value
+        })
+        console.log(e)
+    }
+
     render(){    
     const {  startTime } = this.props
+    const { timeStart  } = this.state
 
     return (
         <div className='modal'>
@@ -21,6 +34,7 @@ class Modal extends React.Component{
                     <input 
                         placeholder = 'Type here...'
                         type="text"
+                        onChange = {this.onChangeHandle}
                         id='eventName'
                     />
                 </div>
@@ -30,7 +44,8 @@ class Modal extends React.Component{
                         <input 
                             type='time'
                             id='timeStart'
-                            value={startTime}
+                            value={timeStart ? timeStart : startTime}
+                            onChange = {this.onChangeHandle}
                         />
                     </div>
                     <div className='time-field'>
@@ -38,12 +53,16 @@ class Modal extends React.Component{
                         <input 
                             type='time'
                             id='timeEnd'
+                            onChange = {this.onChangeHandle}
                         />
                     </div>
                 </div>
                 <div className='input-field'>
                     <label htmlFor="day">Day</label>
-                    <input type="date"/>
+                    <input  
+                        type="date"
+                        onChange = {this.onChangeHandle}
+                    />
                 </div>
                 <div className='input-field'>
                     <button className='submit-btn'>

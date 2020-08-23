@@ -14,13 +14,6 @@ class Weektable extends React.Component {
         day: '',
         weekDays: {
             0: 7,
-            1: 6,
-            2: 5,
-            3: 4,
-            4: 3,
-            5: 2,
-            6: 1,
-            7: 0
         }
     }
 
@@ -46,8 +39,17 @@ class Weektable extends React.Component {
         })
     }
 
+    lastDay = (year, month) => {
+        return new Date(year, month +1, 0).getDate()
+    }
+
     onClickHandle = (e) => {
         this.props.openModal()
+
+        this.setState({
+            startTime: e.target.parentElement.id
+        })
+
     
         const tbody = e.target.parentElement.parentElement
         var th = tbody.querySelectorAll('.table-heading')
@@ -72,8 +74,13 @@ class Weektable extends React.Component {
         const dayWeek = today.getDay() === 0 ? this.state.weekDays[today.getDay() ] : today.getDay()
         const year = today.getFullYear()
         const month = today.getMonth() 
-        const weekDate = [dateToday - dayWeek +1,dateToday - dayWeek + 7 ] 
-
+        var weekDate = [dateToday - dayWeek +1,dateToday - dayWeek + 7 ] 
+        
+        if(weekDate[1] > this.lastDay(year, month)){
+            const endWeek = weekDate[1] - this.lastDay(year, month)
+            weekDate[1] = endWeek
+        }
+        
         console.log('today',today)
         console.log('dateToday',dateToday)
         console.log('dayWeek',dayWeek)

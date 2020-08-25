@@ -144,8 +144,8 @@ th {
 
 .modal{
   position: fixed;
-  top: 6rem;
-  left: 28rem;
+  top: 22%;
+  left: 38%;
   width: 20rem;
   background: #364F6B;
   text-align: start;
@@ -230,11 +230,17 @@ input:focus{
 
 .submit-btn{
   margin: .5rem 0;
-  padding: 0.5rem 1rem;
+  padding: .5rem 1rem;
   border-radius: 5px;
-  border: none;
+  border:none;
+  cursor: pointer;
 }
 
 .show{
   display: inline;
+}
+
+td:hover{
+  background: rgb(219, 218, 218);
+  cursor: pointer;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createElement } from 'react';
 import moment from 'moment';
 import Modal from './modal'
 import {connect} from 'react-redux'
@@ -12,14 +12,44 @@ class Weektable extends React.Component {
         startTime: '',
         endtime: '',
         day: '',
-        weekDays: {
-            0: 7,
-        }
+        weekDays: {0: 7},
+        cellDetails: ''
     }
 
     componentDidMount() {
         this.hours();
+        
+        setTimeout(() => {
+            this.setClassNames();
+            this.displayTask()
+        },100)
     }
+
+    componentDidUpdate(){
+        setTimeout(() => {
+            this.displayTask()
+        },100)
+    }
+
+    setClassNames = () => {
+        const tdAll = document.querySelectorAll('.table-data');
+
+        tdAll.forEach(td => {
+            const tbody = td.parentElement.parentElement
+            var th = tbody.querySelectorAll('.table-heading')
+
+            var columnNum = td.cellIndex
+
+            if(td.parentElement.rowIndex % 2 === 0){
+                columnNum = td.cellIndex + 1
+            }
+
+            const day = th[columnNum].innerHTML.slice(8,)
+            td.setAttribute('title', this.futureDay(day).toString().slice(0,15))
+            td.setAttribute('id', Math.random())
+        })
+    }
+
 
     hours = () => {
         var array = []
@@ -43,31 +73,64 @@ class Weektable extends React.Component {
         return new Date(year, month +1, 0).getDate()
     }
 
+    futureDay = (day) => {
+        const newDate = new Date()
+        const currentYear = newDate.getFullYear()
+        const currentMonth = newDate.getMonth()
+        let today = newDate.getDate();
+        let diff = day - today;
+
+        if(diff < 0){diff = day; today = this.lastDay(currentYear, currentMonth)}
+        
+        return new Date(currentYear, currentMonth, today + diff )
+    }
+
+    displayTask = () => {
+        const tdAll = document.querySelectorAll('td')
+
+        tdAll.forEach(td => {
+            this.props.tasks.forEach(task => {
+                if(task.cellDetails.id === td.id){
+                    var par = document.createElement('p')
+                    par.innerHTML = task.eventName;
+                    console.log(td.childElementCount, '!td.childElementCount')
+                    if(!td.childElementCount){
+                    td.appendChild(par)}
+                }else{
+                    console.log('nothing')
+                }
+            })
+        }) 
+
+    }
+
     onClickHandle = (e) => {
-        e.preventDefault()
         this.props.openModal()
-
+        const target = e.target
+        console.log('title', target.title)
         this.setState({
-            startTime: e.target.parentElement.id
+            startTime: target.parentElement.id,
+            cellDetails: {id:target.id, title: target.title}
         })
-
     
-        const tbody = e.target.parentElement.parentElement
-        var th = tbody.querySelectorAll('.table-heading')
+       // const tbody = target.parentElement.parentElement
+        // var th = tbody.querySelectorAll('.table-heading')
 
-        var columnNum = e.target.cellIndex
 
-        if(e.target.parentElement.rowIndex % 2 === 0){
-            columnNum = e.target.cellIndex + 1
-        }
+        // var columnNum = target.cellIndex
 
-        const day = th[columnNum].innerHTML.slice(8,)
+        // if(e.target.parentElement.rowIndex % 2 === 0){
+        //     columnNum = e.target.cellIndex + 1
+        // }
+
+        //const day = th[columnNum].innerHTML.slice(8,)
     
         //console.log(document.querySelector('.top-bar h3').innerHTML.slice(14,))
+
     }
 
     render() {
-        const { hours, startTime } = this.state
+        const { hours, startTime, cellDetails } = this.state
         const {modalEnable} = this.props
 
         const today = new Date()
@@ -82,12 +145,14 @@ class Weektable extends React.Component {
             weekDate[1] = endWeek
         }
         
-        console.log('today',today)
-        console.log('dateToday',dateToday)
-        console.log('dayWeek',dayWeek)
-        console.log('year',year)
-        console.log('month',month)
-        console.log('weekDate',weekDate)
+        // console.log('today',today)
+        // console.log('dateToday',dateToday)
+        // console.log('dayWeek',dayWeek)
+        // console.log('year',year)
+        // console.log('month',month)
+        // console.log('weekDate',weekDate)
+
+        // console.log('this.props',this.props)
         
         const weekDays = moment.weekdaysShort()
         weekDays.splice(0, 1);
@@ -170,6 +235,7 @@ class Weektable extends React.Component {
                 {modalEnable ? 
                     <Modal 
                         startTime = {startTime}  
+                        cellDetails = {cellDetails}
                     /> : null
                 }
             </div>
@@ -180,7 +246,8 @@ class Weektable extends React.Component {
 const mapStateToProps = (state) => {
     console.log(state)
     return{
-        modalEnable: state.toggleModal.modalEnable
+        modalEnable: state.toggleModal.modalEnable,
+        tasks: state.addTask.tasks
     }
 }
 

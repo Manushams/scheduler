@@ -10,18 +10,25 @@ class Modal extends React.Component{
     }
 
     onChangeHandle = e => {
-        e.preventDefault();
         this.setState({
-            [e.target.id]: e.target.value
+            [e.target.id]: e.target.value,
+            cellDetails: this.props.cellDetails
         })
-        console.log(e)
     }
 
-    onSubmitHandler = (e) => {
-        e.preventDefault();
-        const newTask = {...this.state}
-        this.props.addTask(newTask)
+    onSubmitHandle = (e) => {
+        e.preventDefault();        
+        if (!this.state.timeStart){
+            this.setState({
+                timeStart: this.props.startTime
+            })
+        }
+        setTimeout(() => {
+            const newTask = {...this.state}
+            this.props.addTask(newTask)
+        },100)
     }
+
 
     render(){    
     const {  startTime } = this.props
@@ -36,7 +43,7 @@ class Modal extends React.Component{
                     x
                 </i>
             </div>
-            <form action="">
+            <form onSubmit = {this.onSubmitHandle}>
                 <div className='input-field'>
                     <label htmlFor="eventName">Event/Task Name</label>
                     <input 
@@ -69,16 +76,16 @@ class Modal extends React.Component{
                     <label htmlFor="day">Day</label>
                     <input  
                         type="date"
+                        id='date'
                         onChange = {this.onChangeHandle}
                     />
                 </div>
-                <div className='input-field'>
-                    <button 
-                        className='submit-btn'
-                        onSubmit = {this.onSubmitHandler}
-                    >
-                        Submit
-                    </button>
+                <div className='input-field-submit'>
+                    <input 
+                        type="submit"
+                        className = 'submit-btn'
+                        onSubmit={this.onSubmitHandle}
+                    />
                 </div>
             </form>
         </div>

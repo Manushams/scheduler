@@ -1,8 +1,10 @@
-import React, { createElement } from 'react';
+import React from 'react';
 import moment from 'moment';
 import Modal from './modal'
 import {connect} from 'react-redux'
+import Task from './task'
 import {openModal} from '../../store/actions/toggleModalAction'
+import ReactDOM from 'react-dom';
 
 class Weektable extends React.Component {
 
@@ -21,7 +23,6 @@ class Weektable extends React.Component {
         
         setTimeout(() => {
             this.setClassNames();
-            this.displayTask()
         },100)
     }
 
@@ -93,9 +94,14 @@ class Weektable extends React.Component {
                 if(task.cellDetails.id === td.id){
                     var par = document.createElement('p')
                     par.innerHTML = task.eventName;
+                    // var taskComp = document.createElement('div')
+                    // taskComp.innerHTML = `${< Task task = {task}/>}`
+                    
+
                     console.log(td.childElementCount, '!td.childElementCount')
                     if(!td.childElementCount){
-                    td.appendChild(par)}
+                    td.appendChild(Task(task))
+                    }
                 }else{
                     console.log('nothing')
                 }

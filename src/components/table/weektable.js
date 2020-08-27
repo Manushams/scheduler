@@ -174,7 +174,7 @@ class Weektable extends React.Component {
                                 className='table-row'
                                 id = {hour}    
                             >
-                                <th rowSpan="2" className='table-dataf'>{hour}</th>
+                                <th rowSpan="2" className='table-data'>{hour}</th>
                                 {Array.apply(0, Array(7)).map((a, i) => {
                                     return(
                                         <td 
@@ -218,7 +218,7 @@ class Weektable extends React.Component {
                     </ul>
                 </div>
 
-                <table className='table'>
+                <table className='table fixed'>
                     <tbody>
 
                         <tr className='table-row table-row-heading '>

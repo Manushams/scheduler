@@ -60,6 +60,8 @@ a{
 .table{
   width: 100%;
   padding: 1rem;
+  /* table-layout: fixed;
+  height: 4rem; */
 }
 
 table, th {
@@ -70,6 +72,7 @@ table, th {
 td{
   border: 1px solid #a09f9f;
   border-collapse: collapse;
+  height: 2rem;
 }
 
 .top-bar{
@@ -111,6 +114,10 @@ td{
   width: 8rem;
 }
 
+.table-data{
+  height: 2rem;
+}
+
 .table-heading{
   text-align: start;
   padding-left: .3rem;
@@ -122,10 +129,10 @@ td{
 
 .table-row-heading th{
   height: 8rem;
+  width: 12.5%;
 }
 
 table {
-
   text-align: left;
   position: relative;
   border-collapse: collapse; 
@@ -205,15 +212,12 @@ input::placeholder{
 
 input:focus{
   outline: none;
-  border-bottom: 1.5px solid #22d1ee;
-  
+  border-bottom: 1.5px solid #22d1ee; 
 }
-
 
 .input-field-time{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  
 }
 
 .input-field-time .time-field{
@@ -248,6 +252,24 @@ td:hover{
 .task{
   height: 100%;
   position: relative;
-  top: 100%;
-  left: 100%;
+  top: 0;
+  left: 0;
+  padding: 1rem 0rem;
+  text-align: center;
+  color: #fff;
+  width: 100%;
+  height: 2rem;
+}
+
+.task-title{
+  margin-top: -1.4rem;
+}
+
+.task-content{
+  margin-top: -1rem;
+}
+
+table.fixed {
+  table-layout:fixed; 
+  width:100%;
 }

@@ -81,8 +81,7 @@ class Weektable extends React.Component {
         let today = newDate.getDate();
         let diff = day - today;
 
-        if(diff < 0){diff = day; today = this.lastDay(currentYear, currentMonth)}
-        
+        if(diff < -27){diff = day; today = this.lastDay(currentYear, currentMonth)}
         return new Date(currentYear, currentMonth, today + diff )
     }
 
@@ -92,15 +91,8 @@ class Weektable extends React.Component {
         tdAll.forEach(td => {
             this.props.tasks.forEach(task => {
                 if(task.cellDetails.id === td.id){
-                    var par = document.createElement('p')
-                    par.innerHTML = task.eventName;
-                    // var taskComp = document.createElement('div')
-                    // taskComp.innerHTML = `${< Task task = {task}/>}`
-                    
-
-                    console.log(td.childElementCount, '!td.childElementCount')
                     if(!td.childElementCount){
-                    td.appendChild(Task(task))
+                        td.appendChild(Task(task))
                     }
                 }else{
                     console.log('nothing')
@@ -118,21 +110,6 @@ class Weektable extends React.Component {
             startTime: target.parentElement.id,
             cellDetails: {id:target.id, title: target.title}
         })
-    
-       // const tbody = target.parentElement.parentElement
-        // var th = tbody.querySelectorAll('.table-heading')
-
-
-        // var columnNum = target.cellIndex
-
-        // if(e.target.parentElement.rowIndex % 2 === 0){
-        //     columnNum = e.target.cellIndex + 1
-        // }
-
-        //const day = th[columnNum].innerHTML.slice(8,)
-    
-        //console.log(document.querySelector('.top-bar h3').innerHTML.slice(14,))
-
     }
 
     render() {

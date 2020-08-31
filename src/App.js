@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <Navbar/>
       <div className="main">
-        <Weektable ref={WeekTable => window.WeekTable = WeekTable}/>
+        <Weektable />
       </div>
     </div>
   );

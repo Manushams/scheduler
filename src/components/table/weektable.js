@@ -4,7 +4,7 @@ import Modal from './modal'
 import {connect} from 'react-redux'
 import Task from './task'
 import {openModal} from '../../store/actions/toggleModalAction'
-import ReactDOM from 'react-dom';
+
 
 class Weektable extends React.Component {
 
@@ -206,7 +206,7 @@ class Weektable extends React.Component {
                                         className='table-heading'
                                         key={i}    
                                     >
-                                        {weekDays[a]} <br />{weekDate[0] + a}
+                                        {weekDays[a]} <br />{this.futureDay(weekDate[0] + a).toString().slice(8,10)}
                                     </th>
                                 )
                             })}

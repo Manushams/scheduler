@@ -46,7 +46,8 @@ class Weektable extends React.Component {
             }
 
             const day = th[columnNum].innerHTML.slice(8,)
-            td.setAttribute('title', this.futureDay(day).toString().slice(0,15))
+            console.log('day',parseInt(day))
+            td.setAttribute('title', this.futureDay(parseInt(day)).toString().slice(0,15))
             td.setAttribute('id', Math.random())
         })
     }
@@ -81,7 +82,8 @@ class Weektable extends React.Component {
         let today = newDate.getDate();
         let diff = day - today;
 
-        if(diff < -27){diff = day; today = this.lastDay(currentYear, currentMonth)}
+        if(diff < -21){diff = day; today = this.lastDay(currentYear, currentMonth)}
+
         return new Date(currentYear, currentMonth, today + diff )
     }
 
@@ -113,6 +115,7 @@ class Weektable extends React.Component {
     }
 
     render() {
+        console.log( 'this.futureDay(1)' ,this.futureDay(3))
         const { hours, startTime, cellDetails } = this.state
         const {modalEnable} = this.props
 
@@ -151,7 +154,7 @@ class Weektable extends React.Component {
                                 className='table-row'
                                 id = {hour}    
                             >
-                                <th rowSpan="2" className='table-data'>{hour}</th>
+                                <th rowSpan="2" className='table-data-h'>{hour}</th>
                                 {Array.apply(0, Array(7)).map((a, i) => {
                                     return(
                                         <td 

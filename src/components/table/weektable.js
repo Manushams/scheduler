@@ -46,7 +46,6 @@ class Weektable extends React.Component {
             }
 
             const day = th[columnNum].innerHTML.slice(8,)
-            console.log('day',parseInt(day))
             td.setAttribute('title', this.futureDay(parseInt(day)).toString().slice(0,15))
             td.setAttribute('id', Math.random())
         })
@@ -115,7 +114,6 @@ class Weektable extends React.Component {
     }
 
     render() {
-        console.log( 'this.futureDay(1)' ,this.futureDay(3))
         const { hours, startTime, cellDetails } = this.state
         const {modalEnable} = this.props
 
@@ -125,12 +123,15 @@ class Weektable extends React.Component {
         const year = today.getFullYear()
         const month = today.getMonth() 
         var weekDate = [dateToday - dayWeek +1,dateToday - dayWeek + 7 ] 
+        var startEndWeek = [
+            parseInt(moment().startOf('week').toString().slice(8,10)) +1,
+            parseInt(moment().endOf('week').toString().slice(8,10))+ 1 
+        ] 
         
         if(weekDate[1] > this.lastDay(year, month)){
             const endWeek = weekDate[1] - this.lastDay(year, month)
             weekDate[1] = endWeek
         }
-
         
         // console.log('today',today)
         // console.log('dateToday',dateToday)
@@ -184,12 +185,14 @@ class Weektable extends React.Component {
                 })}
             </>
 
+        const weekDatesDisplay = startEndWeek[0] - startEndWeek[1] < 0 ? moment.months()[month] 
+            : moment.months()[month -1].slice(0,3) + ' - ' + moment.months()[month].slice(0,3)
 
         return (
             <div className="weektable">
 
                 <div className="top-bar">
-                    <h3>{moment.months()[month]} {weekDate[0]}-{weekDate[1]}, {year}</h3>
+                    <h3>{ weekDatesDisplay} {startEndWeek[0]}-{startEndWeek[1]}, {year}</h3>
                     <ul>
                         <li><a href="#!">Today</a></li>
                         <li><a href="#!">Week</a></li>

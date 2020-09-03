@@ -44,13 +44,12 @@ class Weektable extends React.Component {
             if(td.parentElement.rowIndex % 2 === 0){
                 columnNum = td.cellIndex + 1
             }
-
+            
             const day = th[columnNum].innerHTML.slice(8,)
             td.setAttribute('title', this.futureDay(parseInt(day)).toString().slice(0,15))
             td.setAttribute('id', Math.random())
         })
     }
-
 
     hours = () => {
         var array = []
@@ -81,8 +80,12 @@ class Weektable extends React.Component {
         let today = newDate.getDate();
         let diff = day - today;
 
-        if(diff < -21){diff = day; today = this.lastDay(currentYear, currentMonth)}
-
+        if(diff < -21){
+            diff = day; today = this.lastDay(currentYear, currentMonth)
+        }else if(diff > 21) {
+            return new Date(currentYear, currentMonth - 1, day)
+        }
+    
         return new Date(currentYear, currentMonth, today + diff )
     }
 
@@ -93,7 +96,9 @@ class Weektable extends React.Component {
             this.props.tasks.forEach(task => {
                 if(task.cellDetails.id === td.id){
                     if(!td.childElementCount){
-                        td.appendChild(Task(task))
+                        var taskNew = {...task, position: this.state.cellDetails.position}
+                        
+                        td.appendChild(Task(taskNew))
                     }
                 }else{
                     console.log('nothing')
@@ -109,7 +114,10 @@ class Weektable extends React.Component {
         console.log('title', target.title)
         this.setState({
             startTime: target.parentElement.id,
-            cellDetails: {id:target.id, title: target.title}
+            cellDetails: {
+                id:target.id, 
+                title: target.title, 
+            }
         })
     }
 
@@ -122,7 +130,7 @@ class Weektable extends React.Component {
         const dayWeek = today.getDay() === 0 ? this.state.weekDays[today.getDay() ] : today.getDay()
         const year = today.getFullYear()
         const month = today.getMonth() 
-        var weekDate = [dateToday - dayWeek +1,dateToday - dayWeek + 7 ] 
+        var weekDate = [dateToday - dayWeek +1, dateToday - dayWeek + 7] 
         var startEndWeek = [
             parseInt(moment().startOf('week').toString().slice(8,10)) +1,
             parseInt(moment().endOf('week').toString().slice(8,10))+ 1 
@@ -186,13 +194,13 @@ class Weektable extends React.Component {
             </>
 
         const weekDatesDisplay = startEndWeek[0] - startEndWeek[1] < 0 ? moment.months()[month] 
-            : moment.months()[month -1].slice(0,3) + ' - ' + moment.months()[month].slice(0,3)
+            : moment.months()[month -1].slice(0,3) + '-' + moment.months()[month].slice(0,3)
 
         return (
             <div className="weektable">
 
                 <div className="top-bar">
-                    <h3>{ weekDatesDisplay} {startEndWeek[0]}-{startEndWeek[1]}, {year}</h3>
+                    <h3>{weekDatesDisplay} {startEndWeek[0]}-{startEndWeek[1]}, {year}</h3>
                     <ul>
                         <li><a href="#!">Today</a></li>
                         <li><a href="#!">Week</a></li>

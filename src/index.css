@@ -253,7 +253,6 @@ td:hover{
 
 .task{
   height: 100%;
-  padding: 1rem 0rem;
   text-align: center;
   color: #fff;
   width: 95%;
@@ -267,7 +266,7 @@ td:hover{
 }
 
 .task-title{
-  margin-top: -1.4rem;
+  margin-top: -1rem;
 }
 
 .task-content{

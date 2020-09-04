@@ -6,9 +6,19 @@ const Task = (task) => {
         '#17B978'
     ]
     const randomColor = colors[Math.floor(Math.random()*10 % 4)]
+
+    //calculating the height of the card
+    const startHour = parseInt(task.timeStart)
+    const endHour = parseInt(task.timeEnd)
+    const startMinutes = parseInt(task.timeStart.toString().slice(3,5))
+    const endMinutes = parseInt(task.timeEnd.toString().slice(3,5))
+    const startTotalMins = startHour * 60 + startMinutes
+    const endTotalMins = endHour * 60 + endMinutes
+    const height = (endTotalMins - startTotalMins ) * (2/15)
     
     var taskCard = document.createElement('div')
     taskCard.classList.add('task')
+    taskCard.style.height = height + 'rem'
     taskCard.style.backgroundColor = randomColor
     var taskTitle = document.createElement('div')
     taskTitle.classList.add('task-title')
@@ -20,6 +30,7 @@ const Task = (task) => {
 
     var p = document.createElement('p')
     p.innerText = task.timeStart + '-' + task.timeEnd
+    console.log(parseInt(task.timeEnd) )
 
     taskTitle.appendChild(h3)
     taskContent.appendChild(p)

@@ -31,7 +31,7 @@ class Modal extends React.Component{
 
 
     render(){    
-    const {  startTime } = this.props
+    const {  startTime, error } = this.props
     const { timeStart  } = this.state
 
     return (
@@ -80,6 +80,7 @@ class Modal extends React.Component{
                         onChange = {this.onChangeHandle}
                     />
                 </div>
+                {error ? <p className = 'time-input-error'>{error}</p> : null}
                 <div className='input-field-submit'>
                     <input 
                         type="submit"
@@ -88,8 +89,15 @@ class Modal extends React.Component{
                     />
                 </div>
             </form>
+            
         </div>
     )
+    }
+}
+
+const mapStateToProps = state => {
+    return{
+        error: state.addTask.error
     }
 }
 
@@ -100,4 +108,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Modal);
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);

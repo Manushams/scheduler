@@ -1,5 +1,6 @@
 const initState = {
-    tasks: []
+    tasks: [],
+    error: null
 }
 
 export const addTask = (state = initState, action)=>{
@@ -9,9 +10,16 @@ export const addTask = (state = initState, action)=>{
             console.log('newState',newTasks)
             return {
                 ...state,
-                tasks: newTasks
+                tasks: newTasks,
+                error: null
             }
         
+        case 'ADD_TASK_ERROR':
+            console.log('error')
+            return {
+                ...state,
+                error: action.err
+            }
         default:
             return state
     }

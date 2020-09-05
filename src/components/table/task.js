@@ -15,30 +15,38 @@ const Task = (task) => {
     const startTotalMins = startHour * 60 + startMinutes
     const endTotalMins = endHour * 60 + endMinutes
     const height = (endTotalMins - startTotalMins ) * (2/15)
+
     
-    var taskCard = document.createElement('div')
-    taskCard.classList.add('task')
-    taskCard.style.height = height + 'rem'
-    taskCard.style.backgroundColor = randomColor
-    var taskTitle = document.createElement('div')
-    taskTitle.classList.add('task-title')
-    var taskContent = document.createElement('div')
-    taskContent.classList.add('task-content')
+    if(height > 0){
+        var taskCard = document.createElement('div')
+        taskCard.classList.add('task')
+        taskCard.style.height = height + 'rem'
+        taskCard.style.backgroundColor = randomColor
+        var taskTitle = document.createElement('div')
+        taskTitle.classList.add('task-title')
+        var taskContent = document.createElement('div')
+        taskContent.classList.add('task-content')
 
-    var h3 = document.createElement('h3')
-    h3.innerText = task.eventName
+        var h3 = document.createElement('h3')
+        h3.innerText = task.eventName
 
-    var p = document.createElement('p')
-    p.innerText = task.timeStart + '-' + task.timeEnd
-    console.log(parseInt(task.timeEnd) )
+        var p = document.createElement('p')
+        p.innerText = task.timeStart + '-' + task.timeEnd
+        console.log(parseInt(task.timeEnd) )
 
-    taskTitle.appendChild(h3)
-    taskContent.appendChild(p)
+        taskTitle.appendChild(h3)
+        taskContent.appendChild(p)
 
-    taskCard.appendChild(taskTitle)
-    taskCard.appendChild(taskContent)
+        taskCard.appendChild(taskTitle)
+        taskCard.appendChild(taskContent)
 
-    return taskCard
+        return taskCard
+    }else{
+        const modal = document.querySelector('.modal');
+        let p = document.createElement('p')
+        p.innerText = 'Wrong time input'
+        modal.appendChild(p)
+    }
 }
 
 export default Task

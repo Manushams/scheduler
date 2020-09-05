@@ -98,7 +98,7 @@ class Weektable extends React.Component {
                     if(!td.childElementCount){
                         var taskNew = {...task, position: this.state.cellDetails.position}
                         
-                        td.appendChild(Task(taskNew))
+                        td.appendChild(Task(taskNew)) 
                     }
                 }else{
                     console.log('nothing')

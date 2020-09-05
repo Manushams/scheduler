@@ -97,8 +97,16 @@ class Weektable extends React.Component {
                 if(task.cellDetails.id === td.id){
                     if(!td.childElementCount){
                         var taskNew = {...task, position: this.state.cellDetails.position}
+                        if(Task(taskNew) === 'negative height'){
+                            const modal = document.querySelector('.modal')
+                            if(modal && !modal.childElementCount){
+                                console.log(modal.childElementCount)
+                                Task(taskNew)
+                            }
+                        }else{
+                            td.appendChild(Task(taskNew))
+                        }
                         
-                        td.appendChild(Task(taskNew)) 
                     }
                 }else{
                     console.log('nothing')

@@ -263,6 +263,7 @@ td:hover{
   top: 0;
   left: 0;
   overflow: visible;
+  margin-left: 0.25rem;
 }
 
 .task-title{
@@ -289,7 +290,13 @@ table.fixed {
 td{
   position: relative;
   overflow: visible;
-  text-align: center;
-  
+  text-align: center; 
 }
 
+.time-input-error{
+  color: #fff;
+  padding: .5rem 1rem;
+  text-align: center;
+  background: rgb(255, 0, 0);
+  margin-top: -1rem;
+}

@@ -41,11 +41,14 @@ const Task = (task) => {
         taskCard.appendChild(taskContent)
 
         return taskCard
-    }else{
+    }else if(height < 0){
         const modal = document.querySelector('.modal');
         let p = document.createElement('p')
         p.innerText = 'Wrong time input'
-        modal.appendChild(p)
+        p.classList.add('time-input-error')
+        if(modal) {modal.appendChild(p)}
+
+        return 'negative height'
     }
 }
 

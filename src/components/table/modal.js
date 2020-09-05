@@ -1,6 +1,7 @@
 import React from 'react';
 import {closeModal} from '../../store/actions/toggleModalAction';
 import {addTask} from '../../store/actions/addTaskAction'
+import {removeErrMessage} from '../../store/actions/addTaskAction'
 import {connect} from 'react-redux'
 
 class Modal extends React.Component{
@@ -29,6 +30,11 @@ class Modal extends React.Component{
         },100)
     }
 
+    onCloseModal = () => {
+        this.props.removeErrMessage()
+        this.props.closeModal();
+    }
+
 
     render(){    
     const {  startTime, error } = this.props
@@ -38,7 +44,7 @@ class Modal extends React.Component{
         <div className='modal'>
             <div className='modal-title'>
                 <h3>Add an Event</h3>
-                <i onClick = {() => this.props.closeModal()}
+                <i onClick = {this.onCloseModal}
                 >
                     x
                 </i>
@@ -104,7 +110,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return{
         closeModal: () => dispatch(closeModal()),
-        addTask: task => dispatch(addTask(task))
+        addTask: task => dispatch(addTask(task)),
+        removeErrMessage: () => dispatch(removeErrMessage())
     }
 }
 

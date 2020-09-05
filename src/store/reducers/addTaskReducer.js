@@ -15,11 +15,16 @@ export const addTask = (state = initState, action)=>{
             }
         
         case 'ADD_TASK_ERROR':
-            console.log('error')
             return {
                 ...state,
-                error: action.err
+                error: action.err 
             }
+            
+        case 'REMOVE_ERR_MESSAGE':
+            return {
+                ...state,
+                error: null
+            } 
         default:
             return state
     }

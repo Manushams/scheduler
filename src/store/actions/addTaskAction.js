@@ -13,3 +13,7 @@ export const addTask = (task) => {
         return {type: 'ADD_TASK_ERROR', err: 'Wrong Time Input'}
     }
 }
+
+export const removeErrMessage = () => {
+    return {type: 'REMOVE_ERR_MESSAGE'}
+}

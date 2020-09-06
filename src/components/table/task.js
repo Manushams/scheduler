@@ -30,6 +30,8 @@ const Task = (task) => {
         var h3 = document.createElement('h3')
         h3.innerText = task.eventName
 
+        taskCard.addEventListener('click', console.log('click'))
+
         var p = document.createElement('p')
         p.innerText = task.timeStart + '-' + task.timeEnd
         console.log(parseInt(task.timeEnd) )

@@ -20,7 +20,7 @@ class Weektable extends React.Component {
 
     componentDidMount() {
         this.hours();
-        
+        this.taskClick()
         setTimeout(() => {
             this.setClassNames();
         },100)
@@ -95,7 +95,7 @@ class Weektable extends React.Component {
         tdAll.forEach(td => {
             this.props.tasks.forEach(task => {
                 if(task.cellDetails.id === td.id){
-                    if(!td.childElementCount){
+                    if(td.childElementCount < 2){
                         var taskNew = {...task, position: this.state.cellDetails.position}
                         td.appendChild(Task(taskNew))                        
                     }
@@ -109,7 +109,7 @@ class Weektable extends React.Component {
 
     onClickHandle = (e) => {
         this.props.openModal()
-        const target = e.target
+        const target = e.target.parentElement
         console.log('title', target.title)
         this.setState({
             startTime: target.parentElement.id,
@@ -118,6 +118,14 @@ class Weektable extends React.Component {
                 title: target.title, 
             }
         })
+    }
+
+    taskClick = () => {
+        const task = document.querySelector('.task');
+
+        if(task) {task.addEventListener('click', function(){
+            console.log('task click')
+        })}
     }
 
     render() {
@@ -168,8 +176,12 @@ class Weektable extends React.Component {
                                         <td 
                                             className='table-data' 
                                             key = {i}
-                                            onClick = {this.onClickHandle}
-                                        ></td>                                
+                                        >
+                                            <div 
+                                                className="td-child"
+                                                onClick = {this.onClickHandle}
+                                            ></div>
+                                        </td>                                
                                     )
                                 })}
                             </tr>
@@ -182,8 +194,12 @@ class Weektable extends React.Component {
                                         <td 
                                             className='table-data'
                                             key={i}    
-                                            onClick = {this.onClickHandle}
-                                        ></td>                                
+                                        >
+                                            <div 
+                                                className="td-child"
+                                                onClick = {this.onClickHandle}
+                                                ></div>
+                                        </td>                                
                                     )
                                 })}
                             </tr>

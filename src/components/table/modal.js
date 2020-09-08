@@ -3,6 +3,7 @@ import {closeModal} from '../../store/actions/toggleModalAction';
 import {addTask} from '../../store/actions/addTaskAction'
 import {removeErrMessage} from '../../store/actions/addTaskAction'
 import {connect} from 'react-redux'
+import {Height} from './task'
 
 class Modal extends React.Component{
 
@@ -25,7 +26,10 @@ class Modal extends React.Component{
             })
         }
         setTimeout(() => {
-            const newTask = {...this.state}
+            const details = {...this.state}
+            const newTask = {...details, height: Height(details)}
+           
+            console.log( Height(newTask))
             this.props.addTask(newTask)
         },100)
     }

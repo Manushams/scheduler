@@ -4,6 +4,7 @@ import Modal from './modal'
 import {connect} from 'react-redux'
 import Task from './task'
 import {openModal} from '../../store/actions/toggleModalAction'
+import Filter from './multipleTasks'
 
 
 class Weektable extends React.Component {
@@ -20,7 +21,6 @@ class Weektable extends React.Component {
 
     componentDidMount() {
         this.hours();
-        this.taskClick()
         setTimeout(() => {
             this.setClassNames();
         },100)
@@ -118,14 +118,6 @@ class Weektable extends React.Component {
                 title: target.title, 
             }
         })
-    }
-
-    taskClick = () => {
-        const task = document.querySelector('.task');
-
-        if(task) {task.addEventListener('click', function(){
-            console.log('task click')
-        })}
     }
 
     render() {

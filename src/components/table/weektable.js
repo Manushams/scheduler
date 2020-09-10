@@ -4,7 +4,7 @@ import Modal from './modal'
 import {connect} from 'react-redux'
 import Task from './task'
 import {openModal} from '../../store/actions/toggleModalAction'
-import Filter from './multipleTasks'
+import {Match2} from './multipleTasks'
 
 
 class Weektable extends React.Component {
@@ -29,6 +29,14 @@ class Weektable extends React.Component {
     componentDidUpdate(){
         setTimeout(() => {
             this.displayTask()
+            if(this.props.tasks.length >= 2){
+                
+                if(Match2(this.props.tasks)){
+                    Match2(this.props.tasks).map(task => {
+                        console.log(task)
+                    })
+                }
+            }
         },100)
     }
 
@@ -53,7 +61,7 @@ class Weektable extends React.Component {
 
     hours = () => {
         var array = []
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < 24; i++) {
             if (i < 10) {
                 var num = '0' + i + ':00';
                 array.push(num)
@@ -97,7 +105,7 @@ class Weektable extends React.Component {
                 if(task.cellDetails.id === td.id){
                     if(td.childElementCount < 2){
                         var taskNew = {...task, position: this.state.cellDetails.position}
-                        td.appendChild(Task(taskNew))                        
+                        td.appendChild(Task(taskNew, Match2(this.props.tasks)))                        
                     }
                 }else{
                     console.log('nothing')
@@ -122,7 +130,10 @@ class Weektable extends React.Component {
 
     render() {
         const { hours, startTime, cellDetails } = this.state
-        const {modalEnable} = this.props
+        const {modalEnable, tasks} = this.props
+
+       
+
 
         const today = new Date()
         const dateToday = today.getDate();

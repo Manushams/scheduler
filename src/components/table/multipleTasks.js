@@ -1,4 +1,45 @@
-const Filter = (tasks, day) => {
+export const Match2 = (tasks) =>{
+
+    let array = []
+
+    for(let i in tasks){
+        const task = tasks[i];
+
+        tasks.map(taskMap => {
+
+            if(task.cellDetails.id !== taskMap.cellDetails.id && task.cellDetails.title === taskMap.cellDetails.title){
+                if(Match(taskMap, task)){
+                    if(!taskMap.checked || !taskMap.checked){
+                    array.push([task, taskMap])
+                    taskMap.checked = true
+                    taskMap.direction = 'left'
+                    task.checked = true
+                    task.direction = 'right'
+                }
+                }
+            }
+
+        })
+    }
+
+    return(array)
+}
+
+export const Match = (task1, task2) => {
+    
+    const task1Mins = Count(task1);
+    const task2Mins = Count(task2);
+
+    const isMatch = task1Mins.filter(t1 => task2Mins.some(t2 => t1 === t2))
+
+    if(isMatch.length){
+        return true
+    }else{
+        return false
+    }   
+}
+
+const HeighestTask = (tasks, day) => {
     const tasksOnDay = tasks.filter(task => task.cellDetails.title === day)
 
     let tasksArray = [];
@@ -29,9 +70,8 @@ const Count = (task) => {
     const everyMinute = []
 
     startMinutes = startMinutes - 1
-    for(let i = 0; i <= totalMins; i++){
+    for(let i = 0; i < totalMins; i++){
         startMinutes++
-        console.log(startMinutes)
         if(startMinutes === 60){
             startMinutes = 0;
             startHour++
@@ -41,16 +81,3 @@ const Count = (task) => {
     return everyMinute
 }
 
-const Match = (task1, task2) => {
-    const task1Mins = Count(task1);
-    const task2Mins = Count(task2);
-
-    const isMatch = task1Mins.filter(t1 => task2Mins.some(t2 => t1 === t2))
-    console.log(isMatch)
-    if(isMatch.length){
-        return true
-    }else{
-        return false
-    }
-
-}

@@ -10,7 +10,7 @@ export const Height = (task) => {
     return heightTask
 }
 
-const Task = (task) => {
+const Task = (task, matchedTasks) => {
     const colors = [
         '#22D1EE',
         '#FC5185',
@@ -22,6 +22,8 @@ const Task = (task) => {
     
     if(height > 0){
         var taskCard = document.createElement('div')
+        var Card = document.createElement('div')
+        taskCard.appendChild(Card)
         taskCard.classList.add('task')
         taskCard.style.height = height + 'rem'
         taskCard.style.backgroundColor = randomColor
@@ -29,6 +31,17 @@ const Task = (task) => {
         taskTitle.classList.add('task-title')
         var taskContent = document.createElement('div')
         taskContent.classList.add('task-content')
+
+        if(matchedTasks.length){
+            matchedTasks[0].map(matchedTask => {
+                if(matchedTask.cellDetails.id === task.cellDetails.id){
+                    taskCard.style.width = '49%'
+                    taskCard.style.marginLeft = '47%'
+                    const allTasks = document.querySelectorAll('.task');
+                    
+                }
+            })
+        }
 
         var h3 = document.createElement('h3')
         h3.innerText = task.eventName
@@ -39,10 +52,11 @@ const Task = (task) => {
         taskTitle.appendChild(h3)
         taskContent.appendChild(p)
 
-        taskCard.appendChild(taskTitle)
-        taskCard.appendChild(taskContent)
+        Card.appendChild(taskTitle)
+        Card.appendChild(taskContent)
 
         return taskCard
+
     }else if(height < 0){
         const modal = document.querySelector('.modal');
         let p = document.createElement('p')

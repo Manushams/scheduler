@@ -35,10 +35,18 @@ const Task = (task, matchedTasks) => {
         if(matchedTasks.length){
             matchedTasks[0].map(matchedTask => {
                 if(matchedTask.cellDetails.id === task.cellDetails.id){
-                    taskCard.style.width = '49%'
-                    taskCard.style.marginLeft = '47%'
+                    taskCard.style.width = '45%'
+                    taskCard.style.marginLeft = '51%'
                     const allTasks = document.querySelectorAll('.task');
-                    
+                    allTasks.forEach(t => {
+                        const taskHTML = t.querySelector('.task-content').innerText
+                        const taskTime = `${matchedTasks[0][0].timeStart}-${matchedTasks[0][0].timeEnd}`
+                        if(taskHTML === taskTime){
+                            t.style.width = '48%'
+
+                        }
+
+                    })                                    
                 }
             })
         }

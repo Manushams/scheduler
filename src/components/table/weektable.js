@@ -130,11 +130,8 @@ class Weektable extends React.Component {
 
     render() {
         const { hours, startTime, cellDetails } = this.state
-        const {modalEnable, tasks} = this.props
-
-       
-
-
+        const {modalEnable} = this.props
+        
         const today = new Date()
         const dateToday = today.getDate();
         const dayWeek = today.getDay() === 0 ? this.state.weekDays[today.getDay() ] : today.getDay()

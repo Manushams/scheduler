@@ -41,11 +41,12 @@ const Task = (task, matchedTasks) => {
                     allTasks.forEach(t => {
                         const taskHTML = t.querySelector('.task-content').innerText
                         const taskTime = `${matchedTasks[0][0].timeStart}-${matchedTasks[0][0].timeEnd}`
-                        if(taskHTML === taskTime){
+                        const taskHTMLTitle = t.parentElement.title;
+                        const taskTitle = matchedTasks[0][0].cellDetails.title
+
+                        if(taskHTML === taskTime && taskHTMLTitle === taskTitle){
                             t.style.width = '48%'
-
                         }
-
                     })                                    
                 }
             })

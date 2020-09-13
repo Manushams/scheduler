@@ -261,16 +261,19 @@ td:hover{
   position: absolute;
   top: 0;
   left: 0;
-  overflow: visible;
+  overflow: hidden;
   float: right;
+  overflow-wrap: break-word;
 }
 
 .task-title{
   margin-top: -1rem;
+  overflow-wrap: break-word;
 }
 
 .task-content{
   margin-top: -1rem;
+  overflow-wrap: break-word;
 }
 
 table.fixed {

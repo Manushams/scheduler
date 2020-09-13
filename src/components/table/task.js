@@ -10,7 +10,7 @@ export const Height = (task) => {
     return heightTask
 }
 
-const Task = (task, matchedTasks) => {
+const Task = (task, numberOfTasks) => {
     const colors = [
         '#22D1EE',
         '#FC5185',
@@ -19,38 +19,24 @@ const Task = (task, matchedTasks) => {
     ]
     const randomColor = colors[Math.floor(Math.random()*10 % 4)]
     const height = Height(task)
+    console.log(numberOfTasks)
     
     if(height > 0){
         var taskCard = document.createElement('div')
         var Card = document.createElement('div')
-        taskCard.appendChild(Card)
+        
+        Card.classList.add('task')
+        Card.style.height = height + 'rem'
+        Card.style.backgroundColor = '#17B978'
+        Card.style.borderRadius = '0';
+
         taskCard.classList.add('task')
         taskCard.style.height = height + 'rem'
-        taskCard.style.backgroundColor = randomColor
+        taskCard.style.backgroundColor = '#17B978'
         var taskTitle = document.createElement('div')
         taskTitle.classList.add('task-title')
         var taskContent = document.createElement('div')
         taskContent.classList.add('task-content')
-
-        if(matchedTasks.length){
-            matchedTasks[0].map(matchedTask => {
-                if(matchedTask.cellDetails.id === task.cellDetails.id){
-                    taskCard.style.width = '45%'
-                    taskCard.style.marginLeft = '51%'
-                    const allTasks = document.querySelectorAll('.task');
-                    allTasks.forEach(t => {
-                        const taskHTML = t.querySelector('.task-content').innerText
-                        const taskTime = `${matchedTasks[0][0].timeStart}-${matchedTasks[0][0].timeEnd}`
-                        const taskHTMLTitle = t.parentElement.title;
-                        const taskTitle = matchedTasks[0][0].cellDetails.title
-
-                        if(taskHTML === taskTime && taskHTMLTitle === taskTitle){
-                            t.style.width = '48%'
-                        }
-                    })                                    
-                }
-            })
-        }
 
         var h3 = document.createElement('h3')
         h3.innerText = task.eventName
@@ -61,12 +47,12 @@ const Task = (task, matchedTasks) => {
         taskTitle.appendChild(h3)
         taskContent.appendChild(p)
 
-        Card.appendChild(taskTitle)
-        Card.appendChild(taskContent)
+        taskCard.appendChild(taskTitle)
+        taskCard.appendChild(taskContent)
 
-        return taskCard
-
-    }else if(height < 0){
+        return [taskCard, Card]
+    }
+    else if(height < 0){
         const modal = document.querySelector('.modal');
         let p = document.createElement('p')
         p.innerText = 'Wrong time input'

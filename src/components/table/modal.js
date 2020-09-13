@@ -14,7 +14,7 @@ class Modal extends React.Component{
     onChangeHandle = e => {
         this.setState({
             [e.target.id]: e.target.value,
-            cellDetails: this.props.cellDetails
+            cellDetails: this.props.cellDetails,
         })
     }
 
@@ -27,7 +27,7 @@ class Modal extends React.Component{
         }
         setTimeout(() => {
             const details = {...this.state}
-            const newTask = {...details, height: Height(details)}
+            const newTask = {...details, height: Height(details), id: Math.random()}
            
             console.log( Height(newTask))
             this.props.addTask(newTask)
@@ -107,7 +107,8 @@ class Modal extends React.Component{
 
 const mapStateToProps = state => {
     return{
-        error: state.addTask.error
+        error: state.addTask.error,
+        tasks: state.addTask.tasks,
     }
 }
 

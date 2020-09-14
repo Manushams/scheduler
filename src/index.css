@@ -261,19 +261,17 @@ td:hover{
   position: absolute;
   top: 0;
   left: 0;
-  overflow: hidden;
-  float: right;
-  overflow-wrap: break-word;
+  
 }
 
 .task-title{
   margin-top: -1rem;
-  overflow-wrap: break-word;
+  
 }
 
 .task-content{
   margin-top: -1rem;
-  overflow-wrap: break-word;
+
 }
 
 table.fixed {
@@ -291,8 +289,8 @@ table.fixed {
 }
 td{
   position: relative;
-  overflow: visible;
   text-align: center; 
+  overflow: hidden;
 }
 
 .time-input-error{
@@ -304,7 +302,3 @@ td{
   margin-bottom: -0.5rem;
 }
 
-.td-child{
-  height: 100%;
-  width: 100%;
-}

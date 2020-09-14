@@ -19,7 +19,6 @@ const Task = (task, numberOfTasks) => {
     ]
     const randomColor = colors[Math.floor(Math.random()*10 % 4)]
     const height = Height(task)
-    console.log(numberOfTasks)
     
     if(height > 0){
         var taskCard = document.createElement('div')
@@ -29,8 +28,10 @@ const Task = (task, numberOfTasks) => {
         Card.style.height = height + 'rem'
         Card.style.backgroundColor = '#17B978'
         Card.style.borderRadius = '0';
-
+        Card.setAttribute('id', task.id)
+        
         taskCard.classList.add('task')
+        taskCard.setAttribute('id', task.id)
         taskCard.style.height = height + 'rem'
         taskCard.style.backgroundColor = '#17B978'
         var taskTitle = document.createElement('div')

@@ -1,3 +1,44 @@
+export const removeWithSameId = (htmlCollection) => {
+    
+    const items = htmlCollection
+
+    const array = []
+    for(let i=0; i < items.childElementCount; i++){
+        const item = items.children.item(i)
+    
+        if(array.length){
+    
+            array.forEach(a => {
+              if(a !== item.id)  {
+                if(item.id){
+                    array.push(item.id)
+                }
+              }else{
+
+                  item.remove()
+              }
+            })
+    
+        }else{
+            array.push(item.id)
+        }
+    }
+}
+
+export const setWidth = (td) => {
+    const width = 100 / td.childElementCount - 4 
+    
+    for(let i=0; i < td.childElementCount; i++ ){
+        var marginLeft = 100 / td.childElementCount - 1
+        
+        td.children.item(i).style.width = width + '%'
+        if(i>=1){
+            marginLeft = marginLeft * i
+            td.children.item(i).style.marginLeft = marginLeft + '%'  
+        } 
+    }
+}
+
 export const Match2 = (tasks) =>{
 
     let array = []

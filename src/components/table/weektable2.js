@@ -4,7 +4,7 @@ import Modal from './modal'
 import {connect} from 'react-redux'
 import Task from './task'
 import {openModal} from '../../store/actions/toggleModalAction'
-import {Match2} from './multipleTasks'
+import {removeWithSameId, setWidth} from './multipleTasks'
 
 
 class Weektable2 extends React.Component {
@@ -94,21 +94,21 @@ class Weektable2 extends React.Component {
         const tdAll = document.querySelectorAll('td')
         const {tasks} = this.props
 
-        tdAll.forEach(td => {
-            tasks.map(task => {
-                if(task.id === td.taskid) return null
+        tasks.map(task => {
+            tdAll.forEach(td => {
                 
-                td.taskid = task.id                    
                 for(let i=0; i<Math.floor(task.height / 4); i++){
                     if(td.parentNode.rowIndex === i + task.cellDetails.row && td.title === task.cellDetails.title){
-                        if(td.parentNode.rowIndex === task.cellDetails.row){                          
-                            td.appendChild(Task(task)[0])                        
-                            console.log(td.childElementCount, task)
+                        if(td.parentNode.rowIndex === task.cellDetails.row){   
+                            console.log(td.childElementCount)
+                            td.appendChild(Task(task)[0])       
                         }else{
                             td.appendChild(Task(task)[1])                        
                         }
+                        removeWithSameId(td)   
+                        if(td.childElementCount >= 2) setWidth(td) 
                     }
-                }    
+                }
             })    
         })
 

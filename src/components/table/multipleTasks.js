@@ -80,6 +80,66 @@ export const Match = (task1, task2) => {
     }   
 }
 
+export const NarrowestWidth = (tasks) => {
+
+    let tasksArray = [];
+
+    for(let task in tasks){
+        
+        const div = tasks[task]
+        tasksArray.push([
+            div['id'],
+            div.offsetWidth
+         ])
+    }
+
+    tasksArray.sort((a, b) => a[1] - b[1])
+    
+    const heighest = tasksArray[0]
+
+    const lowestObj = tasks.filter(task => task.id === heighest[0])
+    
+    return lowestObj[0].offsetWidth
+}
+
+export const AdjustWidth = (divs) => {
+    const ids = []
+    
+    for(let num in divs){
+        const div = divs[num]
+
+        if(ids.length){
+            ids.forEach(id => {
+                if(id !== div.id){
+                    ids.push(div.id)
+                }
+            })
+        }else if(ids.length === 0){
+            ids.push(div.id)
+        }
+    }
+    console.log(ids)
+
+
+}
+
+export const WidthAdjust = (divs) => {
+    const arrayDivs = []
+    
+    for(let div in divs){
+        arrayDivs.push(divs.item(div))
+    }
+
+    const width = NarrowestWidth(arrayDivs);
+    console.log(divs)
+    console.log('width',width)
+
+    divs.forEach(div => {
+        div.style.width = width+'%'
+        
+    })
+}
+
 const HeighestTask = (tasks, day) => {
     const tasksOnDay = tasks.filter(task => task.cellDetails.title === day)
 

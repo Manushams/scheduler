@@ -4,7 +4,7 @@ import Modal from './modal'
 import {connect} from 'react-redux'
 import Task from './task'
 import {openModal} from '../../store/actions/toggleModalAction'
-import {removeWithSameId, setWidth} from './multipleTasks'
+import {removeWithSameId, setWidth, NarrowestWidth, WidthAdjust, AdjustWidth} from './multipleTasks'
 
 
 class Weektable2 extends React.Component {
@@ -93,6 +93,8 @@ class Weektable2 extends React.Component {
     displayTask = () => {
         const tdAll = document.querySelectorAll('td')
         const {tasks} = this.props
+        const divs = []
+        let taskId = null
 
         tasks.map(task => {
             tdAll.forEach(td => {
@@ -106,43 +108,16 @@ class Weektable2 extends React.Component {
                             td.appendChild(Task(task)[1])                        
                         }
                         removeWithSameId(td)   
-                        if(td.childElementCount >= 2) setWidth(td) 
+                        if(td.childElementCount >= 2) {setWidth(td); AdjustWidth(td.children)}
+                         divs.push((td.children))
+                        taskId = task.id
                     }
                 }
             })    
         })
-
-        // tdAll.forEach(td => {
-        //     this.props.tasks.forEach(task => {
-        //         for(let i = 0; i < Math.floor(task.height / 4); i++){
-
-        //             if(td.parentNode.rowIndex === i + task.cellDetails.row && td.title === task.cellDetails.title){
-        //                 console.log('td',td, td.parentNode.rowIndex )
-        //                 if(td.parentNode.rowIndex === task.cellDetails.row ){
-        //                     td.style.overflow = 'hidden'  
-        //                     td.appendChild(Task(task, Match2(this.props.tasks))) 
-        //                 }else{
-        //                     const div = document.createElement('div')
-        //                     div.style.width = '100%'
-        //                     div.style.height = '100%'
-        //                     div.style.background = 'red'
-        //                     td.appendChild(div)
-        //                 }
-        //             }
-        //         }
-        //         if(task.cellDetails.id === td.id){
-        //             console.log('td.parentNode.rowIndex' ,td.parentNode.rowIndex)
-        //             if(td.childElementCount < 2){
-        //                 var taskNew = {...task, position: this.state.cellDetails.position}
-        //                 console.log('number of  rows', Math.floor(taskNew.height / 4))
-        //                 td.appendChild(Task(taskNew, Match2(this.props.tasks)))          
-        //                 td.style.overflow = 'hidden'              
-        //             }
-        //         }else{
-        //             console.log('nothing')
-        //         }
-        //     })
-        // }) 
+        // divs.push(...divs, ...document.querySelectorAll('#' + CSS.escape(`${taskId}`)))
+        // console.log('divs',...divs)
+        // divs.length && WidthAdjust(document.querySelectorAll('#' + CSS.escape(`${taskId}`)))
 
     }
 

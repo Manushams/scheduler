@@ -27,7 +27,7 @@ export const removeWithSameId = (htmlCollection) => {
 
 export const setWidth = (td) => {
     const width = 100 / td.childElementCount - 4 
-    
+
     for(let i=0; i < td.childElementCount; i++ ){
         var marginLeft = 100 / td.childElementCount - 1
         
@@ -85,46 +85,61 @@ export const NarrowestWidth = (tasks) => {
     let tasksArray = [];
 
     for(let task in tasks){
-        
-        const div = tasks[task]
-        tasksArray.push([
-            div['id'],
-            div.offsetWidth
-         ])
+        if(tasks[task].tagName === 'DIV'){        
+            const div = tasks[task]
+            tasksArray.push([
+                div['id'],
+                div.offsetWidth
+            ])
+        }
     }
 
     tasksArray.sort((a, b) => a[1] - b[1])
     
     const heighest = tasksArray[0]
+    
+    let tasks1 = []
 
-    const lowestObj = tasks.filter(task => task.id === heighest[0])
+    for(let num in tasks){
+        if(tasks[num].tagName === 'DIV'){
+            tasks1.push(tasks[num])
+        }
+    }
+    
+    const lowestObj = tasks1.filter(task => task.id === heighest[0])
     
     return lowestObj[0].offsetWidth
 }
 
 export const AdjustWidth = (divs) => {
-    const ids = []
+    const width = NarrowestWidth(divs);
+    
+    let idsAll = []
     
     for(let num in divs){
         const div = divs[num]
 
-        if(ids.length){
-            ids.forEach(id => {
-                if(id !== div.id){
-                    ids.push(div.id)
-                }
-            })
-        }else if(ids.length === 0){
-            ids.push(div.id)
+        if(div.tagName === 'DIV'){
+            idsAll.push(div.id)
         }
-    }
-    console.log(ids)
+    }    
 
+    let ids = [...new Set(idsAll)]
+    
+    ids.forEach(id => {
+        const taskDivs = document.querySelectorAll('#' + CSS.escape(`${id}`))
+        
+        taskDivs.forEach(div => {
+            div.style.width = width+'%'
+            console.log(window.getComputedStyle(div).marginLeft)
+        })
+    })
 
 }
 
 export const WidthAdjust = (divs) => {
     const arrayDivs = []
+    
     
     for(let div in divs){
         arrayDivs.push(divs.item(div))

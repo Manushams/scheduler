@@ -108,8 +108,12 @@ class Weektable2 extends React.Component {
                             td.appendChild(Task(task)[1])                        
                         }
                         removeWithSameId(td)   
-                        if(td.childElementCount >= 2) {setWidth(td); AdjustWidth(td.children)}
+                        if(td.childElementCount >= 2) {
+                            setWidth(td); 
+                            AdjustWidth(td.children)
+                        }
                          divs.push((td.children))
+                         
                         taskId = task.id
                     }
                 }

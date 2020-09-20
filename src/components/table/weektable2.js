@@ -110,7 +110,7 @@ class Weektable2 extends React.Component {
                         removeWithSameId(td)   
                         if(td.childElementCount >= 2) {
                             setWidth(td); 
-                            AdjustWidth(td.children)
+                            AdjustWidth(td.children, setWidth(td))
                         }
                          divs.push((td.children))
                          
@@ -122,7 +122,6 @@ class Weektable2 extends React.Component {
         // divs.push(...divs, ...document.querySelectorAll('#' + CSS.escape(`${taskId}`)))
         // console.log('divs',...divs)
         // divs.length && WidthAdjust(document.querySelectorAll('#' + CSS.escape(`${taskId}`)))
-
     }
 
     onClickHandle = (e) => {

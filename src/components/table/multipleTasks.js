@@ -18,7 +18,6 @@ export const removeWithSameId = (htmlCollection) => {
                   item.remove()
               }
             })
-    
         }else{
             array.push(item.id)
         }
@@ -27,6 +26,7 @@ export const removeWithSameId = (htmlCollection) => {
 
 export const setWidth = (td) => {
     const width = 100 / td.childElementCount - 4 
+    console.log('width', width)
 
     for(let i=0; i < td.childElementCount; i++ ){
         var marginLeft = 100 / td.childElementCount - 1
@@ -37,6 +37,7 @@ export const setWidth = (td) => {
             td.children.item(i).style.marginLeft = marginLeft + '%'  
         } 
     }
+    return width
 }
 
 export const Match2 = (tasks) =>{
@@ -107,14 +108,15 @@ export const NarrowestWidth = (tasks) => {
     }
     
     const lowestObj = tasks1.filter(task => task.id === heighest[0])
-    
+
     return lowestObj[0].offsetWidth
 }
 
-export const AdjustWidth = (divs) => {
-    const width = NarrowestWidth(divs);
+export const AdjustWidth = (divs, width) => {
+    //const width = NarrowestWidth(divs);
     
-    let idsAll = []
+    let idsAll = [];
+    let idsMarginLeft = []
     
     for(let num in divs){
         const div = divs[num]
@@ -128,13 +130,15 @@ export const AdjustWidth = (divs) => {
     
     ids.forEach(id => {
         const taskDivs = document.querySelectorAll('#' + CSS.escape(`${id}`))
-        
+        let marginLeft = []
         taskDivs.forEach(div => {
-            div.style.width = width+'%'
-            console.log(window.getComputedStyle(div).marginLeft)
+            div.style.width = width+'%';
+
+            marginLeft.push({id: div.id, marginLeft: window.getComputedStyle(div).marginLeft})
+            //console.log(window.getComputedStyle(div).marginLeft, div.id)
+
         })
     })
-
 }
 
 export const WidthAdjust = (divs) => {

@@ -116,13 +116,13 @@ export const AdjustWidth = (divs, width) => {
     //const width = NarrowestWidth(divs);
     
     let idsAll = [];
-    let idsMarginLeft = []
     
     for(let num in divs){
         const div = divs[num]
 
         if(div.tagName === 'DIV'){
             idsAll.push(div.id)
+            console.log('div', div)
         }
     }    
 
@@ -130,14 +130,14 @@ export const AdjustWidth = (divs, width) => {
     
     ids.forEach(id => {
         const taskDivs = document.querySelectorAll('#' + CSS.escape(`${id}`))
-        let marginLeft = []
+        
+        // const margin = window.getComputedStyle(taskDivs[0]).marginLeft
+        
         taskDivs.forEach(div => {
             div.style.width = width+'%';
-
-            marginLeft.push({id: div.id, marginLeft: window.getComputedStyle(div).marginLeft})
-            //console.log(window.getComputedStyle(div).marginLeft, div.id)
-
+            // div.style.marginLeft = margin 
         })
+
     })
 }
 

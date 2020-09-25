@@ -116,13 +116,14 @@ export const AdjustWidth = (divs, width) => {
     //const width = NarrowestWidth(divs);
     
     let idsAll = [];
+    let allTaskDivs = []
     
     for(let num in divs){
         const div = divs[num]
 
         if(div.tagName === 'DIV'){
             idsAll.push(div.id)
-            console.log('div', div)
+            allTaskDivs.push({id: div.id, margin: window.getComputedStyle(div).marginLeft})
         }
     }    
 
@@ -130,12 +131,15 @@ export const AdjustWidth = (divs, width) => {
     
     ids.forEach(id => {
         const taskDivs = document.querySelectorAll('#' + CSS.escape(`${id}`))
-        
-        // const margin = window.getComputedStyle(taskDivs[0]).marginLeft
-        
+
         taskDivs.forEach(div => {
             div.style.width = width+'%';
-            // div.style.marginLeft = margin 
+            
+            allTaskDivs.map(details => {
+                if(div.id === details.id){
+                    div.style.marginLeft = details.margin        
+                }
+            })
         })
 
     })

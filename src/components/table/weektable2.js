@@ -96,7 +96,7 @@ class Weektable2 extends React.Component {
 
         tasks.map(task => {
             tdAll.forEach(td => {
-                
+                console.log('td', td.parentNode.id)
                 for(let i=0; i<Math.floor(task.height / 4)+1; i++){
                     if(td.parentNode.rowIndex === i + task.cellDetails.row && td.title === task.cellDetails.title){
                         

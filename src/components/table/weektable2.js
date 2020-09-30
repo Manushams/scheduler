@@ -97,14 +97,18 @@ class Weektable2 extends React.Component {
         tasks.map(task => {
             tdAll.forEach(td => {
                 
-                for(let i=0; i<Math.floor(task.height / 4); i++){
+                for(let i=0; i<Math.floor(task.height / 4)+1; i++){
                     if(td.parentNode.rowIndex === i + task.cellDetails.row && td.title === task.cellDetails.title){
+                        
                         if(td.parentNode.rowIndex === task.cellDetails.row){   
-                            console.log(td.childElementCount)
                             td.appendChild(Task(task)[0])       
-                        }else{
+                        }else if(i+1 === Math.floor(task.height / 4)+1) {
+                            td.appendChild(Task(task)[2])       
+                        }
+                        else{
                             td.appendChild(Task(task)[1])                        
                         }
+                        
                         removeWithSameId(td)   
                         if(td.childElementCount >= 2) {
                             setWidth(td); 

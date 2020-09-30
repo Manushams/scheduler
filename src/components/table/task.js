@@ -37,6 +37,7 @@ const Task = (task) => {
         lastCard.style.borderRadius = 0;
         lastCard.style.borderBottomLeftRadius = 5 +'px';
         lastCard.style.borderBottomRightRadius = 5 +'px';
+        lastCard.setAttribute('id', task.id)
         
         taskCard.classList.add('task')
         taskCard.setAttribute('id', task.id)

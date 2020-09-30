@@ -10,25 +10,33 @@ export const Height = (task) => {
     return heightTask
 }
 
-const Task = (task, numberOfTasks) => {
-    const colors = [
-        '#22D1EE',
-        '#FC5185',
-        '#5D5D5A',
-        '#17B978'
-    ]
-    const randomColor = colors[Math.floor(Math.random()*10 % 4)]
+const Task = (task) => {
+    // const colors = [
+    //     '#22D1EE',
+    //     '#FC5185',
+    //     '#5D5D5A',
+    //     '#17B978'
+    // ]
+    //const randomColor = colors[Math.floor(Math.random()*10 % 4)]
     const height = Height(task)
     
     if(height > 0){
         var taskCard = document.createElement('div')
         var Card = document.createElement('div')
+        var lastCard = document.createElement('div')
         
         Card.classList.add('task')
         Card.style.height = height + 'rem'
         Card.style.backgroundColor = '#17B978'
         Card.style.borderRadius = '0';
         Card.setAttribute('id', task.id)
+
+        lastCard.classList.add('task')
+        lastCard.style.height = height%4 + 'rem'
+        lastCard.style.backgroundColor = '#17B978'
+        lastCard.style.borderRadius = 0;
+        lastCard.style.borderBottomLeftRadius = 5 +'px';
+        lastCard.style.borderBottomRightRadius = 5 +'px';
         
         taskCard.classList.add('task')
         taskCard.setAttribute('id', task.id)
@@ -51,7 +59,7 @@ const Task = (task, numberOfTasks) => {
         taskCard.appendChild(taskTitle)
         taskCard.appendChild(taskContent)
 
-        return [taskCard, Card]
+        return [taskCard, Card, lastCard]
     }
     else if(height < 0){
         const modal = document.querySelector('.modal');

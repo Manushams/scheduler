@@ -4,7 +4,7 @@ import Modal from './modal'
 import {connect} from 'react-redux'
 import Task from './task'
 import {openModal} from '../../store/actions/toggleModalAction'
-import {removeWithSameId, setWidth, NarrowestWidth, WidthAdjust, AdjustWidth} from './multipleTasks'
+import {removeWithSameId, setWidth, AdjustWidth} from './multipleTasks'
 
 
 class Weektable2 extends React.Component {
@@ -28,9 +28,7 @@ class Weektable2 extends React.Component {
     }
 
     componentDidUpdate(){
-        
-            this.displayTask()
-        
+        this.displayTask()
     }
 
     setClassNames = () => {
@@ -94,7 +92,7 @@ class Weektable2 extends React.Component {
         const tdAll = document.querySelectorAll('td')
         const {tasks} = this.props
         const divs = []
-        let taskId = null
+        // let taskId = null
 
         tasks.map(task => {
             tdAll.forEach(td => {
@@ -114,7 +112,7 @@ class Weektable2 extends React.Component {
                         }
                          divs.push((td.children))
                          
-                        taskId = task.id
+                        // taskId = task.id
                     }
                 }
             })    

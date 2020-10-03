@@ -95,32 +95,51 @@ class Weektable2 extends React.Component {
         // let taskId = null
 
         tasks.map(task => {
-            tdAll.forEach(td => {
-                console.log('td', td.parentNode.id)
-                console.log('td', task)
-                for(let i=0; i<Math.floor(task.height / 4)+1; i++){
-                    if(td.parentNode.rowIndex === i + task.cellDetails.row && td.title === task.cellDetails.title){
-                        
-                        if(td.parentNode.rowIndex === task.cellDetails.row){   
-                            td.appendChild(Task(task)[0])       
-                        }else if(i+1 === Math.floor(task.height / 4)+1) {
-                            td.appendChild(Task(task)[2])       
-                        }
-                        else{
-                            td.appendChild(Task(task)[1])                        
-                        }
-                        
-                        removeWithSameId(td)   
-                        if(td.childElementCount >= 2) {
-                            setWidth(td); 
-                            AdjustWidth(td.children, setWidth(td))
-                        }
-                         divs.push((td.children))
-                         
-                        // taskId = task.id
-                    }
+            const start = task.timeStart,
+                end = task.timeEnd
+            let startHrs = parseInt(start.slice(0,2))
+            let startMins
+            const diff = (parseInt(end.slice(0,2))*60 + parseInt(end.slice(3,))) - (startHrs*60 + parseInt(start.slice(3,))) 
+            startMins = parseInt(start.slice(3,)) < 30 ?  0 : 30
+            
+            for(let i= 0; i < diff/30; i++){
+                if(startMins === 0){
+                    startMins += 30
+                }else{
+                    startHrs++
+                    startMins = 0
                 }
-            })    
+                                
+                for(let i in tdAll){
+                    const td = tdAll.item(i)
+                    
+                    //  console.log(new Date(task.date).toString().slice(0,15))
+                    for(let i=0; i<Math.floor(task.height / 4)+1; i++){
+                        if(td.parentNode.rowIndex === i + task.cellDetails.row && 
+                            td.parentNode.id.slice(0,2) == startHrs && 
+                            td.title === new Date(task.date).toString().slice(0,15) ){
+                            
+                            if(td.parentNode.rowIndex === task.cellDetails.row){   
+                                td.appendChild(Task(task)[0])       
+                            }else if(i+1 === Math.floor(task.height / 4)+1) {
+                                td.appendChild(Task(task)[2])       
+                            }
+                            else{
+                                td.appendChild(Task(task)[1])                        
+                            }
+                            
+                            removeWithSameId(td)   
+                            if(td.childElementCount >= 2) {
+                                setWidth(td); 
+                                AdjustWidth(td.children, setWidth(td))
+                            }
+                             divs.push((td.children))
+                             
+                            // taskId = task.id
+                        }
+                    }
+                }    
+            }
         })
         // divs.push(...divs, ...document.querySelectorAll('#' + CSS.escape(`${taskId}`)))
         // console.log('divs',...divs)

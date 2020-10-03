@@ -102,24 +102,25 @@ class Weektable2 extends React.Component {
             const diff = (parseInt(end.slice(0,2))*60 + parseInt(end.slice(3,))) - (startHrs*60 + parseInt(start.slice(3,))) 
             startMins = parseInt(start.slice(3,)) < 30 ?  0 : 30
             
-            for(let i= 0; i < diff/30; i++){
+            for(let i= 0; i < diff/60; i++){
                 if(startMins === 0){
                     startMins += 30
                 }else{
                     startHrs++
                     startMins = 0
                 }
-                                
+                if(startMins === 0){startMins = '0'+startMins}
+                let time = `${startHrs}:${startMins}`
+
+
                 for(let i in tdAll){
-                    const td = tdAll.item(i)
-                    
-                    //  console.log(new Date(task.date).toString().slice(0,15))
+                    const td = tdAll.item(i)                    
+
                     for(let i=0; i<Math.floor(task.height / 4)+1; i++){
-                        if(td.parentNode.rowIndex === i + task.cellDetails.row && 
-                            td.parentNode.id.slice(0,2) == startHrs && 
+                        if(td.parentNode.id.slice(0,2) === startHrs &&
                             td.title === new Date(task.date).toString().slice(0,15) ){
-                            
-                            if(td.parentNode.rowIndex === task.cellDetails.row){   
+
+                            if(td.parentNode.id === task.timeStart){   
                                 td.appendChild(Task(task)[0])       
                             }else if(i+1 === Math.floor(task.height / 4)+1) {
                                 td.appendChild(Task(task)[2])       

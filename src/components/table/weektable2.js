@@ -95,14 +95,16 @@ class Weektable2 extends React.Component {
         // let taskId = null
 
         tasks.map(task => {
-            const start = task.timeStart,
-                end = task.timeEnd
+            const start = task.timeStart
+            let end = task.timeEnd
             let startHrs = parseInt(start.slice(0,2))
             let startMins
             const diff = (parseInt(end.slice(0,2))*60 + parseInt(end.slice(3,))) - (startHrs*60 + parseInt(start.slice(3,))) 
             startMins = parseInt(start.slice(3,)) < 30 ?  0 : 30
+            end = parseInt(end.slice(3,5)) > 30 ? 30 : '00'
+            end = task.timeEnd.slice(0,2) +':' +end
             
-            for(let i= 0; i < diff/30; i++){
+            for(let i= 0; i < diff/30 - 1; i++){
                 if(startMins === 0){
                     startMins += 30
                 }else{
@@ -110,20 +112,24 @@ class Weektable2 extends React.Component {
                     startMins = 0
                 }
                 
-                console.log(startMins)
+                let minutes = startMins,
+                    hours = startHrs
+                if(minutes == 0){minutes = '0' + minutes }
+                if(hours < 10){hours = '0'+hours}
+                let time = `${hours}:${minutes}`
+
                 for(let i in tdAll){
                     const td = tdAll.item(i)                    
 
                     for(let i=0; i<Math.floor(task.height / 4)+1; i++){
-                        if(td.parentNode.id.slice(0,2) == startHrs &&
-                            td.title === new Date(task.date).toString().slice(0,15) ){
+                        if(td.parentNode.id == time && td.title === new Date(task.date).toString().slice(0,15)){
 
                             if(td.parentNode.id === task.timeStart){   
                                 td.appendChild(Task(task)[0])       
-                            }else if(i+1 === Math.floor(task.height / 4)+1) {
+                            }else if(td.parentNode.id === end) {
                                 td.appendChild(Task(task)[2])       
                             }
-                            else{
+                            else if(td.parentNode.id !== task.timeEnd){
                                 td.appendChild(Task(task)[1])                        
                             }
                             

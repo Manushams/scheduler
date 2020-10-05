@@ -26,7 +26,6 @@ export const removeWithSameId = (htmlCollection) => {
 
 export const setWidth = (td) => {
     const width = 100 / td.childElementCount - 4 
-    console.log('width', width)
 
     for(let i=0; i < td.childElementCount; i++ ){
         var marginLeft = 100 / td.childElementCount - 1

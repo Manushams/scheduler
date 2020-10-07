@@ -6,7 +6,7 @@ class Navbar extends React.Component {
             <div className="navbar">
                 <ul className='navbar-nav'>
                     <li className="nav-item">
-                        <a href="#!" className="nav-link">Dashboard</a> 
+                        <a href="#!" className="nav-link">Link</a> 
                         {/* Dashboard */}
                     </li>
                     <li className="nav-item">

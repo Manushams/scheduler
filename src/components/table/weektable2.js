@@ -17,8 +17,8 @@ class Weektable2 extends React.Component {
         day: '',
         weekDays: {0: 7},
         cellDetails: '',
+        date: new Date()
     }
-
 
 
     componentDidMount() {
@@ -31,6 +31,14 @@ class Weektable2 extends React.Component {
 
     componentDidUpdate(){
         this.displayTask()
+    }
+
+    dateOnChange = (e) => {
+        console.log(e.target.value)
+        this.setState({
+            date: new Date(e.target.value)
+        })
+        this.setClassNames()
     }
 
     setClassNames = () => {
@@ -75,7 +83,7 @@ class Weektable2 extends React.Component {
     }
 
     futureDay = (day) => {
-        const newDate = new Date()
+        const newDate = this.state.date
         const currentYear = newDate.getFullYear()
         const currentMonth = newDate.getMonth()
         let today = newDate.getDate();
@@ -169,8 +177,8 @@ class Weektable2 extends React.Component {
     }
 
     render() {
-        const { hours, startTime, cellDetails } = this.state
-        const {modalEnable, date} = this.props
+        const { hours, startTime, cellDetails,date } = this.state
+        const {modalEnable} = this.props
         
         const today = date? new Date(date) : new Date()
         const dateToday = today.getDate();
@@ -235,13 +243,14 @@ class Weektable2 extends React.Component {
         const weekDatesDisplay = startEndWeek[0] - startEndWeek[1] < 0 ? moment.months()[month] 
             : moment.months()[month -1].slice(0,3) + '-' + moment.months()[month].slice(0,3)
 
+        console.log(this.props)
         return (
             <div className="weektable">
 
                 <div className="top-bar">
                     <div>
                         <h3>{weekDatesDisplay} {startEndWeek[0]}-{startEndWeek[1]}, {year}</h3>
-                        <input id='top-bar-calendar' type="date"/>
+                        <input id='top-bar-calendar' type="date" onChange={this.dateOnChange}/>
                     </div>
                     <ul>
                         <li><a href="#!">Today</a></li>

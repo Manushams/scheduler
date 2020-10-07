@@ -15,7 +15,9 @@ li{
   margin: 0;
   padding: 0;
 }
-
+.weektable{
+  margin-left: 5rem;
+}
 a{
   margin: 0;
   padding: 0;

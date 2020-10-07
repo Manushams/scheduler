@@ -1,6 +1,6 @@
 import React from 'react';
 import {closeModal} from '../../store/actions/toggleModalAction';
-import {addTask} from '../../store/actions/addTaskAction'
+import {addTask, errMessage} from '../../store/actions/addTaskAction'
 import {removeErrMessage} from '../../store/actions/addTaskAction'
 import {connect} from 'react-redux'
 import {Height} from './task'
@@ -9,6 +9,7 @@ class Modal extends React.Component{
 
     state = {
         timeStart: '',
+        eventName: 'Untitled'
     }
 
     onChangeHandle = e => {
@@ -26,11 +27,13 @@ class Modal extends React.Component{
             })
         }
         setTimeout(() => {
-            const details = {...this.state}
-            const newTask = {...details, height: Height(details), id: Math.random()}
-           
-            console.log( Height(newTask))
-            this.props.addTask(newTask)
+            if(!this.state.timeEnd || !this.state.date){
+                this.props.errMessage()
+            }else{
+                const details = {...this.state}
+                const newTask = {...details, height: Height(details), id: Math.random()}
+                this.props.addTask(newTask)
+            }
         },100)
     }
 
@@ -38,7 +41,6 @@ class Modal extends React.Component{
         this.props.removeErrMessage()
         this.props.closeModal();
     }
-
 
     render(){    
     const {  startTime, error } = this.props
@@ -116,7 +118,8 @@ const mapDispatchToProps = (dispatch) => {
     return{
         closeModal: () => dispatch(closeModal()),
         addTask: task => dispatch(addTask(task)),
-        removeErrMessage: () => dispatch(removeErrMessage())
+        removeErrMessage: () => dispatch(removeErrMessage()),
+        errMessage: () => dispatch(errMessage())
     }
 }
 

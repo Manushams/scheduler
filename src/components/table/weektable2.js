@@ -16,8 +16,10 @@ class Weektable2 extends React.Component {
         endtime: '',
         day: '',
         weekDays: {0: 7},
-        cellDetails: ''
+        cellDetails: '',
     }
+
+
 
     componentDidMount() {
         this.hours();
@@ -168,9 +170,9 @@ class Weektable2 extends React.Component {
 
     render() {
         const { hours, startTime, cellDetails } = this.state
-        const {modalEnable} = this.props
+        const {modalEnable, date} = this.props
         
-        const today = new Date()
+        const today = date? new Date(date) : new Date()
         const dateToday = today.getDate();
         const dayWeek = today.getDay() === 0 ? this.state.weekDays[today.getDay() ] : today.getDay()
         const year = today.getFullYear()
@@ -237,7 +239,10 @@ class Weektable2 extends React.Component {
             <div className="weektable">
 
                 <div className="top-bar">
-                    <h3>{weekDatesDisplay} {startEndWeek[0]}-{startEndWeek[1]}, {year}</h3>
+                    <div>
+                        <h3>{weekDatesDisplay} {startEndWeek[0]}-{startEndWeek[1]}, {year}</h3>
+                        <input id='top-bar-calendar' type="date"/>
+                    </div>
                     <ul>
                         <li><a href="#!">Today</a></li>
                         <li><a href="#!">Week</a></li>

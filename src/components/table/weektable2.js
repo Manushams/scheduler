@@ -1,10 +1,10 @@
 import React from 'react';
 import moment from 'moment';
 import Modal from './modal'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import Task from './task'
-import {openModal} from '../../store/actions/toggleModalAction'
-import {removeWithSameId, setWidth, AdjustWidth} from './multipleTasks'
+import { openModal } from '../../store/actions/toggleModalAction'
+import { removeWithSameId, setWidth, AdjustWidth } from './multipleTasks'
 
 
 class Weektable2 extends React.Component {
@@ -15,7 +15,7 @@ class Weektable2 extends React.Component {
         startTime: '',
         endtime: '',
         day: '',
-        weekDays: {0: 7},
+        weekDays: { 0: 7 },
         cellDetails: '',
         date: new Date()
     }
@@ -26,11 +26,13 @@ class Weektable2 extends React.Component {
         this.displayTask()
         setTimeout(() => {
             this.setClassNames();
-        },100)
+        }, 100)
     }
 
-    componentDidUpdate(){
-        this.displayTask()
+    componentDidUpdate() {
+        setTimeout(() => {
+            this.displayTask()
+        }, 100)
     }
 
     dateOnChange = (e) => {
@@ -38,7 +40,9 @@ class Weektable2 extends React.Component {
         this.setState({
             date: new Date(e.target.value)
         })
-        this.setClassNames()
+        setTimeout(() => {
+            this.setClassNames()
+        }, 100)
     }
 
     setClassNames = () => {
@@ -50,12 +54,12 @@ class Weektable2 extends React.Component {
 
             var columnNum = td.cellIndex
 
-            if(td.parentElement.rowIndex % 2 === 0){
+            if (td.parentElement.rowIndex % 2 === 0) {
                 columnNum = td.cellIndex + 1
             }
-            
+
             const day = th[columnNum].innerHTML.slice(8,)
-            td.setAttribute('title', this.futureDay(parseInt(day)).toString().slice(0,15))
+            td.setAttribute('title', this.futureDay(parseInt(day)).toString().slice(0, 15))
             td.setAttribute('id', Math.random())
         })
     }
@@ -79,7 +83,7 @@ class Weektable2 extends React.Component {
     }
 
     lastDay = (year, month) => {
-        return new Date(year, month +1, 0).getDate()
+        return new Date(year, month + 1, 0).getDate()
     }
 
     futureDay = (day) => {
@@ -89,72 +93,72 @@ class Weektable2 extends React.Component {
         let today = newDate.getDate();
         let diff = day - today;
 
-        if(diff < -21){
+        if (diff < -21) {
             diff = day; today = this.lastDay(currentYear, currentMonth)
-        }else if(diff > 21) {
+        } else if (diff > 21) {
             return new Date(currentYear, currentMonth - 1, day)
         }
-    
-        return new Date(currentYear, currentMonth, today + diff )
+
+        return new Date(currentYear, currentMonth, today + diff)
     }
 
     displayTask = () => {
         const tdAll = document.querySelectorAll('td')
-        const {tasks} = this.props
+        const { tasks } = this.props
         const divs = []
         // let taskId = null
 
         tasks.map(task => {
             const start = task.timeStart
             let end = task.timeEnd
-            let startHrs = parseInt(start.slice(0,2))
+            let startHrs = parseInt(start.slice(0, 2))
             let startMins
-            const diff = (parseInt(end.slice(0,2))*60 + parseInt(end.slice(3,))) - (startHrs*60 + parseInt(start.slice(3,))) 
-            startMins = parseInt(start.slice(3,)) < 30 ?  0 : 30
-            end = parseInt(end.slice(3,5)) > 30 ? 30 : '00'
-            end = task.timeEnd.slice(0,2) +':' + end
-            
-            for(let i= 0; i < diff/30 ; i++){
+            const diff = (parseInt(end.slice(0, 2)) * 60 + parseInt(end.slice(3,))) - (startHrs * 60 + parseInt(start.slice(3,)))
+            startMins = parseInt(start.slice(3,)) < 30 ? 0 : 30
+            end = parseInt(end.slice(3, 5)) > 30 ? 30 : '00'
+            end = task.timeEnd.slice(0, 2) + ':' + end
+
+            for (let i = 0; i < diff / 30; i++) {
                 let minutes = startMins,
                     hours = startHrs
-                if(minutes == 0){minutes = '0' + minutes }
-                if(hours < 10){hours = '0'+hours}
+                if (minutes == 0) { minutes = '0' + minutes }
+                if (hours < 10) { hours = '0' + hours }
                 let time = `${hours}:${minutes}`
-                
-                if(startMins === 0){
+
+                if (startMins === 0) {
                     startMins += 30
-                }else{
+                } else {
                     startHrs++
                     startMins = 0
                 }
-                
 
-                for(let i in tdAll){
-                    const td = tdAll.item(i)                    
 
-                    for(let i=0; i<Math.floor(task.height / 4)+1; i++){
-                        if(td.parentNode.id == time && td.title === new Date(task.date).toString().slice(0,15)){
+                for (let i in tdAll) {
+                    const td = tdAll.item(i)
 
-                            if(td.parentNode.id === task.timeStart){   
-                                td.appendChild(Task(task)[0])       
-                            }else if(td.parentNode.id === end) {
-                                td.appendChild(Task(task)[2])       
+                    for (let i = 0; i < Math.floor(task.height / 4) + 1; i++) {
+                        if (td.parentNode.id == time && td.title === new Date(task.date).toString().slice(0, 15)) {
+
+                            if (td.parentNode.id === task.timeStart) {
+                                td.appendChild(Task(task)[0])
+                            } else if (td.parentNode.id === end) {
+                                td.appendChild(Task(task)[2])
                             }
-                            else if(td.parentNode.id !== task.timeEnd){
-                                td.appendChild(Task(task)[1])                        
+                            else if (td.parentNode.id !== task.timeEnd) {
+                                td.appendChild(Task(task)[1])
                             }
-                            
-                            removeWithSameId(td)   
-                            if(td.childElementCount >= 2) {
-                                setWidth(td); 
+
+                            removeWithSameId(td)
+                            if (td.childElementCount >= 2) {
+                                setWidth(td);
                                 AdjustWidth(td.children, setWidth(td))
                             }
-                             divs.push((td.children))
-                             
+                            divs.push((td.children))
+
                             // taskId = task.id
                         }
                     }
-                }    
+                }
             }
         })
         // divs.push(...divs, ...document.querySelectorAll('#' + CSS.escape(`${taskId}`)))
@@ -165,73 +169,72 @@ class Weektable2 extends React.Component {
     onClickHandle = (e) => {
         this.props.openModal()
         const target = e.target
-        console.log('title', target.parentNode.rowIndex)
         this.setState({
             startTime: target.parentElement.id,
             cellDetails: {
-                id:target.id, 
-                title: target.title, 
+                id: target.id,
+                title: target.title,
                 row: target.parentNode.rowIndex
             }
         })
     }
 
     render() {
-        const { hours, startTime, cellDetails,date } = this.state
-        const {modalEnable} = this.props
-        
-        const today = date? new Date(date) : new Date()
+        const { hours, startTime, cellDetails, date } = this.state
+        const { modalEnable } = this.props
+
+        const today = date ? new Date(date) : new Date()
         const dateToday = today.getDate();
-        const dayWeek = today.getDay() === 0 ? this.state.weekDays[today.getDay() ] : today.getDay()
+        const dayWeek = today.getDay() === 0 ? this.state.weekDays[today.getDay()] : today.getDay()
         const year = today.getFullYear()
-        const month = today.getMonth() 
-        var weekDate = [dateToday - dayWeek +1, dateToday - dayWeek + 7] 
+        const month = today.getMonth()
+        var weekDate = [dateToday - dayWeek + 1, dateToday - dayWeek + 7]
         var startEndWeek = [
-            parseInt(moment().startOf('week').toString().slice(8,10)) +1,
-            parseInt(moment().endOf('week').toString().slice(8,10))+ 1 
-        ] 
-        
-        if(weekDate[1] > this.lastDay(year, month)){
+            parseInt(moment(date).startOf('week').toString().slice(8, 10)) + 1,
+            parseInt(moment(date).endOf('week').toString().slice(8, 10)) + 1
+        ]
+
+        if (weekDate[1] > this.lastDay(year, month)) {
             const endWeek = weekDate[1] - this.lastDay(year, month)
             weekDate[1] = endWeek
         }
- 
+
         const weekDays = moment.weekdaysShort()
         weekDays.splice(0, 1);
-        weekDays.push('Sun')   
+        weekDays.push('Sun')
 
         const tableRow =
             <>
                 {hours && hours.map((hour) => {
                     return (
                         <>
-                            <tr 
+                            <tr
                                 className='table-row'
-                                id = {hour}    
+                                id={hour}
                             >
                                 <th rowSpan="2" className='table-data-h'>{hour}</th>
                                 {Array.apply(0, Array(7)).map((a, i) => {
-                                    return(
-                                        <td 
-                                            className='table-data' 
-                                            key = {i}
-                                            onClick = {this.onClickHandle}
-                                        ></td>                                
+                                    return (
+                                        <td
+                                            className='table-data'
+                                            key={i}
+                                            onClick={this.onClickHandle}
+                                        ></td>
                                     )
                                 })}
                             </tr>
-                            <tr 
+                            <tr
                                 className='table-row'
-                                id = {hour.slice(0,3) + '30'}
+                                id={hour.slice(0, 3) + '30'}
                             >
                                 {Array.apply(0, Array(7)).map((a, i) => {
-                                    return(
-                                        <td 
+                                    return (
+                                        <td
                                             className='table-data'
-                                            key={i}    
-                                            onClick = {this.onClickHandle}
+                                            key={i}
+                                            onClick={this.onClickHandle}
                                         >
-                                        </td>                                
+                                        </td>
                                     )
                                 })}
                             </tr>
@@ -240,17 +243,16 @@ class Weektable2 extends React.Component {
                 })}
             </>
 
-        const weekDatesDisplay = startEndWeek[0] - startEndWeek[1] < 0 ? moment.months()[month] 
-            : moment.months()[month -1].slice(0,3) + '-' + moment.months()[month].slice(0,3)
+        const weekDatesDisplay = startEndWeek[0] - startEndWeek[1] < 0 ? moment.months()[month]
+            : moment.months()[month - 1].slice(0, 3) + '-' + moment.months()[month].slice(0, 3)
 
-        console.log(this.props)
         return (
             <div className="weektable">
 
                 <div className="top-bar">
                     <div>
-                        <h3>{weekDatesDisplay} {startEndWeek[0]}-{startEndWeek[1]}, {year}</h3>
-                        <input id='top-bar-calendar' type="date" onChange={this.dateOnChange}/>
+                        <h3>{weekDatesDisplay} {startEndWeek[0] == 32 ? 1 : startEndWeek[0]}-{startEndWeek[1] == 32 ? 1 : startEndWeek[1]}, {year}</h3>
+                        <input id='top-bar-calendar' type="date" onChange={this.dateOnChange} />
                     </div>
                     <ul>
                         <li><a href="#!">Today</a></li>
@@ -264,27 +266,27 @@ class Weektable2 extends React.Component {
                     <tbody>
 
                         <tr className='table-row table-row-heading '>
-                        <th className='table-heading table-heading-first'></th>
-                            {[0,1,2,3,4,5,6].map((a, i) => {
-                                return(
-                                    <th 
+                            <th className='table-heading table-heading-first'></th>
+                            {[0, 1, 2, 3, 4, 5, 6].map((a, i) => {
+                                return (
+                                    <th
                                         className='table-heading'
-                                        key={i}    
+                                        key={i}
                                     >
-                                        {weekDays[a]} <br />{this.futureDay(weekDate[0] + a).toString().slice(8,10)}
+                                        {weekDays[a]} <br />{this.futureDay(weekDate[0] + a).toString().slice(8, 10)}
                                     </th>
                                 )
                             })}
-                            
-                            
+
+
                         </tr>
                         {tableRow}
                     </tbody>
                 </table>
-                {modalEnable ? 
-                    <Modal 
-                        startTime = {startTime}  
-                        cellDetails = {cellDetails}
+                {modalEnable ?
+                    <Modal
+                        startTime={startTime}
+                        cellDetails={cellDetails}
                     /> : null
                 }
             </div>
@@ -294,14 +296,14 @@ class Weektable2 extends React.Component {
 
 const mapStateToProps = (state) => {
     console.log(state)
-    return{
+    return {
         modalEnable: state.toggleModal.modalEnable,
         tasks: state.addTask.tasks,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return{
+    return {
         openModal: () => dispatch(openModal())
     }
 }

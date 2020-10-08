@@ -108,6 +108,12 @@ td{
   display: none;
 }
 
+#top-bar-calendar::-webkit-datetime-edit-day-field,
+#top-bar-calendar::-webkit-datetime-edit-month-field, 
+#top-bar-calendar::-webkit-datetime-edit-text{
+  color: transparent;
+}
+
 #top-bar-calendar{
   margin-left: 0.4rem;
   border: none;

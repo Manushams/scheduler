@@ -4,7 +4,7 @@ import Modal from './modal'
 import { connect } from 'react-redux'
 import Task from './task'
 import { openModal } from '../../store/actions/toggleModalAction'
-import { removeWithSameId, setWidth, AdjustWidth } from './multipleTasks'
+import { removeWithSameId, setWidth, AdjustWidth, removeChildren } from './multipleTasks'
 
 
 class Weektable2 extends React.Component {
@@ -20,7 +20,6 @@ class Weektable2 extends React.Component {
         date: new Date()
     }
 
-
     componentDidMount() {
         this.hours();
         this.displayTask()
@@ -30,6 +29,7 @@ class Weektable2 extends React.Component {
     }
 
     componentDidUpdate() {
+        console.log('upd')
         setTimeout(() => {
             this.displayTask()
         }, 100)
@@ -40,6 +40,7 @@ class Weektable2 extends React.Component {
         this.setState({
             date: new Date(e.target.value)
         })
+        removeChildren()
         setTimeout(() => {
             this.setClassNames()
         }, 100)

@@ -204,3 +204,13 @@ const Count = (task) => {
     return everyMinute
 }
 
+export const removeChildren = () => {
+    const tdAll = document.querySelectorAll('td');
+
+    tdAll.forEach(td => {
+        if (td.childElementCount > 0){
+            td.innerHTML = ''
+        }
+    })
+}
+

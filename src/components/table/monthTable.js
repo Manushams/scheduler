@@ -2,20 +2,29 @@ import React from 'react';
 
 class MonthTable extends React.Component{
 
+    state = { 
+        weekDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    }
+
     daysInMonth = (day) => {
         if(day)return (new Date(day.getYear(), day.getMonth() + 1, 0).getDate())
         if(!day)return (new Date(new Date().getYear(), new Date().getMonth() + 1, 0))
     }
 
     render(){
-        const td = document.createElement('td')
+        const {weekDays} = this.state
         const today = new Date();
         const dayOfWeek = new Date(today.getFullYear(), today.getMonth(), 1).getDay()
-        
+        const td = document.createElement('td')
+
         return(
             <div className='monthtable'>
-                <table>
-
+                <table className='table fixed'>
+                    <thead>
+                        <tr>
+                            {weekDays.map((weekDay, i) => <th key={i}>{weekDay}</th>)}
+                        </tr>
+                    </thead>
                 </table>
             </div>
         )

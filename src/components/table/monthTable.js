@@ -12,10 +12,10 @@ class MonthTable extends React.Component{
     }
 
     render(){
-        const {weekDays} = this.state
-        const today = new Date();
-        const dayOfWeek = new Date(today.getFullYear(), today.getMonth(), 1).getDay()
-        const td = document.createElement('td')
+        const {weekDays} = this.state,
+            today = new Date(),
+            dayOfWeek = new Date(today.getFullYear(), today.getMonth(), 1).getDay(),
+            td = document.createElement('td')
 
         return(
             <div className='monthtable'>

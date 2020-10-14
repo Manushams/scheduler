@@ -339,3 +339,10 @@ td{
   margin-left: 5rem;
 }
 
+.table-row-heading-month{
+  height: 2rem;
+}
+
+.th-month{
+  top: 0;
+}

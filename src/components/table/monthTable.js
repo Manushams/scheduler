@@ -12,27 +12,34 @@ class MonthTable extends React.Component{
     }
 
     render(){
+
         const {weekDays} = this.state,
             today = new Date(),
-            dayOfWeek = new Date(today.getFullYear(), today.getMonth(), 1).getDay()
+            dayOfWeek = new Date(today.getFullYear(), today.getMonth(), 1).getDay(),
             //td = document.createElement('td')
-        
+            td = () => {
+                
+                return(
+                    <tr className='table-row'>
+                        {Array.apply(0, Array(7)).map(() =>
+                            <td className='table-data'>asdf</td>
+                        )}
+                    </tr>
+                )
+            }
     
         return(
             <div className='monthtable'>
-                <table className='table '>
-                    <thead>
-                        <tr className=''>
-                            {weekDays.map((weekDay, i) => <th key={i}>{weekDay}</th>)}
-                        </tr>
-                    </thead>
+                <table className='table fixed'>
+                    
+                    <tr className='table-row table-row-heading-month'>
+                        {weekDays.map((weekDay, i) => <th className='table-heading th-month' key={i}>{weekDay}</th>)}
+                    </tr>
+                    
                     <tbody>
-                        <tr>
-                            <td>he</td>
-                            <td>he</td>
-                            <td>he</td>
-                        </tr>
+                        {td()}
                     </tbody>
+
                 </table>
             </div>
         )

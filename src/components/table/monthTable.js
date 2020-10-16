@@ -24,11 +24,7 @@ class MonthTable extends React.Component{
                         <td className='table-data'></td>
                     )}
                 </tr>
-            )           
-
-                
-                             
-            
+            )                                   
     
         return(
             <div className='monthtable'>

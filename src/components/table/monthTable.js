@@ -12,6 +12,13 @@ class MonthTable extends React.Component{
         if(!day)return (new Date(new Date().getYear(), new Date().getMonth() + 1, 0).getDate())
     }
     
+    idTds = () => {
+        const tds = document.querySelectorAll('td');
+
+        tds.forEach(td => {
+            td.setAttribute('id', Math.random())
+        });
+    }
 
     render(){
         

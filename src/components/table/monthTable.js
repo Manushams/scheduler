@@ -14,9 +14,10 @@ class MonthTable extends React.Component{
     
     idTds = () => {
         const tds = document.querySelectorAll('td');
-
+        let i = 0;
         tds.forEach(td => {
-            td.setAttribute('id', Math.random())
+            i++
+            td.setAttribute('id', i)
         });
     }
 

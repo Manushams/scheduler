@@ -28,23 +28,35 @@ class MonthTable extends React.Component{
 
     settingDays = () => {
         const today = new Date(),
-            dayOfWeek = new Date(today.getFullYear(), today.getMonth(), 1).getDay(),
-            tds = document.querySelectorAll('td');        
-        
-        let i = 1
+            tds = document.querySelectorAll('td');
+        let dayOfWeek = new Date(today.getFullYear(), today.getMonth(), 1).getDay(),
+            daysPrevMonth = this.daysInMonth(new Date(today.getFullYear(), today.getMonth())),      
+            day = 1,
+            dayNextMonth = 1;
+
+        if(dayOfWeek === 0){dayOfWeek=7}
+
+        daysPrevMonth = daysPrevMonth-dayOfWeek+1
         tds.forEach(td => {
-            console.log(typeof(dayOfWeek))
+            
             if(td.id >= dayOfWeek && parseInt(td.id) - dayOfWeek < this.daysInMonth()){
-                td.innerHTML = `<p className="day-month">${i}</p>`
-                i++
-            }                
+                td.innerHTML = `<p class="day-month">${day}</p>`
+                day++
+            }else if(td.id < dayOfWeek){
+                td.innerHTML = `<p class="day-other-month">${daysPrevMonth}</p>`
+                daysPrevMonth++
+            }else if(parseInt(td.id) - dayOfWeek >= this.daysInMonth()){
+                td.innerHTML = `<p class="day-other-month">${dayNextMonth}</p>`;
+                dayNextMonth++
+            }
+
         })    
     }
 
     render(){
         
         const {weekDays} = this.state,
-            td = [...Array(5)].map(() => 
+            td = [...Array(6)].map(() => 
                 <tr key={Math.random()} className='table-row'>
                     {[...Array(7)].map(() =>
                         <td key={Math.random()} className='table-data'></td>

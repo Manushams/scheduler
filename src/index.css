@@ -349,7 +349,15 @@ td{
 
 .day-month{
   position: absolute;
-  top:.1rem;
+  top: -0.8rem;
   right: .2rem;
-  color: red;
+  font-weight: 600;
+
+}
+
+.day-other-month{
+  position: absolute;
+  top: -0.8rem;
+  right: .2rem;
+  opacity: .7;
 }

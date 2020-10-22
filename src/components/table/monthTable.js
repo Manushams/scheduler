@@ -8,9 +8,8 @@ class MonthTable extends React.Component{
 
     componentDidMount(){
         this.idTds();
-        this.settingDays()
+        this.settingDays();
     }
-
 
     daysInMonth = (day) => {
         if(day)return (new Date(day.getYear(), day.getMonth() + 1, 0).getDate())
@@ -56,6 +55,7 @@ class MonthTable extends React.Component{
     render(){
         
         const {weekDays} = this.state,
+            today = new Date(),
             td = [...Array(6)].map(() => 
                 <tr key={Math.random()} className='table-row'>
                     {[...Array(7)].map(() =>
@@ -66,6 +66,20 @@ class MonthTable extends React.Component{
     
         return(
             <div className='monthtable'>
+                <div className="top-bar">
+                    <div>
+                        <h3>
+                            {today.toLocaleString('default', {month: 'long'})}, {today.getFullYear()}
+                        </h3>
+                        <input id='top-bar-calendar' type="date" />
+                    </div>
+                        <ul>
+                            <li><a href="#!">Today</a></li>
+                            <li><a href="/">Week</a></li>
+                            <li><a href="#!">Work Week</a></li>
+                            <li><a href="/month">Month</a></li>
+                        </ul>
+                </div>
                 <table className='table fixed'>
                     <thead>
                         <tr className='table-row table-row-heading-month'>

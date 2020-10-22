@@ -346,3 +346,10 @@ td{
 .th-month{
   top: 0;
 }
+
+.day-month{
+  position: absolute;
+  top:.1rem;
+  right: .2rem;
+  color: red;
+}

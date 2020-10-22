@@ -6,6 +6,11 @@ class MonthTable extends React.Component{
         weekDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     }
 
+    componentDidMount(){
+        this.idTds();
+        this.settingDays()
+    }
+
 
     daysInMonth = (day) => {
         if(day)return (new Date(day.getYear(), day.getMonth() + 1, 0).getDate())
@@ -21,26 +26,41 @@ class MonthTable extends React.Component{
         });
     }
 
+    settingDays = () => {
+        const today = new Date(),
+            dayOfWeek = new Date(today.getFullYear(), today.getMonth(), 1).getDay(),
+            tds = document.querySelectorAll('td');        
+        
+        let i = 1
+        tds.forEach(td => {
+            console.log(typeof(dayOfWeek))
+            if(td.id >= dayOfWeek && parseInt(td.id) - dayOfWeek < this.daysInMonth()){
+                td.innerHTML = `<p className="day-month">${i}</p>`
+                i++
+            }                
+        })    
+    }
+
     render(){
         
         const {weekDays} = this.state,
-            today = new Date(),
-            dayOfWeek = new Date(today.getFullYear(), today.getMonth(), 1).getDay(),
             td = [...Array(5)].map(() => 
-                <tr className='table-row'>
+                <tr key={Math.random()} className='table-row'>
                     {[...Array(7)].map(() =>
-                        <td className='table-data'></td>
+                        <td key={Math.random()} className='table-data'></td>
                     )}
                 </tr>
-            )                                   
+            )                                  
     
         return(
             <div className='monthtable'>
                 <table className='table fixed'>
-                    
-                    <tr className='table-row table-row-heading-month'>
-                        {weekDays.map((weekDay, i) => <th className='table-heading th-month' key={i}>{weekDay}</th>)}
-                    </tr>
+                    <thead>
+                        <tr className='table-row table-row-heading-month'>
+                            {weekDays.map((weekDay, i) => <th className='table-heading th-month' key={i}>{weekDay}</th>)}
+                        </tr>
+
+                    </thead>
                     
                     <tbody id='month-tbody'>
                         {td}

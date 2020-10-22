@@ -3,12 +3,24 @@ import React from 'react';
 class MonthTable extends React.Component{
 
     state = { 
-        weekDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        weekDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        monthTo: null
     }
 
     componentDidMount(){
         this.idTds();
-        this.settingDays();
+        this.setDays();
+    }
+
+    componentDidUpdate(){
+        this.idTds();
+        this.setDays();
+    }
+
+    handleMonthChange = (e) => {
+        this.setState({
+            monthTo: new Date(new Date(e.target.value).getFullYear(), new Date(e.target.value).getMonth())
+        })
     }
 
     daysInMonth = (day) => {
@@ -25,8 +37,9 @@ class MonthTable extends React.Component{
         });
     }
 
-    settingDays = () => {
-        const today = new Date(),
+    setDays = () => {
+        const {monthTo} = this.state,
+            today = monthTo ? monthTo : new Date(),
             tds = document.querySelectorAll('td');
         let dayOfWeek = new Date(today.getFullYear(), today.getMonth(), 1).getDay(),
             daysPrevMonth = this.daysInMonth(new Date(today.getFullYear(), today.getMonth())),      
@@ -34,7 +47,7 @@ class MonthTable extends React.Component{
             dayNextMonth = 1;
 
         if(dayOfWeek === 0){dayOfWeek=7}
-
+        console.log(today)
         daysPrevMonth = daysPrevMonth-dayOfWeek+1
         tds.forEach(td => {
             
@@ -53,7 +66,6 @@ class MonthTable extends React.Component{
     }
 
     render(){
-        
         const {weekDays} = this.state,
             today = new Date(),
             td = [...Array(6)].map(() => 
@@ -71,7 +83,7 @@ class MonthTable extends React.Component{
                         <h3>
                             {today.toLocaleString('default', {month: 'long'})}, {today.getFullYear()}
                         </h3>
-                        <input id='top-bar-calendar' type="date" />
+                        <input id='top-bar-calendar' type="date" onChange={this.handleMonthChange}/>
                     </div>
                         <ul>
                             <li><a href="#!">Today</a></li>

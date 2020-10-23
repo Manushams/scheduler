@@ -24,8 +24,8 @@ class MonthTable extends React.Component{
     }
 
     daysInMonth = (day) => {
-        if(day)return (new Date(day.getYear(), day.getMonth() + 1, 0).getDate())
-        if(!day)return (new Date(new Date().getYear(), new Date().getMonth() + 1, 0).getDate())
+        if(day)return (new Date(day.getFullYear(), day.getMonth() + 1, 0).getDate())
+        if(!day)return (new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate())
     }
     
     idTds = () => {
@@ -42,22 +42,21 @@ class MonthTable extends React.Component{
             today = monthTo ? monthTo : new Date(),
             tds = document.querySelectorAll('td');
         let dayOfWeek = new Date(today.getFullYear(), today.getMonth(), 1).getDay(),
-            daysPrevMonth = this.daysInMonth(new Date(today.getFullYear(), today.getMonth())),      
+            daysPrevMonth = this.daysInMonth(new Date(today.getFullYear(), today.getMonth()-1)),      
             day = 1,
             dayNextMonth = 1;
 
         if(dayOfWeek === 0){dayOfWeek=7}
-        console.log(today)
-        daysPrevMonth = daysPrevMonth-dayOfWeek+1
+        daysPrevMonth = daysPrevMonth-dayOfWeek+2
         tds.forEach(td => {
             
-            if(td.id >= dayOfWeek && parseInt(td.id) - dayOfWeek < this.daysInMonth()){
+            if(td.id >= dayOfWeek && parseInt(td.id) - dayOfWeek < this.daysInMonth(today)){
                 td.innerHTML = `<p class="day-month">${day}</p>`
                 day++
             }else if(td.id < dayOfWeek){
                 td.innerHTML = `<p class="day-other-month">${daysPrevMonth}</p>`
                 daysPrevMonth++
-            }else if(parseInt(td.id) - dayOfWeek >= this.daysInMonth()){
+            }else if(parseInt(td.id) - dayOfWeek >= this.daysInMonth(today)){
                 td.innerHTML = `<p class="day-other-month">${dayNextMonth}</p>`;
                 dayNextMonth++
             }
@@ -66,8 +65,8 @@ class MonthTable extends React.Component{
     }
 
     render(){
-        const {weekDays} = this.state,
-            today = new Date(),
+        const {weekDays, monthTo} = this.state,
+            today = monthTo ? monthTo : new Date(),
             td = [...Array(6)].map(() => 
                 <tr key={Math.random()} className='table-row'>
                     {[...Array(7)].map(() =>

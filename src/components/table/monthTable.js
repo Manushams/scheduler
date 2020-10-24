@@ -1,4 +1,6 @@
 import React from 'react';
+import {TaskMonth} from './task';
+import {connect} from 'react-redux';
 
 class MonthTable extends React.Component{
 
@@ -10,6 +12,7 @@ class MonthTable extends React.Component{
     componentDidMount(){
         this.idTds();
         this.setDays();
+        this.displayTasks()
     }
 
     handleMonthChange = (e) => {
@@ -19,6 +22,7 @@ class MonthTable extends React.Component{
         setTimeout(() => {
             this.idTds();
             this.setDays();
+            this.displayTasks()
         }, 10);
     }
 
@@ -55,15 +59,31 @@ class MonthTable extends React.Component{
                 day++
             }else if(td.id < dayOfWeek){
                 td.innerHTML = `<p class="day-other-month">${daysPrevMonth}</p>`
-                td.setAttribute('title',new Date(today.getFullYear(), today.getMonth()-1, daysPrevMonth).toString().slice(0,15))
+                td.setAttribute('title',new Date(today.getFullYear(), today.getMonth()-1, daysPrevMonth).toString().slice(0,15));
                 daysPrevMonth++
             }else if(parseInt(td.id) - dayOfWeek >= this.daysInMonth(today)){
                 td.innerHTML = `<p class="day-other-month">${dayNextMonth}</p>`;
-                td.setAttribute('title',new Date(today.getFullYear(), today.getMonth()+1, dayNextMonth).toString().slice(0,15))
+                td.setAttribute('title',new Date(today.getFullYear(), today.getMonth()+1, dayNextMonth).toString().slice(0,15));
                 dayNextMonth++
             }
 
         })    
+    }
+
+    displayTasks = () => {
+        const tds = document.querySelectorAll('td'),
+            {tasks} = this.props;
+        
+        tds.forEach(td => {
+            if(td.childElementCount >= 2){
+                tasks.forEach(task => {
+                    if(new Date(td.date).toString().slice(0,15) == task.title){
+                        console.log('maatch')
+                        td.append(TaskMonth(task))
+                    }
+                })
+            }
+        })
     }
 
     render(){
@@ -110,4 +130,11 @@ class MonthTable extends React.Component{
         )
     }
 }
-export default MonthTable
+
+const mapStateToProps = state => {
+    return {
+        tasks: state.addTask.tasks
+    }
+}
+
+export default connect(mapStateToProps)(MonthTable)

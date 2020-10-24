@@ -122,6 +122,10 @@ td{
   cursor: pointer;
 }
 
+#top-bar-calendar::-webkit-calendar-picker-indicator:focus{
+  outline: none;
+}
+
 #top-bar-calendar::-webkit-calendar-picker-indicator{
   margin-left: -100px;
   cursor: pointer;

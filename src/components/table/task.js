@@ -75,3 +75,13 @@ const Task = (task) => {
 
 export default Task
 
+export const TaskMonth = (task) => {
+    const div = document.createElement('div'),
+        p = document.createElement('p')
+    div.classList.add('task-month');
+    p.innerText = task.title;
+    div.appendChild(p)
+
+    return div
+}
+

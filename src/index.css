@@ -70,6 +70,7 @@ a{
 table, th {
   border: 1px solid black;
   border-collapse: collapse;
+  border-top: none;
 }
 
 td{
@@ -351,7 +352,7 @@ td{
   position: absolute;
   top: -0.8rem;
   right: .2rem;
-  font-weight: 600;
+  font-weight: 550;
 
 }
 
@@ -359,5 +360,5 @@ td{
   position: absolute;
   top: -0.8rem;
   right: .2rem;
-  opacity: .7;
+  opacity: .5;
 }

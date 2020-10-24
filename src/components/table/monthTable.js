@@ -12,15 +12,14 @@ class MonthTable extends React.Component{
         this.setDays();
     }
 
-    componentDidUpdate(){
-        this.idTds();
-        this.setDays();
-    }
-
     handleMonthChange = (e) => {
         this.setState({
             monthTo: new Date(new Date(e.target.value).getFullYear(), new Date(e.target.value).getMonth())
         })
+        setTimeout(() => {
+            this.idTds();
+            this.setDays();
+        }, 10);
     }
 
     daysInMonth = (day) => {
@@ -52,12 +51,15 @@ class MonthTable extends React.Component{
             
             if(td.id >= dayOfWeek && parseInt(td.id) - dayOfWeek < this.daysInMonth(today)){
                 td.innerHTML = `<p class="day-month">${day}</p>`
+                td.setAttribute('title',new Date(today.getFullYear(), today.getMonth(), day).toString().slice(0,15))
                 day++
             }else if(td.id < dayOfWeek){
                 td.innerHTML = `<p class="day-other-month">${daysPrevMonth}</p>`
+                td.setAttribute('title',new Date(today.getFullYear(), today.getMonth()-1, daysPrevMonth).toString().slice(0,15))
                 daysPrevMonth++
             }else if(parseInt(td.id) - dayOfWeek >= this.daysInMonth(today)){
                 td.innerHTML = `<p class="day-other-month">${dayNextMonth}</p>`;
+                td.setAttribute('title',new Date(today.getFullYear(), today.getMonth()+1, dayNextMonth).toString().slice(0,15))
                 dayNextMonth++
             }
 

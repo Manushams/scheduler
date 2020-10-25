@@ -22,8 +22,8 @@ class Weektable2 extends React.Component {
 
     componentDidMount() {
         this.hours();
-        this.displayTask();
         setTimeout(() => {
+            this.displayTask();
             this.setClassNames();
         }, 100)
     }

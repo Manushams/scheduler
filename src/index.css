@@ -366,3 +366,11 @@ td{
   right: .2rem;
   opacity: .5;
 }
+
+.task-month{
+  background-color: #17B978;
+  color: #fff;
+  border-radius: 10px;
+  height: 1rem;
+  
+}

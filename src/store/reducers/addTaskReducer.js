@@ -1,5 +1,15 @@
 const initState = {
-    tasks: [],
+    tasks: [
+        {
+            cellDetails: {id: '0.123451231234', row: 2, title: 'Fri Oct 23 2020'},
+            date: '2020-10-23',
+            eventName: 'hey There',
+            height: 96.5333333333,
+            id: '0.881283481234',
+            timeEnd: '12:34',
+            timeStart: '00:30'
+        }
+    ],
     error: null
 }
 

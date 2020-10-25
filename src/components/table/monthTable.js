@@ -73,12 +73,12 @@ class MonthTable extends React.Component{
     displayTasks = () => {
         const tds = document.querySelectorAll('td'),
             {tasks} = this.props;
-        
+        console.log('qewr')
         tds.forEach(td => {
-            if(td.childElementCount >= 2){
+            if(td.childElementCount >= 1){
                 tasks.forEach(task => {
-                    if(new Date(td.date).toString().slice(0,15) == task.title){
-                        console.log('maatch')
+                    
+                    if(td.title == task.cellDetails.title){
                         td.append(TaskMonth(task))
                     }
                 })

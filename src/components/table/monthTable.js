@@ -77,8 +77,7 @@ class MonthTable extends React.Component{
         tds.forEach(td => {
             if(td.childElementCount >= 1){
                 tasks.forEach(task => {
-                    
-                    if(td.title == task.cellDetails.title){
+                    if(td.title === task.cellDetails.title){
                         td.append(TaskMonth(task))
                     }
                 })

@@ -88,13 +88,14 @@ class MonthTable extends React.Component{
             {tasks} = this.props;
         console.log('qewr')
         tds.forEach(td => {
-            if(td.childElementCount <= 4){
-                tasks.forEach(task => {
-                    if(td.title === new Date(task.date).toString().slice(0,15)){
-                        td.append(TaskMonth(task))
-                    }
-                })
-            }
+            tasks.forEach(task => {
+                if(td.title === new Date(task.date).toString().slice(0,15)
+                    && td.childElementCount < 4
+                ){
+
+                    td.append(TaskMonth(task))
+                }
+            })
         })
     }
 

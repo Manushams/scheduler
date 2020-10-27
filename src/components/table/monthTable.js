@@ -1,12 +1,16 @@
 import React from 'react';
 import {TaskMonth} from './task';
 import {connect} from 'react-redux';
+import Modal from './modal';
+import { openModal } from '../../store/actions/toggleModalAction'
 
 class MonthTable extends React.Component{
 
     state = { 
         weekDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        monthTo: null
+        monthTo: null,
+        modalEnable: false,
+        cellDetails: ''
     }
 
     componentDidMount(){
@@ -15,15 +19,24 @@ class MonthTable extends React.Component{
         this.displayTasks()
     }
 
+    componentDidUpdate(){
+        this.idTds();
+        this.setDays();
+        this.displayTasks()
+    }
+
+    onClickHandle = (e) => {
+        this.props.openModal()
+        this.setState({
+            cellDetails: {title: e.target.title},
+            modalEnable: true
+        })
+    }
+
     handleMonthChange = (e) => {
         this.setState({
             monthTo: new Date(new Date(e.target.value).getFullYear(), new Date(e.target.value).getMonth())
         })
-        setTimeout(() => {
-            this.idTds();
-            this.setDays();
-            this.displayTasks()
-        }, 10);
     }
 
     daysInMonth = (day) => {
@@ -75,9 +88,9 @@ class MonthTable extends React.Component{
             {tasks} = this.props;
         console.log('qewr')
         tds.forEach(td => {
-            if(td.childElementCount >= 1){
+            if(td.childElementCount <= 4){
                 tasks.forEach(task => {
-                    if(td.title === task.cellDetails.title){
+                    if(td.title === new Date(task.date).toString().slice(0,15)){
                         td.append(TaskMonth(task))
                     }
                 })
@@ -86,12 +99,18 @@ class MonthTable extends React.Component{
     }
 
     render(){
-        const {weekDays, monthTo} = this.state,
+        const {weekDays, monthTo,cellDetails} = this.state,
+            {modalEnable} = this.props,
             today = monthTo ? monthTo : new Date(),
             td = [...Array(6)].map(() => 
                 <tr key={Math.random()} className='table-row'>
                     {[...Array(7)].map(() =>
-                        <td key={Math.random()} className='table-data'></td>
+                        <td 
+                            key={Math.random()} 
+                            className='table-data'
+                            onClick={this.onClickHandle}    
+                        >
+                        </td>
                     )}
                 </tr>
             )                                  
@@ -125,6 +144,12 @@ class MonthTable extends React.Component{
                     </tbody>
 
                 </table>
+                {modalEnable ?
+                    <Modal
+                        // startTime={startTime}
+                        cellDetails={cellDetails}
+                    /> : null
+                }
             </div>
         )
     }
@@ -132,8 +157,15 @@ class MonthTable extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        tasks: state.addTask.tasks
+        tasks: state.addTask.tasks,
+        modalEnable: state.toggleModal.modalEnable,
     }
 }
 
-export default connect(mapStateToProps)(MonthTable)
+const mapDispatchToProps = dispatch => {
+    return{
+        openModal: () => dispatch(openModal())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MonthTable)

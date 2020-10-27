@@ -78,10 +78,11 @@ export default Task
 export const TaskMonth = (task) => {
     const div = document.createElement('div'),
         p = document.createElement('p')
+    
     div.classList.add('task-month');
     p.innerText = task.eventName;
-    div.appendChild(p)
-
+    div.appendChild(p)   
+    
     return div
 }
 

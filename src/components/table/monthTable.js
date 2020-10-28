@@ -92,7 +92,6 @@ class MonthTable extends React.Component{
                 if(td.title === new Date(task.date).toString().slice(0,15)
                     && td.childElementCount < 4
                 ){
-
                     td.append(TaskMonth(task))
                 }
             })

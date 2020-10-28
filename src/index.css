@@ -387,3 +387,11 @@ td{
   width: calc(100% - 5rem);
   margin-left: 5rem;
 }
+
+.table-heading-today-empty{
+  width: 7rem;
+}
+
+.table-heading-today{
+  padding-left: 2rem;
+}

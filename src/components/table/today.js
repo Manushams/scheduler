@@ -7,9 +7,13 @@ class Today extends React.Component{
         hours: null
     }
 
+    componentDidMount(){            
+        this.setHours()
+    }
+
     setHours = () => {
+        let hours = []
         const promise = new Promise((resolve, reject) => {
-            let hours = []
             
             for(let i = 0; i<24;i++){
                 if(i < 10){
@@ -23,22 +27,21 @@ class Today extends React.Component{
                 return resolve(hours)
             }            
         })
-        let hrs  
-        promise.then((hours) => {
-            hours = hrs
-        })
-        this.setState({
-            hours: hrs
+        promise.then(res => {
+            this.setState({
+                hours: res
+            })
         })
     }
 
     render(){
         const today = new Date(),
             {daysOfWeek} = this.state
-        this.setHours()
-        setTimeout(()=> {
+
+        setTimeout(() => {
             console.log(this.state)
-        }, 1000)
+        }, 1000);   
+        
         return(
             <div className='today'>
                 <div className="top-bar">
@@ -62,7 +65,7 @@ class Today extends React.Component{
                             <th className='table-heading table-heading-today'>{daysOfWeek[today.getDay()]} {today.getDate()}</th>
                         </tr>
                     </thead>
-                    <tr className='table-row'><th>00:00</th><td></td></tr>
+                    <tr className='table-row'><th rowSpan='2'>00:00</th><td></td></tr>
                     <tr className='table-row'><th></th></tr>
                 </table>
             </div>

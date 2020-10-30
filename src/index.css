@@ -388,8 +388,23 @@ td{
   margin-left: 5rem;
 }
 
-.table-heading-today-empty{
+.today .table-row{
+  height: 2rem;
+}
+
+.today .table-row:nth-child(even){
+  background-color: #f5f5f5;
+}
+
+.table-heading-today:first-child{
   width: 7rem;
+  border-bottom: solid 1px #000000;
+  
+  
+}
+
+.today th{
+  z-index: 0;
 }
 
 .table-heading-today{

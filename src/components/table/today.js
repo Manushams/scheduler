@@ -4,7 +4,7 @@ class Today extends React.Component{
 
     state = {
         daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        hours: null
+        hours: []
     }
 
     componentDidMount(){            
@@ -36,12 +36,13 @@ class Today extends React.Component{
 
     render(){
         const today = new Date(),
-            {daysOfWeek} = this.state
-
-        setTimeout(() => {
-            console.log(this.state)
-        }, 1000);   
+            {daysOfWeek, hours} = this.state
         
+        setTimeout(() => {
+
+            console.log(hours)
+        }, 1000)
+
         return(
             <div className='today'>
                 <div className="top-bar">
@@ -59,14 +60,27 @@ class Today extends React.Component{
                         </ul>
                 </div>
                 <table className="table fixed">
-                    <thead>
+                    <tbody>
                         <tr className='table-row'>
-                            <th className='table-heading table-heading-today-empty'></th>
+                            <th className='table-heading table-heading-today'></th>
                             <th className='table-heading table-heading-today'>{daysOfWeek[today.getDay()]} {today.getDate()}</th>
                         </tr>
-                    </thead>
-                    <tr className='table-row'><th rowSpan='2'>00:00</th><td></td></tr>
-                    <tr className='table-row'><th></th></tr>
+                        {hours.map(hr => {
+                            return(
+                                <>
+                                    <tr className='table-row'>
+                                        <th rowSpan='2' className='table-data-h'>{hr}</th>
+                                        <td></td>
+                                    </tr>
+                                    <tr className='table-row'>
+                                        <td></td>
+                                    </tr>
+                                </>
+                            )
+                        })}
+
+                    </tbody>
+                    
                 </table>
             </div>
         )

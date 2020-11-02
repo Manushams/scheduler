@@ -399,14 +399,9 @@ td{
 .table-heading-today:first-child{
   width: 7rem;
   border-bottom: solid 1px #000000;
-  
-  
+  z-index: 2;  
 }
 
-.today th{
-  z-index: 0;
-}
-
-.table-heading-today{
-  padding-left: 2rem;
+.today .table-data-h{
+  position: unset;
 }

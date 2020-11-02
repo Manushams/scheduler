@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import {connect} from 'react-redux'
 
 class Today extends React.Component{
 
@@ -8,7 +9,34 @@ class Today extends React.Component{
     }
 
     componentDidMount(){            
-        this.setHours()
+        this.setHours();
+    }
+
+    displayTasks = () => {
+        const tds = document.querySelectorAll('td'),
+            {tasks} = this.props;
+
+        tasks.forEach(task => {
+            const hourStart = parseInt(task.timeStart.slice(0,2)),
+                hourEnd = parseInt(task.timeEnd.slice(0,2)),
+                minuteStart = parseInt(task.timeStart.slice(3,5)),
+                minuteEnd = parseInt(task.timeEnd.slice(3,5))
+                //totalCells = parseInt(((hourEnd*60 + minuteEnd) - (hourStart*60 + minuteStart)) / 30)
+
+            let hrs = hourStart;
+            for(let i = 0; i<=hourEnd-hourStart+1; i++){
+                tds.forEach(td => {
+                    if(parseInt(td.title.slice(0,2)) === hrs){
+                        td.innerText = `${task.timeStart} - ${task.timeEnd}`
+                    }
+                })
+
+
+                hrs = hourStart + i
+            }
+            
+        })
+
     }
 
     setTdIds = () => {
@@ -45,7 +73,8 @@ class Today extends React.Component{
             this.setState({
                 hours: res
             })
-            this.setTdIds()
+            this.setTdIds();
+            this.displayTasks()
         })
     }
 
@@ -112,4 +141,12 @@ class Today extends React.Component{
     }
 
 }
-export default Today;
+
+const mapStateToProps = state => {
+    return{
+        tasks: state.addTask.tasks,
+        modalEnable: state.toggleModal.modalEnable,
+    }
+}
+
+export default connect(mapStateToProps)(Today)

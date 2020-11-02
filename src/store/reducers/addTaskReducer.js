@@ -1,8 +1,8 @@
 const initState = {
     tasks: [
         {
-            cellDetails: {id: '0.123451231234', row: 2, title: 'Fri Oct 23 2020'},
-            date: '2020-10-23',
+            cellDetails: {id: '0.123451231234', row: 2, title: 'Mon Nov 02 2020'},
+            date: '2020-11-02',
             eventName: 'hey There',
             height: 96.5333333333,
             id: '0.881283481234',

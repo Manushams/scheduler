@@ -11,6 +11,20 @@ class Today extends React.Component{
         this.setHours()
     }
 
+    setTdIds = () => {
+        const tds = document.querySelectorAll('td')
+            
+        tds.forEach(td => {
+            let innerText = td.parentElement.innerText
+            
+            if(innerText){
+                td.setAttribute('title', innerText)
+            }else if(!innerText){
+                td.setAttribute('title', td.parentElement.previousSibling.innerText.toString().slice(0,3) + '30')
+            }
+        })
+    }
+
     setHours = () => {
         let hours = []
         const promise = new Promise((resolve, reject) => {
@@ -31,17 +45,13 @@ class Today extends React.Component{
             this.setState({
                 hours: res
             })
+            this.setTdIds()
         })
     }
 
     render(){
         const today = new Date(),
-            {daysOfWeek, hours} = this.state
-        
-        setTimeout(() => {
-
-            console.log(hours)
-        }, 1000)
+            {daysOfWeek, hours} = this.state  
 
         return(
             <div className='today'>
@@ -50,7 +60,11 @@ class Today extends React.Component{
                         <h3>
                             {today.toLocaleString('default', {month: 'long'})} {today.getDate()}, {today.getFullYear()}
                         </h3>
-                        <input id='top-bar-calendar' type="date" onChange={this.handleMonthChange}/>
+                        <input 
+                            id='top-bar-calendar' 
+                            type="date" 
+                            onChange={this.handleMonthChange}
+                        />
                     </div>
                         <ul>
                             <li><a href="#!">Today</a></li>
@@ -62,14 +76,25 @@ class Today extends React.Component{
                 <table className="table fixed">
                     <tbody>
                         <tr className='table-row'>
-                            <th className='table-heading table-heading-today'></th>
-                            <th className='table-heading table-heading-today'>{daysOfWeek[today.getDay()]} {today.getDate()}</th>
+                            <th 
+                                className='table-heading table-heading-today'>
+                            </th>
+                            <th 
+                                className='table-heading table-heading-today'
+                            >
+                                {daysOfWeek[today.getDay()]} {today.getDate()}
+                            </th>
                         </tr>
                         {hours.map(hr => {
                             return(
                                 <>
                                     <tr className='table-row'>
-                                        <th rowSpan='2' className='table-data-h'>{hr}</th>
+                                        <th 
+                                            rowSpan='2' 
+                                            className='table-data-h'
+                                        >
+                                            {hr}
+                                        </th>
                                         <td></td>
                                     </tr>
                                     <tr className='table-row'>

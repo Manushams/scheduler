@@ -24,7 +24,8 @@ class Today extends React.Component{
                 minuteEnd = parseInt(task.timeEnd.slice(3,5)),
                 startTotalMins = parseInt((hourStart*60 + minuteStart)),
                 endTotalMins = parseInt((hourEnd*60 + minuteEnd)),
-                totalCells = Math.round(((hourEnd*60 + minuteEnd) - (hourStart*60 + minuteStart)) / 60)
+                totalCells = Math.round(((hourEnd*60 + minuteEnd) - (hourStart*60 + minuteStart)) / 60),
+                height = ((endTotalMins - startTotalMins) / 15 ) + 'rem'
 
                 console.log(((hourEnd*60 + minuteEnd) - (hourStart*60 + minuteStart)) / 60)
             
@@ -37,11 +38,9 @@ class Today extends React.Component{
                         let firstCard = Task(task)[0];
                         firstCard.style.marginTop = ((startTotalMins%30) / 15) + 'rem'
                         firstCard.style.zIndex = '4'
-                        firstCard.style.height = '4rem'
                         td.appendChild(firstCard)
-                        td.style.overflow = 'visible';
-                        
-                        
+                        firstCard.style.height = height
+                        td.style.overflow = 'visible';                       
 
                     }else if(endTotalMins > tdTotalMins 
                         && endTotalMins < tdTotalMins+30 ){

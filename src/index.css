@@ -405,3 +405,8 @@ td{
 .today .table-data-h{
   position: unset;
 }
+
+.task{
+  z-index: 4;
+  overflow: visible;
+}

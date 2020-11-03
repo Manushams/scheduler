@@ -28,21 +28,28 @@ class Today extends React.Component{
 
                 console.log(((hourEnd*60 + minuteEnd) - (hourStart*60 + minuteStart)) / 60)
             
-            let hrs = hourStart;
             for(let i = 0; i<=totalCells+1; i++){
                 for(let num in tds){
                     let td = tds.item(num),
                         tdTotalMins = parseInt(td.title.slice(0,2))*60 + parseInt(td.title.slice(3,5))
-                       
-                        
+                                               
                     if(startTotalMins >= tdTotalMins && startTotalMins < tdTotalMins + 30){
-                        td.appendChild(Task(task)[0])
+                        let firstCard = Task(task)[0];
+                        firstCard.style.marginTop = ((startTotalMins%30) / 15) + 'rem'
+                        td.appendChild(firstCard)
+
+                    }else if(endTotalMins > tdTotalMins 
+                        && endTotalMins < tdTotalMins+30 ){
+
+                            let lastCard = Task(task)[2]
+                            lastCard.style.height = ((endTotalMins%30) / 15) + 'rem'
+                            td.appendChild(lastCard)
+
                     }else if( startTotalMins <= tdTotalMins && endTotalMins > tdTotalMins){
                         td.appendChild(Task(task)[1])
                     }
 
                 }
-                hrs = hourStart + i
             }
             
         })

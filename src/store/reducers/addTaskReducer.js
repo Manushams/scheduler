@@ -6,8 +6,8 @@ const initState = {
             eventName: 'hey There',
             height: 96.5333333333,
             id: '0.881283481234',
-            timeEnd: '12:34',
-            timeStart: '00:30'
+            timeEnd: '12:30',
+            timeStart: '01:50'
         }
     ],
     error: null

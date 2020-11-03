@@ -1,5 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import Task from './task'
 
 class Today extends React.Component{
 
@@ -20,16 +21,26 @@ class Today extends React.Component{
             const hourStart = parseInt(task.timeStart.slice(0,2)),
                 hourEnd = parseInt(task.timeEnd.slice(0,2)),
                 minuteStart = parseInt(task.timeStart.slice(3,5)),
-                minuteEnd = parseInt(task.timeEnd.slice(3,5))
-                //totalCells = parseInt(((hourEnd*60 + minuteEnd) - (hourStart*60 + minuteStart)) / 30)
+                minuteEnd = parseInt(task.timeEnd.slice(3,5)),
+                startTotalMins = parseInt((hourStart*60 + minuteStart)),
+                endTotalMins = parseInt((hourEnd*60 + minuteEnd)),
+                totalCells = Math.round(((hourEnd*60 + minuteEnd) - (hourStart*60 + minuteStart)) / 60)
 
+                console.log(((hourEnd*60 + minuteEnd) - (hourStart*60 + minuteStart)) / 60)
+            
             let hrs = hourStart;
-            for(let i = 0; i<=hourEnd-hourStart+1; i++){
+            for(let i = 0; i<=totalCells+1; i++){
                 for(let num in tds){
-                    let td = tds.item(num)
-                    if(parseInt(td.title.slice(0,2)) === hrs){
-                       td.innerText = `${task.timeStart} - ${task.timeEnd}`
+                    let td = tds.item(num),
+                        tdTotalMins = parseInt(td.title.slice(0,2))*60 + parseInt(td.title.slice(3,5))
+                       
+                        
+                    if(startTotalMins >= tdTotalMins && startTotalMins < tdTotalMins + 30){
+                        td.appendChild(Task(task)[0])
+                    }else if( startTotalMins <= tdTotalMins && endTotalMins > tdTotalMins){
+                        td.appendChild(Task(task)[1])
                     }
+
                 }
                 hrs = hourStart + i
             }

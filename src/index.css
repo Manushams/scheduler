@@ -406,7 +406,3 @@ td{
   position: unset;
 }
 
-.task{
-  z-index: 4;
-  overflow: visible;
-}

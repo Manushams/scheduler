@@ -36,7 +36,12 @@ class Today extends React.Component{
                     if(startTotalMins >= tdTotalMins && startTotalMins < tdTotalMins + 30){
                         let firstCard = Task(task)[0];
                         firstCard.style.marginTop = ((startTotalMins%30) / 15) + 'rem'
+                        firstCard.style.zIndex = '4'
+                        firstCard.style.height = '4rem'
                         td.appendChild(firstCard)
+                        td.style.overflow = 'visible';
+                        
+                        
 
                     }else if(endTotalMins > tdTotalMins 
                         && endTotalMins < tdTotalMins+30 ){

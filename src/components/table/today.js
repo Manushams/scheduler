@@ -25,13 +25,12 @@ class Today extends React.Component{
 
             let hrs = hourStart;
             for(let i = 0; i<=hourEnd-hourStart+1; i++){
-                tds.forEach(td => {
+                for(let num in tds){
+                    let td = tds.item(num)
                     if(parseInt(td.title.slice(0,2)) === hrs){
-                        td.innerText = `${task.timeStart} - ${task.timeEnd}`
+                       td.innerText = `${task.timeStart} - ${task.timeEnd}`
                     }
-                })
-
-
+                }
                 hrs = hourStart + i
             }
             

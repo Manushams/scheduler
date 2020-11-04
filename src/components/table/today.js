@@ -1,23 +1,50 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Task from './task'
+import Task from './task';
+// import Modal from './modal';
+// import { openModal } from '../../store/actions/toggleModalAction'
 
 class Today extends React.Component{
 
     state = {
         daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        hours: []
+        hours: [],
+        day: null
     }
 
     componentDidMount(){            
         this.setHours();
     }
 
+    componentDidUpdate(){
+        // this.removeTasks()
+        this.displayTasks()
+    }
+
+    handleDayChange =(e) => {
+        this.setState({
+            day: new Date(e.target.value)
+        })
+        this.removeTasks()
+    }
+
+    removeTasks = () => {
+        const tds = document.querySelectorAll('td');
+        tds.forEach(td => {
+            if(td.childElementCount){
+                td.innerHTML = ''
+            }
+        })
+    }
+
     displayTasks = () => {
         const tds = document.querySelectorAll('td'),
-            {tasks} = this.props;
+            {tasks} = this.props,
+            {day} = this.state,
+            date = day ? day : new Date()
 
         tasks.forEach(task => {
+            if(task.cellDetails.title === date.toString().slice(0,15)){
             const hourStart = parseInt(task.timeStart.slice(0,2)),
                 hourEnd = parseInt(task.timeEnd.slice(0,2)),
                 minuteStart = parseInt(task.timeStart.slice(3,5)),
@@ -37,13 +64,13 @@ class Today extends React.Component{
                     if(startTotalMins >= tdTotalMins && startTotalMins < tdTotalMins + 30){
                         let firstCard = Task(task)[0];
                         firstCard.style.marginTop = ((startTotalMins%30) / 15) + 'rem'
-                        firstCard.style.zIndex = '4'
-                        td.appendChild(firstCard)
+                        firstCard.style.zIndex = '1'
                         firstCard.style.height = height
-                        td.style.overflow = 'visible';                       
+                        td.style.overflow = 'visible'; 
+                        td.appendChild(firstCard)
 
                     }else if(endTotalMins > tdTotalMins 
-                        && endTotalMins < tdTotalMins+30 ){
+                        && endTotalMins < tdTotalMins+30){
 
                             let lastCard = Task(task)[2]
                             lastCard.style.height = ((endTotalMins%30) / 15) + 'rem'
@@ -54,7 +81,7 @@ class Today extends React.Component{
                     }
 
                 }
-            }
+            }}
             
         })
 
@@ -100,8 +127,9 @@ class Today extends React.Component{
     }
 
     render(){
-        const today = new Date(),
-            {daysOfWeek, hours} = this.state  
+        const {daysOfWeek, hours, day} = this.state,  
+            today = day ? day : new Date()
+            
 
         return(
             <div className='today'>
@@ -113,7 +141,7 @@ class Today extends React.Component{
                         <input 
                             id='top-bar-calendar' 
                             type="date" 
-                            onChange={this.handleMonthChange}
+                            onChange={this.handleDayChange}
                         />
                     </div>
                         <ul>

@@ -1,15 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Task from './task';
-// import Modal from './modal';
-// import { openModal } from '../../store/actions/toggleModalAction'
+import Modal from './modal';
+import { openModal } from '../../store/actions/toggleModalAction';
+import { removeWithSameId, setWidth, AdjustWidth,removeChildren } from './multipleTasks'
 
 class Today extends React.Component{
 
     state = {
         daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         hours: [],
-        day: null
+        day: null,
+        cellDetails: {}
     }
 
     componentDidMount(){            
@@ -23,18 +25,10 @@ class Today extends React.Component{
 
     handleDayChange =(e) => {
         this.setState({
-            day: new Date(e.target.value)
+            day: new Date(e.target.value),
+            cellDetails: {title: new Date(e.target.value).toString().slice(0,15)}
         })
-        this.removeTasks()
-    }
-
-    removeTasks = () => {
-        const tds = document.querySelectorAll('td');
-        tds.forEach(td => {
-            if(td.childElementCount){
-                td.innerHTML = ''
-            }
-        })
+        removeChildren()
     }
 
     displayTasks = () => {
@@ -74,10 +68,16 @@ class Today extends React.Component{
 
                             let lastCard = Task(task)[2]
                             lastCard.style.height = ((endTotalMins%30) / 15) + 'rem'
+                            lastCard.style.backgroundColor = 'red'
                             td.appendChild(lastCard)
 
                     }else if( startTotalMins <= tdTotalMins && endTotalMins > tdTotalMins){
                         td.appendChild(Task(task)[1])
+                    }
+                    removeWithSameId(td)
+                    if (td.childElementCount >= 2) {
+                        setWidth(td);
+                        AdjustWidth(td.children, setWidth(td))
                     }
 
                 }
@@ -127,8 +127,9 @@ class Today extends React.Component{
     }
 
     render(){
-        const {daysOfWeek, hours, day} = this.state,  
-            today = day ? day : new Date()
+        const {daysOfWeek, hours, day, cellDetails} = this.state,  
+            today = day ? day : new Date(),
+            {modalEnable, openModal} = this.props
             
 
         return(
@@ -173,10 +174,14 @@ class Today extends React.Component{
                                         >
                                             {hr}
                                         </th>
-                                        <td></td>
+                                        <td
+                                            onClick={() => this.props.openModal()}
+                                        ></td>
                                     </tr>
                                     <tr className='table-row'>
-                                        <td></td>
+                                        <td
+                                            onClick={() => openModal()}
+                                        ></td>
                                     </tr>
                                 </>
                             )
@@ -185,6 +190,11 @@ class Today extends React.Component{
                     </tbody>
                     
                 </table>
+                {modalEnable ?
+                    <Modal
+                        cellDetails={day ? cellDetails : {title: new Date().toString().slice(0,15)}}
+                    /> : null
+                }
             </div>
         )
     }
@@ -198,4 +208,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Today)
+const mapDispatchToProps = dispatch => {
+    return{
+        openModal: () => dispatch(openModal())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Today)

@@ -26,7 +26,7 @@ const Task = (task) => {
         var lastCard = document.createElement('div')
         
         Card.classList.add('task')
-        Card.style.height = height + 'rem'
+        // Card.style.height = height + 'rem'
         Card.style.backgroundColor = '#17B978'
         Card.style.borderRadius = '0';
         Card.setAttribute('id', task.id)
@@ -41,7 +41,7 @@ const Task = (task) => {
         
         taskCard.classList.add('task')
         taskCard.setAttribute('id', task.id)
-        taskCard.style.height = height + 'rem'
+        // taskCard.style.height = height + 'rem'
         taskCard.style.backgroundColor = '#17B978'
         var taskTitle = document.createElement('div')
         taskTitle.classList.add('task-title')

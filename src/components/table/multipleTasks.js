@@ -36,6 +36,7 @@ export const setWidth = (td) => {
             td.children.item(i).style.marginLeft = marginLeft + '%'  
         } 
     }
+    console.log(width)
     return width
 }
 
@@ -214,3 +215,16 @@ export const removeChildren = () => {
     })
 }
 
+export const todayTd = (td) => {
+    const width = (100 / td.childElementCount ) - 4 
+    
+    for(let i in td.children){
+        const div = td.children.item(i)
+        if(div.tagName === 'DIV'){
+            div.style.width = width + '%'
+            if(parseInt(i)===1){
+                div.style.marginLeft = width*parseInt(i) + 3 + '%'
+            }
+        }
+    } 
+}

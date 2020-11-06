@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Task from './task';
 import Modal from './modal';
 import { openModal } from '../../store/actions/toggleModalAction';
-import { removeWithSameId, setWidth, AdjustWidth,removeChildren } from './multipleTasks'
+import { removeWithSameId, setWidth, AdjustWidth, removeChildren, todayTd } from './multipleTasks'
 
 class Today extends React.Component{
 
@@ -14,13 +14,19 @@ class Today extends React.Component{
         cellDetails: {}
     }
 
-    componentDidMount(){            
+    componentDidMount(){
         this.setHours();
+        setTimeout(() => {
+            this.setWidthComp()
+        });
     }
 
     componentDidUpdate(){
         // this.removeTasks()
-        this.displayTasks()
+        setTimeout(() => {
+            this.displayTasks()
+        }, 100)
+        
     }
 
     handleDayChange =(e) => {
@@ -31,11 +37,21 @@ class Today extends React.Component{
         removeChildren()
     }
 
+    setWidthComp = () => {
+        const tds = document.querySelectorAll('td');
+        tds.forEach(td => {
+            if(td.childElementCount >=2){
+                todayTd(td)
+            }
+        })
+    }
+
     displayTasks = () => {
         const tds = document.querySelectorAll('td'),
             {tasks} = this.props,
             {day} = this.state,
             date = day ? day : new Date()
+            
 
         tasks.forEach(task => {
             if(new Date(task.date).toString().slice(0,15) === date.toString().slice(0,15)){
@@ -47,8 +63,7 @@ class Today extends React.Component{
                 endTotalMins = parseInt((hourEnd*60 + minuteEnd)),
                 totalCells = Math.round(((hourEnd*60 + minuteEnd) - (hourStart*60 + minuteStart)) / 60),
                 height = ((endTotalMins - startTotalMins) / 15 ) + 'rem'
-
-                console.log(((hourEnd*60 + minuteEnd) - (hourStart*60 + minuteStart)) / 60)
+                
             
             for(let i = 0; i<=totalCells+1; i++){
                 for(let num in tds){
@@ -68,7 +83,6 @@ class Today extends React.Component{
 
                             let lastCard = Task(task)[2]
                             lastCard.style.height = ((endTotalMins%30) / 15) + 'rem'
-                            lastCard.style.backgroundColor = 'red'
                             td.appendChild(lastCard)
 
                     }else if( startTotalMins <= tdTotalMins && endTotalMins > tdTotalMins){
@@ -76,15 +90,15 @@ class Today extends React.Component{
                     }
                     removeWithSameId(td)
                     if (td.childElementCount >= 2) {
-                        setWidth(td);
-                        AdjustWidth(td.children, setWidth(td))
+                     
+                        // setWidth(td)
+                        // AdjustWidth(td.children, setWidth(td))
                     }
-
                 }
             }}
             
         })
-
+        
     }
 
     setTdIds = () => {
@@ -122,7 +136,7 @@ class Today extends React.Component{
                 hours: res
             })
             this.setTdIds();
-            this.displayTasks()
+            this.displayTasks();
         })
     }
 

@@ -227,12 +227,13 @@ export const todayTd = (td) => {
             }
         }
     } 
+
+    
     const taskDivs = document.querySelectorAll('.task');
 
     let tasksIds = [];
 
     taskDivs.forEach(taskDiv => {
-        console.log(!tasksIds.find(id => id === taskDiv.id))
         if(tasksIds.length===0 || !tasksIds.find(id => id === taskDiv.id)){
             tasksIds.push(taskDiv.id)
         }
@@ -242,10 +243,11 @@ export const todayTd = (td) => {
         let divsOfSameTask = []
         taskDivs.forEach(div => {
             if(div.id === id){
-                divsOfSameTask.push(div)
+                divsOfSameTask.push(div);
             }
         })
 
+        divsOfSameTask.forEach(div => console.log(div.offsetWidth))
         
     })
 }

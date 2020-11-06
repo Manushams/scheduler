@@ -222,9 +222,9 @@ export const todayTd = (td) => {
         const div = td.children.item(i)
         if(div.tagName === 'DIV'){
             div.style.width = width + '%'
-            if(parseInt(i)===1){
-                div.style.marginLeft = width*parseInt(i) + 3 + '%'
-            }
+            // if(parseInt(i) >= 1){
+            //     div.style.marginLeft = width*parseInt(i) + 3 + '%'
+            // }
         }
     } 
 
@@ -238,7 +238,7 @@ export const todayTd = (td) => {
             tasksIds.push(taskDiv.id)
         }
     })
-    
+
     tasksIds.forEach(id => {
         let divsOfSameTask = []
         taskDivs.forEach(div => {
@@ -253,7 +253,7 @@ export const todayTd = (td) => {
         divsOfSameTask.forEach(div => {
             const style = div.currentStyle || window.getComputedStyle(div);
             div.style.width = minWidthDiv.offsetWidth +'px'
-            div.style.marginLeft = style.marginLeft + 'px'
+            //div.style.marginLeft =( (minWidthDiv.offsetWidth + 10) * i) + 'px'
         })
         
         

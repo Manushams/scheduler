@@ -25,6 +25,7 @@ class Today extends React.Component{
         // this.removeTasks()
         setTimeout(() => {
             this.displayTasks()
+            this.setWidthComp()
         }, 100)
         
     }

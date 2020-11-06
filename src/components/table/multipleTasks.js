@@ -247,7 +247,15 @@ export const todayTd = (td) => {
             }
         })
 
-        divsOfSameTask.forEach(div => console.log(div.offsetWidth))
+        //divsOfSameTask.forEach(div => console.log(div.offsetWidth))
+        divsOfSameTask.sort((a, b) => a.offsetWidth - b.offsetWidth)
+        const minWidthDiv = divsOfSameTask[0];
+        divsOfSameTask.forEach(div => {
+            const style = div.currentStyle || window.getComputedStyle(div);
+            div.style.width = minWidthDiv.offsetWidth +'px'
+            div.style.marginLeft = style.marginLeft + 'px'
+        })
+        
         
     })
 }

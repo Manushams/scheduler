@@ -217,7 +217,7 @@ export const removeChildren = () => {
 
 export const todayTd = (td) => {
     const width = (100 / td.childElementCount ) - 4 
-    
+
     for(let i in td.children){
         const div = td.children.item(i)
         if(div.tagName === 'DIV'){
@@ -227,8 +227,12 @@ export const todayTd = (td) => {
             // }
         }
     } 
-
     
+   settignWidth()
+}
+
+const settignWidth = () => {
+
     const taskDivs = document.querySelectorAll('.task');
 
     let tasksIds = [];
@@ -254,8 +258,10 @@ export const todayTd = (td) => {
             const style = div.currentStyle || window.getComputedStyle(div);
             div.style.width = minWidthDiv.offsetWidth +'px'
             //div.style.marginLeft =( (minWidthDiv.offsetWidth + 10) * i) + 'px'
+            
         })
         
         
     })
+
 }

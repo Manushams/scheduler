@@ -222,9 +222,16 @@ export const todayTd = (td) => {
         const div = td.children.item(i)
         if(div.tagName === 'DIV'){
             div.style.width = width + '%'
-            // if(parseInt(i) >= 1){
-            //     div.style.marginLeft = width*parseInt(i) + 3 + '%'
-            // }
+            if(parseInt(i) >= 1){
+                const divWithSameId = document.querySelector('#' + CSS.escape(`${div.id}`)),
+                    minMarginLeft = parseInt(divWithSameId.style.marginLeft.toString().slice(0,2))
+                if(!minMarginLeft || minMarginLeft > (width + 3)*parseInt(i)){
+                    const divsWithSameId = document.querySelectorAll('#' + CSS.escape(`${div.id}`))
+                    divsWithSameId.forEach(div => {
+                        div.style.marginLeft = (width + 3)*parseInt(i) + '%'
+                    })
+                }
+            }
         }
     } 
     

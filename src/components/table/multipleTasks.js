@@ -235,7 +235,7 @@ export const todayTd = (td) => {
         }
     } 
     
-   settignWidth()
+   settignWidth();
 }
 
 const settignWidth = () => {

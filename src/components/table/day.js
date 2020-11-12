@@ -1,5 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import {Height} from './task'
 
 class Day extends React.Component{
     
@@ -45,15 +46,19 @@ class Day extends React.Component{
 
     displayTasks = () => {
         const tdParent = document.querySelector('.td-parent'),
-            {tasks} = this.props,
-            div = document.createElement('div')
+            {tasks} = this.props
         
-        div.classList.add('task-div')
-
 
 
         tasks.forEach(task => {
-            
+            const div = document.createElement('div'),
+                p = document.createElement('p')
+        
+             div.classList.add('task-div');
+            p.innerText = task.eventName;
+            div.style.height = Height(task) + 'rem';
+            div.appendChild(p);
+            tdParent.appendChild(div)
         })
 
 
@@ -129,4 +134,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default Day;
+export default connect(mapStateToProps)(Day);

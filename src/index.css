@@ -406,3 +406,38 @@ td{
   position: unset;
 }
 
+.day {
+  width: calc(100% - 5rem);
+  margin-left: 5rem;
+}
+
+.table-parent,.table-parent table {
+  position: unset;
+  width: 100%;
+  border: none;
+}
+
+.td-parent{
+  height: unset;
+  border: none;
+  margin: 0;
+  padding: 0;
+  
+}
+
+.td-parent:hover{
+cursor: unset;
+background-color: white;
+}
+
+.td-parent th{
+  top: 0;
+}
+
+.table-parent table{
+  width: 100%;
+}
+
+.task-div{
+  
+}

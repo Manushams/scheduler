@@ -5,6 +5,7 @@ import Weektable2 from './components/table/weektable2'
 import MonthTable from './components/table/monthTable'
 import Navbar from './components/layout/navbar'
 import Today from './components/table/today'
+import Day from './components/table/day'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/dateTo' component={Weektable} />
           <Route path='/month' component={MonthTable} />
           <Route path='/today' component={Today} />
+          <Route path='/day' component={Day} />
         </Switch>
       </Router>
       

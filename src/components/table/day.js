@@ -108,9 +108,9 @@ class Day extends React.Component{
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {hours.map(hour => {
+                                        {hours.map((hour, i) => {
                                             return(
-                                                <tr>
+                                                <tr key = {i}>
                                                     <th>{hour}</th>
                                                     <td></td>
                                                 </tr>

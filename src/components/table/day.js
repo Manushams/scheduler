@@ -46,17 +46,24 @@ class Day extends React.Component{
 
     displayTasks = () => {
         const tdParent = document.querySelector('.td-parent'),
-            {tasks} = this.props
-        
+            {tasks} = this.props       
 
 
         tasks.forEach(task => {
             const div = document.createElement('div'),
-                p = document.createElement('p')
-        
-             div.classList.add('task-div');
+                p = document.createElement('p'),
+                hrsStart = parseInt(task.timeStart.slice(0,2)),
+                minsStart = parseInt(task.timeStart.slice(3,5)),
+                hrsEnd = parseInt(task.timeEnd.slice(0,2)),
+                minsEnd = parseInt(task.timeEnd.slice(3,5)),
+                top = (hrsStart + minsStart/60) * 2.1875 + 1.5 + 'rem',
+                height = ((hrsEnd*60 + minsEnd) - (hrsStart*60 + minsStart)) * 2.1875/60 +'rem'
+
+                
+            div.classList.add('task-div');
             p.innerText = task.eventName;
-            div.style.height = Height(task) + 'rem';
+            div.style.height = height;
+            div.style.top = top
             div.appendChild(p);
             tdParent.appendChild(div)
         })
@@ -67,7 +74,7 @@ class Day extends React.Component{
 
     render(){
         setTimeout(() => {
-            console.log(this.state)
+            console.log(this.state)           
         }, 100);
         const {day, hours} = this.state,
             date = day.getDate(),

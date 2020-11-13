@@ -6,8 +6,8 @@ const initState = {
             eventName: 'hey There',
             height: 96.5333333333,
             id: '0.181213481234',
-            timeEnd: '12:15',
-            timeStart: '10:45'
+            timeEnd: '13:00',
+            timeStart: '10:00'
         },
         {
             cellDetails: {id: '0.123441231234', row: 2, title: 'Fri Nov 06 2020'},

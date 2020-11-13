@@ -6,7 +6,7 @@ export const Height = (task) => {
     const endMinutes = parseInt(task.timeEnd.toString().slice(3,5))
     const startTotalMins = startHour * 60 + startMinutes
     const endTotalMins = endHour * 60 + endMinutes
-    const heightTask = (endTotalMins - startTotalMins ) * (2/15)
+    const heightTask = (endTotalMins - startTotalMins )
     return heightTask
 }
 

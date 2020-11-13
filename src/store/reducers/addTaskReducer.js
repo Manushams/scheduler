@@ -4,7 +4,7 @@ const initState = {
             cellDetails: {id: '0.1234512312348', row: 2, title: 'Fri Nov 06 2020'},
             date: '2020-11-06',
             eventName: 'hey There',
-            height: 96.5333333333,
+            height: 180,
             id: '0.181213481234',
             timeEnd: '13:00',
             timeStart: '10:00'
@@ -13,7 +13,7 @@ const initState = {
             cellDetails: {id: '0.123441231234', row: 2, title: 'Fri Nov 06 2020'},
             date: '2020-11-06',
             eventName: 'second',
-            height: 96.5333333333,
+            height: 31,
             id: '0.881283481234',
             timeEnd: '11:42',
             timeStart: '11:11'

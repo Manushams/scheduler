@@ -51,8 +51,8 @@ class Today extends React.Component{
         const tds = document.querySelectorAll('td'),
             {tasks} = this.props,
             {day} = this.state,
-            date = day ? day : new Date()
-            
+            date = day ? day : new Date();
+        tasks.sort((task1, task2) => task2.height - task1.height)
 
         tasks.forEach(task => {
             if(new Date(task.date).toString().slice(0,15) === date.toString().slice(0,15)){
@@ -92,8 +92,8 @@ class Today extends React.Component{
                     removeWithSameId(td)
                     if (td.childElementCount >= 2) {
                      
-                        // setWidth(td)
-                        // AdjustWidth(td.children, setWidth(td))
+                        setWidth(td)
+                        AdjustWidth(td.children, setWidth(td))
                     }
                 }
             }}

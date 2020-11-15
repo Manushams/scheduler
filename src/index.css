@@ -422,6 +422,7 @@ td{
   border: none;
   margin: 0;
   padding: 0;
+  position: relative;
   
 }
 
@@ -438,13 +439,21 @@ background-color: white;
   width: 100%;
 }
 
-.task-div{
-  width: 100%;
-  background-color: rgb(0, 158, 105);
-  color: #fff;
-  position: absolute;
-  top: 5.8rem;
-  left: 5rem;
-  z-index: 4;
+.td-parent div{
+  margin: 1.5rem 0 0 7.5rem;
+}
 
+.task-div{
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  background-color: rgb(64, 156, 46);
+  z-index: 4;
+  padding: 0;
+  margin: 0;
+}
+
+.task-div p{
+  margin-top: 0rem;
 }

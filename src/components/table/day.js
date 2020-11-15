@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Height} from './task';
+import {daySetWidth} from './multipleTasks'
 
 class Day extends React.Component{
     
@@ -36,32 +38,18 @@ class Day extends React.Component{
         })
 
     }
+
     handleDayChange = (e) => {
-        console.log(e.target.value)
+
         this.setState({
             day: new Date(e.target.value)
         })
     }
 
     displayTasks = () => {
-        const tdParent = document.querySelector('.td-parent'),
-            {tasks} = this.props       
+        const {tasks} = this.props,
+            divParent = document.querySelector('.td-parent').querySelector('div')        
         tasks.sort((task1, task2) => task2.height - task1.height)
-
-        tasks.forEach(task => {
-            const timeStart = parseInt(task.timeStart.slice(0,2))*60 + parseInt(task.timeStart.slice(3,5)),
-                timeEnd = parseInt(task.timeEnd.slice(0,2))*60 + parseInt(task.timeEnd.slice(3,5))
-            let matchedTasks = [task]
-            tasks.forEach(taskMap => {
-                    const timeStartMap = parseInt(taskMap.timeStart.slice(0,2))*60 + parseInt(taskMap.timeStart.slice(3,5))
-                    if( (task.id !== taskMap.id) && 
-                        (timeStartMap >= timeStart) &&
-                        (timeStartMap < timeEnd)
-                    ){return matchedTasks.push(taskMap)}
-                
-                })
-                console.log('matched',matchedTasks)
-        })        
 
 
 
@@ -82,14 +70,13 @@ class Day extends React.Component{
         //     div.appendChild(p);
         //     tdParent.appendChild(div)
         // })
-
-
     }
 
 
     render(){
         setTimeout(() => {
             console.log(this.state, this.props.tasks)           
+            console.log(document.querySelectorAll('th').item(7).getBoundingClientRect())
         }, 100);
         const {day, hours} = this.state,
             date = day.getDate(),
@@ -140,6 +127,7 @@ class Day extends React.Component{
                                         })}
                                     </tbody>
                                 </table>
+                                <div></div>
                             </td>
                         </tr>
                     </thead>

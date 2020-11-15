@@ -272,3 +272,27 @@ const settignWidth = () => {
     })
 
 }
+
+// export const daySetWidth = (tasks) => {
+//     const matchingTasks = []
+//     tasks.forEach(task => {
+//         if(!matchingTasks.find(t => t.id === task.id)){
+//         const hrsStart = parseInt(task.timeStart.slice(0,2)),
+//             minsStart = parseInt(task.timeStart.slice(3,5)),
+//             hrsEnd = parseInt(task.timeEnd.slice(0,2)),
+//             minsEnd = parseInt(task.timeEnd.slice(3,5)),
+//             startMinsTotal = hrsStart*60 + minsStart,
+//             endMinsTotal = hrsEnd*60 + minsEnd
+
+
+//         const array = tasks.filter(task2 => {
+//             const starttime = parseInt(task2.timeStart.slice(0,2))*60 + parseInt(task2.timeStart.slice(3,5))
+//             if(starttime>= startMinsTotal && starttime<= endMinsTotal){return task2}
+//         })
+
+//         console.log(array)
+        
+//     }}
+//     )
+    
+// }

@@ -17,7 +17,7 @@ const initState = {
             id: '0.881283481234',
             timeEnd: '11:42',
             timeStart: '11:11'
-        },
+        },   
         
     ],
     error: null

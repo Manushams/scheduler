@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Height} from './task';
-import {daySetWidth} from './multipleTasks'
+import {getHours, getMins, totalMins} from './multipleTasks'
 
 class Day extends React.Component{
     
@@ -48,36 +48,29 @@ class Day extends React.Component{
 
     displayTasks = () => {
         const {tasks} = this.props,
-            divParent = document.querySelector('.td-parent').querySelector('div')        
+            divParent = document.querySelector('.td-parent').querySelector('div');     
         tasks.sort((task1, task2) => task2.height - task1.height)
 
-
-
-        // tasks.forEach(task => {
-        //     const div = document.createElement('div'),
-        //         p = document.createElement('p'),
-        //         hrsStart = parseInt(task.timeStart.slice(0,2)),
-        //         minsStart = parseInt(task.timeStart.slice(3,5)),
-        //         hrsEnd = parseInt(task.timeEnd.slice(0,2)),
-        //         minsEnd = parseInt(task.timeEnd.slice(3,5)),
-        //         top = (hrsStart + minsStart/60) * 2.1875 + 1.5 + 'rem',
-        //         height = ((hrsEnd*60 + minsEnd) - (hrsStart*60 + minsStart)) * 2.1875/60 +'rem' 
-                      
-        //     div.classList.add('task-div');
-        //     p.innerText = task.eventName;
-        //     div.style.height = height;
-        //     div.style.top = top
-        //     div.appendChild(p);
-        //     tdParent.appendChild(div)
-        // })
+        tasks.forEach(task => {
+            const div = document.createElement('div'),
+                p = document.createElement('p'),
+                top = totalMins(task)[0]*2.19/60 + 'rem' ;
+            
+            div.classList.add('task-div');
+            div.style.height = task.height*2.175/60 + 'rem'
+            div.style.top = top
+            p.innerHTML = `${task.eventNAme}<br/>${task.timeStart}-${task.timeEnd}`
+            div.appendChild(p);
+            divParent.appendChild(div)
+        })
     }
 
 
     render(){
-        setTimeout(() => {
-            console.log(this.state, this.props.tasks)           
-            console.log(document.querySelectorAll('th').item(7).getBoundingClientRect())
-        }, 100);
+        // setTimeout(() => {
+        //     console.log(this.state, this.props.tasks)           
+        //     console.log(document.querySelectorAll('th').item(7).getBoundingClientRect())
+        // }, 100);
         const {day, hours} = this.state,
             date = day.getDate(),
             month = day.toLocaleString('default', {month: 'long'}),
@@ -127,7 +120,7 @@ class Day extends React.Component{
                                         })}
                                     </tbody>
                                 </table>
-                                <div></div>
+                                <div className='div-parent'></div>
                             </td>
                         </tr>
                     </thead>

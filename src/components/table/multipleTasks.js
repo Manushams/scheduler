@@ -273,26 +273,14 @@ const settignWidth = () => {
 
 }
 
-// export const daySetWidth = (tasks) => {
-//     const matchingTasks = []
-//     tasks.forEach(task => {
-//         if(!matchingTasks.find(t => t.id === task.id)){
-//         const hrsStart = parseInt(task.timeStart.slice(0,2)),
-//             minsStart = parseInt(task.timeStart.slice(3,5)),
-//             hrsEnd = parseInt(task.timeEnd.slice(0,2)),
-//             minsEnd = parseInt(task.timeEnd.slice(3,5)),
-//             startMinsTotal = hrsStart*60 + minsStart,
-//             endMinsTotal = hrsEnd*60 + minsEnd
+export const getHours = (task) => {
+    return [parseInt(task.timeStart.slice(0,2)), parseInt(task.timeEnd.slice(0,2))]
+}
 
+export const getMins = (task) => {
+    return [parseInt(task.timeStart.slice(3,5)), parseInt(task.timeEnd.slice(3,5))]
+}
 
-//         const array = tasks.filter(task2 => {
-//             const starttime = parseInt(task2.timeStart.slice(0,2))*60 + parseInt(task2.timeStart.slice(3,5))
-//             if(starttime>= startMinsTotal && starttime<= endMinsTotal){return task2}
-//         })
-
-//         console.log(array)
-        
-//     }}
-//     )
-    
-// }
+export const totalMins = (task) => {
+    return [(getHours(task)[0]*60 + getMins(task)[0]), (getHours(task)[1]*60 + getMins(task)[1])]
+}

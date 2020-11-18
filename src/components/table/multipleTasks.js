@@ -335,3 +335,22 @@ const spanToNum = (time) => {
     
     return [startTotalMins, endTotalMins, hrsStart, minsStart, hrsEnd, minsEnd]
 }
+
+export const removeIdenticalDivs = () => {
+    const divs = document.querySelectorAll('.task-div');
+    let ids = []
+
+    divs.forEach(div => ids.push(div.id))
+    ids = Array.from(new Set(ids));
+
+    ids.forEach(id => {
+        const tasks = document.querySelectorAll('#' + CSS.escape(`${id}`));
+        
+        if(tasks.length > 1){
+            for(let num in tasks){
+                let task = tasks[num]
+                if(parseInt(num) > 0) task.remove()
+            }
+        }
+    })
+}

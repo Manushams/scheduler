@@ -17,26 +17,7 @@ const initState = {
             id: '0.881283481234',
             timeEnd: '11:42',
             timeStart: '11:11'
-        },   
-        {
-            cellDetails: {id: '0.223441231234', row: 2, title: 'Fri Nov 06 2020'},
-            date: '2020-11-06',
-            eventName: '3',
-            height: 280,
-            id: '0.281283481234',
-            timeEnd: '15:42',
-            timeStart: '15:11'
-        },   
-        {
-            cellDetails: {id: '0.523441231234', row: 2, title: 'Fri Nov 06 2020'},
-            date: '2020-11-06',
-            eventName: '4',
-            height: 281,
-            id: '0.581283481234',
-            timeEnd: '15:42',
-            timeStart: '15:11'
-        },  
-        
+        },           
     ],
     error: null
 }

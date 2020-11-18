@@ -1,17 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Height} from './task';
-import {getHours, getMins, totalMins, setWidthDay} from './multipleTasks'
+import {getHours, getMins, totalMins, setWidthDay, removeIdenticalDivs} from './multipleTasks';
+import { openModal } from '../../store/actions/toggleModalAction';
+import Modal from './modal';
 
 class Day extends React.Component{
     
     state = {
         hours: [],
         day: new Date(),
+        displayed: []
     };
 
     componentDidMount(){
         this.setHours();
+        this.displayTasks();
+    }
+    componentDidUpdate(){
         this.displayTasks();
     }
 
@@ -40,21 +46,25 @@ class Day extends React.Component{
     }
 
     handleDayChange = (e) => {
-
         this.setState({
             day: new Date(e.target.value)
         })
     }
 
     displayTasks = () => {
-        const {tasks} = this.props,
-            divParent = document.querySelector('.td-parent').querySelector('div');     
+        let {tasks} = this.props
+        const {day, displayed} = this.state,
+            divParent = document.querySelector('.td-parent').querySelector('div'),
+            taskDivs = document.querySelectorAll('.task-div')
+
+        //tasks = tasks.filter(task => new Date(task.date) === day  )
         tasks.sort((task1, task2) => task2.height - task1.height)
 
         tasks.forEach(task => {
+            
             const div = document.createElement('div'),
                 p = document.createElement('p'),
-                top = totalMins(task)[0]*2.19/60 + 'rem' ;
+                top = totalMins(task)[0]*2.19/60 + 'rem';
             
             div.classList.add('task-div');
             div.style.height = task.height*2.175/60 + 'rem'
@@ -64,8 +74,8 @@ class Day extends React.Component{
             div.appendChild(p);
             divParent.appendChild(div)
         })
+        removeIdenticalDivs()
         setWidthDay()
-
     }
 
 
@@ -78,7 +88,8 @@ class Day extends React.Component{
             date = day.getDate(),
             month = day.toLocaleString('default', {month: 'long'}),
             year = day.getFullYear(),
-            dayWeek = day.toLocaleString('default', {weekday: 'short'})
+            dayWeek = day.toLocaleString('default', {weekday: 'short'}),
+            {modalEnable, openModal} = this.props
 
         return(
             <div className='day'>
@@ -117,7 +128,9 @@ class Day extends React.Component{
                                             return(
                                                 <tr key = {i}>
                                                     <th>{hour}</th>
-                                                    <td></td>
+                                                    <td
+                                                        onClick = {openModal}
+                                                    ></td>
                                                 </tr>
                                             )
                                         })}
@@ -128,6 +141,12 @@ class Day extends React.Component{
                         </tr>
                     </thead>
                 </table>
+                {modalEnable ? 
+                    <Modal
+                        cellDetails = {day}
+                    /> 
+                    : null
+                }
             </div>
         )
     }
@@ -140,4 +159,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Day);
+const mapDispatchToProps = dispatch => {
+    return{
+        openModal: () => dispatch(openModal())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Day);

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Height} from './task';
-import {getHours, getMins, totalMins} from './multipleTasks'
+import {getHours, getMins, totalMins, setWidthDay} from './multipleTasks'
 
 class Day extends React.Component{
     
@@ -58,11 +58,14 @@ class Day extends React.Component{
             
             div.classList.add('task-div');
             div.style.height = task.height*2.175/60 + 'rem'
-            div.style.top = top
-            p.innerHTML = `${task.eventNAme}<br/>${task.timeStart}-${task.timeEnd}`
+            div.style.top = top;
+            div.setAttribute('id', task.id)
+            p.innerHTML = `${task.eventNAme}<br/><span>${task.timeStart}-${task.timeEnd}</span>`
             div.appendChild(p);
             divParent.appendChild(div)
         })
+        setWidthDay()
+
     }
 
 

@@ -284,3 +284,49 @@ export const getMins = (task) => {
 export const totalMins = (task) => {
     return [(getHours(task)[0]*60 + getMins(task)[0]), (getHours(task)[1]*60 + getMins(task)[1])]
 }
+
+export const setWidthDay = () => {
+    const divs = document.querySelectorAll('.task-div')
+    let matchingDivs = [],
+        divsArray = []
+
+    for(let num = 0; num < divs.length; num++ ){
+        const div = divs[num]
+        divsArray.push(div)
+    }
+    divsArray.sort((a,b) => b.offsetHeight - a.offsetHeight)
+    
+    divsArray.forEach(div => {
+        const time = spanToNum(div.querySelector('span').innerText)
+        
+        divsArray.forEach(div2 => {
+            const time2 = spanToNum(div2.querySelector('span').innerText) 
+
+            if((time2[0] >= time[0]) &&
+                (time2[0] <= time[1])){
+                    matchingDivs.push(div2)
+                    divsArray = divsArray.filter(div3 => div3.id !== div2.id)
+                    console.log(divsArray)
+                }
+        })
+        matchingDivs = Array.from(new Set(matchingDivs))
+        console.log('matchingDivs', matchingDivs)
+        for (let num in matchingDivs){
+            const div = matchingDivs[num];
+            div.style.width = (93/matchingDivs.length) - 4 + '%';
+            div.style.left = ((93/matchingDivs.length) - 2)*num + '%'
+        }
+        
+    })
+}
+
+const spanToNum = (time) => {
+    const hrsStart = parseInt(time.slice(0,2)),
+        minsStart = parseInt(time.slice(3,5)),
+        hrsEnd = parseInt(time.slice(6,8)),
+        minsEnd = parseInt(time.slice(9,11)),
+        startTotalMins = hrsStart*60 + minsStart,
+        endTotalMins = hrsEnd*60 + minsEnd
+    
+    return [startTotalMins, endTotalMins, hrsStart, minsStart, hrsEnd, minsEnd]
+}

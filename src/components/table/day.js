@@ -60,7 +60,7 @@ class Day extends React.Component{
             div.style.height = task.height*2.175/60 + 'rem'
             div.style.top = top;
             div.setAttribute('id', task.id)
-            p.innerHTML = `${task.eventNAme}<br/><span>${task.timeStart}-${task.timeEnd}</span>`
+            p.innerHTML = `${task.eventName}<br/><span>${task.timeStart}-${task.timeEnd}</span>`
             div.appendChild(p);
             divParent.appendChild(div)
         })

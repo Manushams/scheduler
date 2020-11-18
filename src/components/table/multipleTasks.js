@@ -303,10 +303,14 @@ export const setWidthDay = () => {
             const time2 = spanToNum(div2.querySelector('span').innerText) 
 
             if((time2[0] >= time[0]) &&
-                (time2[0] <= time[1])){
+                (time2[0] <= time[1]) 
+                ){
                     matchingDivs.push(div2)
                     divsArray = divsArray.filter(div3 => div3.id !== div2.id)
-                    console.log(divsArray)
+                    console.log(div2)
+                }else if ((time2[1]>=time[0]) && (time2[1] <= time[1])){
+                    matchingDivs.push(div2)
+                    divsArray = divsArray.filter(div3 => div3.id !== div2.id)
                 }
         })
         matchingDivs = Array.from(new Set(matchingDivs))
@@ -315,7 +319,8 @@ export const setWidthDay = () => {
             const div = matchingDivs[num];
             div.style.width = (93/matchingDivs.length) - 4 + '%';
             div.style.left = ((93/matchingDivs.length) - 2)*num + '%'
-        }
+        };
+        matchingDivs = []
         
     })
 }

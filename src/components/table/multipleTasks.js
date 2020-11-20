@@ -38,32 +38,32 @@ export const setWidth = (td) => {
     return width
 }
 
-export const Match2 = (tasks) => {
+// export const Match2 = (tasks) => {
 
-    let array = []
+//     let array = []
 
-    for (let i in tasks) {
-        const task = tasks[i];
+//     for (let i in tasks) {
+//         const task = tasks[i];
 
-        tasks.map(taskMap => {
+//         tasks.map(taskMap => {
 
-            if (task.cellDetails.id !== taskMap.cellDetails.id && task.cellDetails.title === taskMap.cellDetails.title) {
-                if (Match(taskMap, task)) {
-                    if (!taskMap.checked || !taskMap.checked) {
-                        array.push([task, taskMap])
-                        taskMap.checked = true
-                        taskMap.direction = 'left'
-                        task.checked = true
-                        task.direction = 'right'
-                    }
-                }
-            }
+//             if (task.cellDetails.id !== taskMap.cellDetails.id && task.cellDetails.title === taskMap.cellDetails.title) {
+//                 if (Match(taskMap, task)) {
+//                     if (!taskMap.checked || !taskMap.checked) {
+//                         array.push([task, taskMap])
+//                         taskMap.checked = true
+//                         taskMap.direction = 'left'
+//                         task.checked = true
+//                         task.direction = 'right'
+//                     }
+//                 }
+//             }
 
-        })
-    }
+//         })
+//     }
 
-    return (array)
-}
+//     return (array)
+// }
 
 export const Match = (task1, task2) => {
 
@@ -132,7 +132,7 @@ export const AdjustWidth = (divs, width) => {
         taskDivs.forEach(div => {
             div.style.width = width + '%';
 
-            allTaskDivs.map(details => {
+            allTaskDivs.forEach(details => {
                 if (div.id === details.id) {
                     div.style.marginLeft = details.margin
                 }
@@ -160,7 +160,7 @@ export const WidthAdjust = (divs) => {
     })
 }
 
-const HeighestTask = (tasks, day) => {
+export const HeighestTask = (tasks, day) => {
     const tasksOnDay = tasks.filter(task => task.cellDetails.title === day)
 
     let tasksArray = [];
@@ -258,7 +258,7 @@ const settignWidth = () => {
         divsOfSameTask.sort((a, b) => a.offsetWidth - b.offsetWidth)
         const minWidthDiv = divsOfSameTask[0];
         divsOfSameTask.forEach(div => {
-            const style = div.currentStyle || window.getComputedStyle(div);
+            //const style = div.currentStyle || window.getComputedStyle(div);
             div.style.width = minWidthDiv.offsetWidth + 'px'
         })
     })

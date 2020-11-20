@@ -463,3 +463,8 @@ background-color: white;
 .task-div p{
   margin-top: 0rem;
 }
+
+.week{
+  width: calc(100% - 5rem);
+  margin-left: 5rem;
+}

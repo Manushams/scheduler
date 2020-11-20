@@ -1,10 +1,10 @@
 import React from 'react';
-import moment from 'moment';
-import Modal from './modal'
+// import moment from 'moment';
+// import Modal from './modal'
 import {connect} from 'react-redux'
-import Task from './task'
+// import Task from './task'
 import {openModal} from '../../store/actions/toggleModalAction'
-import {Match2} from './multipleTasks'
+// import {Match2} from './multipleTasks'
 import Weektable2 from './weektable2'
 
 

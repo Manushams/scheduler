@@ -32,7 +32,6 @@ class Day extends React.Component {
                 } else {
                     hours.push(`${i}:00`)
                 }
-
             }
             return resolve(hours)
         })

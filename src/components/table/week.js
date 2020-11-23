@@ -1,10 +1,13 @@
+import { relativeTimeThreshold } from 'moment';
 import React from 'react';
+import Day from './day'
 
 class Week extends React.Component{
     state = {
         day: new Date(),
         daysInWeek: '',
-        dateOnMonday: ''
+        dateOnMonday: '',
+        hours: ''
     }
 
     totalDaysInMonth = (month) => {
@@ -12,8 +15,25 @@ class Week extends React.Component{
     }
     
     componentDidMount(){
-        this.setDaysInWeek()
-    }    
+        this.setDaysInWeek();
+        this.setHours();
+    }
+    
+    setHours = () => {
+
+        let hours = []
+        for (let i = 0; i < 24; i++) {
+            if (i < 10) {
+                hours.push(`0${i}:00`)
+            } else {
+                hours.push(`${i}:00`)
+            }
+        }
+
+        this.setState({
+            hours: [...hours]
+        })
+    }
 
     dateOnChange = (e) => {
         this.setState({
@@ -53,7 +73,10 @@ class Week extends React.Component{
 
 
     render(){
-        const {day, daysInWeek, dateOnMonday} = this.state,
+        setTimeout(() => {
+            console.log(this.state)
+        }, 10);
+        const {day, daysInWeek, dateOnMonday, hours} = this.state,
             month = day.toLocaleString('default', {month: 'long'}),
             year = day.getFullYear()
         
@@ -72,6 +95,48 @@ class Week extends React.Component{
                         <li><a href="#!">Month</a></li>
                     </ul>
                 </div>
+
+                <table>
+                    
+                    <thead>
+                        <tr className='tr-heading'>
+                            <th></th>
+                            {daysInWeek && daysInWeek.map(day => {
+                                return(
+                                    <>
+                                        <th
+                                            id = {day.toString().slice(0, 15)}
+                                        >
+                                            {day.toLocaleDateString('locale', { weekday: 'short' })}
+                                            <br />
+                                            {day.getDate()}
+                                        </th>
+                                    </>
+                                )
+                            })}
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {hours && hours.map(hour => {
+                            return(
+                                <>
+                                    <tr>
+                                        <th rowSpan='2'>{hour}</th>
+                                        {[...Array(7)].map(() => 
+                                            <td></td>
+                                        )}
+                                    </tr>
+                                    <tr>
+                                        {[...Array(7)].map(() => 
+                                            <td></td>
+                                        )}
+                                    </tr>
+                                </>
+                            )
+                        })}
+                    </tbody>
+                </table>
 
 
             </div>

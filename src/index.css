@@ -468,3 +468,21 @@ background-color: white;
   width: calc(100% - 5rem);
   margin-left: 5rem;
 }
+
+.week table{
+  width: 100%;
+}
+
+.week{
+  position: unset;
+}
+
+.week th[rowSpan = '2']{
+  position: unset;
+}
+
+.tr-heading th{
+  width: 12.5%;
+  padding-left: .2rem;
+  height: 3rem;
+}

@@ -1,13 +1,15 @@
-import { relativeTimeThreshold } from 'moment';
 import React from 'react';
-import Day from './day'
+import {connect} from 'react-redux';
+import { openModal } from '../../store/actions/toggleModalAction';
+import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask } from './multipleTasks';
 
 class Week extends React.Component{
     state = {
         day: new Date(),
         daysInWeek: '',
         dateOnMonday: '',
-        hours: ''
+        hours: '',
+        weekDaysShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     }
 
     totalDaysInMonth = (month) => {
@@ -17,6 +19,7 @@ class Week extends React.Component{
     componentDidMount(){
         this.setDaysInWeek();
         this.setHours();
+        this.displayTasks()
     }
     
     setHours = () => {
@@ -29,11 +32,11 @@ class Week extends React.Component{
                 hours.push(`${i}:00`)
             }
         }
-
         this.setState({
             hours: [...hours]
         })
     }
+
 
     dateOnChange = (e) => {
         this.setState({
@@ -44,6 +47,7 @@ class Week extends React.Component{
             this.setDaysInWeek()
         }, 10);
     }
+
 
     setDaysInWeek = () => {
         const {day} = this.state,
@@ -72,14 +76,47 @@ class Week extends React.Component{
     }
 
 
-    render(){
+    displayTasks = () => {
+        const {tasks} = this.props,
+            weekdays = document.querySelector('.weekday')
+            
+        weekdays.addEventListener('mousedown', () => console.log('asdf'))
+        
+        const ths = document.querySelectorAll('th')
+            console.log('th',ths)
         setTimeout(() => {
-            console.log(this.state)
+            
         }, 10);
-        const {day, daysInWeek, dateOnMonday, hours} = this.state,
+            
+
+
+        console.log('display task', document.querySelectorAll('.weekday'))
+        tasks.forEach(task => {
+            const div = document.createElement('div'),
+                p = document.createElement('p');
+
+            p.innerText = task.eventName;
+            div.classList.add('task-div');
+            div.appendChild(p)
+            console.log(task)
+            
+
+        })
+    }
+
+    render(){
+        const {day, daysInWeek, weekDaysShort, hours} = this.state,
             month = day.toLocaleString('default', {month: 'long'}),
             year = day.getFullYear()
         
+            // setTimeout(() => {
+            //     const th = document.querySelectorAll('th'),
+            //         div = document.querySelector('.div-parent')
+            //     console.log(th[4].getBoundingClientRect());
+            //     div.style.left = th[4].getBoundingClientRect().left - 120 + 'px'
+            //     div.style.top = th[4].getBoundingClientRect().top - 22 + 'px'
+            // }, 100);
+            
         return(
             <div className="week">
                 
@@ -89,7 +126,7 @@ class Week extends React.Component{
                         <input id='top-bar-calendar' type="date" onChange={this.dateOnChange} />
                     </div>
                     <ul>
-                        <li><a href="/today">Today</a></li>
+                        <li><a href="/day">Today</a></li>
                         <li><a href="#!">Week</a></li>
                         <li><a href="#!">Work Week</a></li>
                         <li><a href="#!">Month</a></li>
@@ -138,10 +175,31 @@ class Week extends React.Component{
                     </tbody>
                 </table>
 
+                {weekDaysShort.map(day => 
+                    
+                    <div
+                        className={day +' weekday' }
+                    >
+                    </div>
+                    
+                )}
+                
 
             </div>
         )
     }
 }
 
-export default Week;
+const mapStateToProps = state => {
+    return{
+        tasks: state.addTask.tasks,
+        modalEnable: state.toggleModal.modalEnable,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        openModal: () => dispatch(openModal())
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Week)

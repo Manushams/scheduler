@@ -77,29 +77,36 @@ class Week extends React.Component{
 
 
     displayTasks = () => {
-        const {tasks} = this.props,
-            weekdays = document.querySelector('.weekday')
-            
-        weekdays.addEventListener('mousedown', () => console.log('asdf'))
-        
-        const ths = document.querySelectorAll('th')
-            console.log('th',ths)
+        const {tasks} = this.props
+        const weekdays = Array.from(document.querySelectorAll('.weekday'))            
+               
         setTimeout(() => {
-            
+            let ths = Array.from(document.querySelectorAll('th')),
+                weekdays = Array.from(document.querySelectorAll('.weekday'))
+
+            ths = ths.filter(th => th.id)
+
+            for(let i=0; i < ths.length; i++){
+                weekdays[i].style.top = ths[i].getBoundingClientRect().top + 'px';
+                weekdays[i].style.left = ths[i].getBoundingClientRect().left + 'px';
+                weekdays[i].style.width = ths[i].getBoundingClientRect().width - 8 + 'px';
+                console.log(ths[i].getBoundingClientRect())
+            }              
         }, 10);
-            
 
-
-        console.log('display task', document.querySelectorAll('.weekday'))
         tasks.forEach(task => {
             const div = document.createElement('div'),
-                p = document.createElement('p');
-
+                p = document.createElement('p'),
+                dayTask = new Date(task.date).getDay(),
+                dayConverted = dayTask === 0 ? 6 : dayTask - 1,
+                divWeekday = weekdays[dayConverted]  
+            
             p.innerText = task.eventName;
             div.classList.add('task-div');
             div.appendChild(p)
-            console.log(task)
-            
+
+            divWeekday.appendChild(div)
+              
 
         })
     }
@@ -183,7 +190,6 @@ class Week extends React.Component{
                     </div>
                     
                 )}
-                
 
             </div>
         )

@@ -276,8 +276,8 @@ export const totalMins = (task) => {
     return [(getHours(task)[0] * 60 + getMins(task)[0]), (getHours(task)[1] * 60 + getMins(task)[1])]
 }
 
-export const setWidthDay = () => {
-    const divs = document.querySelectorAll('.task-div')
+export const setWidthDay = (divWeekday) => {
+    const divs = divWeekday ? divWeekday : document.querySelectorAll('.task-div')
     let matchingDivs = [],
         divsArray = []
 

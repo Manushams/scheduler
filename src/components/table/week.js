@@ -103,13 +103,14 @@ class Week extends React.Component{
                 height = task.height,
                 minsTotal =  parseInt(task.timeStart.slice(0,2))*60 + parseInt(task.timeStart.slice(3,5))  
             
-            p.innerHTML = `${task.eventName} </br> ${task.timeStart}-${task.timeEnd}`;
+            p.innerHTML = `${task.eventName} </br> <span>${task.timeStart}-${task.timeEnd}</span>`;
             div.classList.add('task-div');
             div.style.height = height * 35/30 + 'px';
-            div.style.top = minsTotal  * 35/30 + 'px';
+            div.style.top = minsTotal  * 35/30 + 2 + 'px';
             div.appendChild(p)
 
-            divWeekday.appendChild(div)
+            divWeekday.appendChild(div);
+            setWidthDay(divWeekday.children)
         })
     }
 

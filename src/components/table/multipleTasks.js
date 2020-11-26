@@ -316,7 +316,7 @@ export const setWidthDay = () => {
     })
 }
 
-const spanToNum = (time) => {
+export const spanToNum = (time) => {
     const hrsStart = parseInt(time.slice(0, 2)),
         minsStart = parseInt(time.slice(3, 5)),
         hrsEnd = parseInt(time.slice(6, 8)),

@@ -459,6 +459,7 @@ background-color: white;
   width: 93%;
   overflow: hidden;
   z-index: 5;
+  text-align: center;
 }
 
 .task-div p{
@@ -489,11 +490,9 @@ background-color: white;
 }
 
 .weekday{
-  background-color: yellow;
   width: 3rem;
-  height: 3rem;
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 5;
+  
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { openModal } from '../../store/actions/toggleModalAction';
-import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask } from './multipleTasks';
+import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask, spanToNum } from './multipleTasks';
 
 class Week extends React.Component{
     state = {
@@ -87,10 +87,10 @@ class Week extends React.Component{
             ths = ths.filter(th => th.id)
 
             for(let i=0; i < ths.length; i++){
-                weekdays[i].style.top = ths[i].getBoundingClientRect().top + 'px';
+                weekdays[i].style.top = ths[i].getBoundingClientRect().bottom + 'px';
                 weekdays[i].style.left = ths[i].getBoundingClientRect().left + 'px';
                 weekdays[i].style.width = ths[i].getBoundingClientRect().width - 8 + 'px';
-                console.log(ths[i].getBoundingClientRect())
+                console.log(document.querySelector('td').offsetHeight)
             }              
         }, 10);
 
@@ -99,15 +99,17 @@ class Week extends React.Component{
                 p = document.createElement('p'),
                 dayTask = new Date(task.date).getDay(),
                 dayConverted = dayTask === 0 ? 6 : dayTask - 1,
-                divWeekday = weekdays[dayConverted]  
+                divWeekday = weekdays[dayConverted],
+                height = task.height,
+                minsTotal =  parseInt(task.timeStart.slice(0,2))*60 + parseInt(task.timeStart.slice(3,5))  
             
-            p.innerText = task.eventName;
+            p.innerHTML = `${task.eventName} </br> ${task.timeStart}-${task.timeEnd}`;
             div.classList.add('task-div');
+            div.style.height = height * 35/30 + 'px';
+            div.style.top = minsTotal  * 35/30 + 'px';
             div.appendChild(p)
 
             divWeekday.appendChild(div)
-              
-
         })
     }
 

@@ -28,7 +28,7 @@ class Week extends React.Component{
     componentDidUpdate(){
         setTimeout(() => {
             this.displayTasks()            
-        }, );
+        });
     }
     
     setHours = () => {
@@ -97,47 +97,46 @@ class Week extends React.Component{
             weekdays[i].style.top = ths[i].getBoundingClientRect().bottom + 'px';
             weekdays[i].style.left = ths[i].getBoundingClientRect().left + 'px';
             weekdays[i].style.width = ths[i].getBoundingClientRect().width - 8 + 'px';
-            console.log(document.querySelector('td').offsetHeight)
         }              
         
         
         tasks.forEach(task => {
-        //console.log(ths.find(th => th.id == task.cellDetails.title))
-        ths.forEach(th => {
-            if(th.id === new Date(task.date).toString().slice(0,15)){
 
-                const div = document.createElement('div'),
-                    p = document.createElement('p'),
-                    dayTask = new Date(task.date).getDay(),
-                    dayConverted = dayTask === 0 ? 6 : dayTask - 1,
-                    divWeekday = weekdays[dayConverted],
-                    height = task.height,
-                    minsTotal =  parseInt(task.timeStart.slice(0,2))*60 + parseInt(task.timeStart.slice(3,5))  
-                   
-                p.innerHTML = `${task.eventName} </br> <span>${task.timeStart}-${task.timeEnd}</span>`;
-                div.classList.add('task-div');
-                div.setAttribute('id', task.id);
-                div.style.height = height * 35/30 + 'px';
-                div.style.top = minsTotal  * 35/30 + 2 + 'px';
-                div.appendChild(p)
-    
-                divWeekday.appendChild(div);
-                removeIdenticalDivs()
-                setWidthDay(divWeekday.children)
+            ths.forEach(th => {
+                if(th.id === new Date(task.date).toString().slice(0,15)){
 
-
-            }
-            
-        })
+                    const div = document.createElement('div'),
+                        p = document.createElement('p'),
+                        dayTask = new Date(task.date).getDay(),
+                        dayConverted = dayTask === 0 ? 6 : dayTask - 1,
+                        divWeekday = weekdays[dayConverted],
+                        height = task.height,
+                        minsTotal =  parseInt(task.timeStart.slice(0,2))*60 + parseInt(task.timeStart.slice(3,5))  
+                    
+                    p.innerHTML = `${task.eventName} </br> <span>${task.timeStart}-${task.timeEnd}</span>`;
+                    div.classList.add('task-div');
+                    div.setAttribute('id', task.id);
+                    div.style.height = height * 35/30 + 'px';
+                    div.style.top = minsTotal  * 35/30 + 2 + 'px';
+                    div.appendChild(p)
+        
+                    divWeekday.appendChild(div);
+                    removeIdenticalDivs()
+                    setWidthDay(divWeekday.children)    
+                }
+            })
         })
     }
 
     render(){
+        window.addEventListener('resize', () => this.displayTasks());
+        
         const {day, daysInWeek, weekDaysShort, hours} = this.state,
             month = day.toLocaleString('default', {month: 'long'}),
             year = day.getFullYear(),
             {modalEnable, openModal} = this.props
                     
+
         return(
             <div className="week">
                 
@@ -201,12 +200,10 @@ class Week extends React.Component{
                 </table>
 
                 {weekDaysShort.map(day => 
-                    
                     <div
                         className={day +' weekday' }
                     >
                     </div>
-                    
                 )}
 
                 {modalEnable ?

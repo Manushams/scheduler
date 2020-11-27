@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { openModal } from '../../store/actions/toggleModalAction';
 import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask, spanToNum } from './multipleTasks';
+import Modal from './modal'
 
 class Week extends React.Component{
     state = {
@@ -19,7 +20,15 @@ class Week extends React.Component{
     componentDidMount(){
         this.setDaysInWeek();
         this.setHours();
-        this.displayTasks()
+        setTimeout(() => {
+            this.displayTasks()            
+        }, );
+    }
+
+    componentDidUpdate(){
+        setTimeout(() => {
+            this.displayTasks()            
+        }, );
     }
     
     setHours = () => {
@@ -42,7 +51,7 @@ class Week extends React.Component{
         this.setState({
             day: new Date(e.target.value)
         })
-        
+        removeTaskDivs(document.querySelectorAll('.task-div'))
         setTimeout(() => {
             this.setDaysInWeek()
         }, 10);
@@ -55,7 +64,8 @@ class Week extends React.Component{
             weekDay = day.getDay(),
             month = day.getMonth(),
             year = day.getFullYear()
-        let dateOnMonday = weekDay > 0 ? date - weekDay + 1 : date - 6
+        let dateOnMonday = weekDay > 0 ? date - weekDay + 1 : date - 6;
+
         if(dateOnMonday < 1){
             if(dateOnMonday === 0){
                 dateOnMonday = this.totalDaysInMonth(month)
@@ -77,56 +87,57 @@ class Week extends React.Component{
 
 
     displayTasks = () => {
-        const {tasks} = this.props
-        const weekdays = Array.from(document.querySelectorAll('.weekday'))            
-               
-        setTimeout(() => {
-            let ths = Array.from(document.querySelectorAll('th')),
-                weekdays = Array.from(document.querySelectorAll('.weekday'))
+        const {tasks} = this.props,
+            weekdays = Array.from(document.querySelectorAll('.weekday'))                           
+        let ths = Array.from(document.querySelectorAll('th'))
+            //weekdays = Array.from(document.querySelectorAll('.weekday'))
 
-            ths = ths.filter(th => th.id)
-
-            for(let i=0; i < ths.length; i++){
-                weekdays[i].style.top = ths[i].getBoundingClientRect().bottom + 'px';
-                weekdays[i].style.left = ths[i].getBoundingClientRect().left + 'px';
-                weekdays[i].style.width = ths[i].getBoundingClientRect().width - 8 + 'px';
-                console.log(document.querySelector('td').offsetHeight)
-            }              
-        }, 10);
-
+        ths = ths.filter(th => th.id)
+        for(let i=0; i < ths.length; i++){
+            weekdays[i].style.top = ths[i].getBoundingClientRect().bottom + 'px';
+            weekdays[i].style.left = ths[i].getBoundingClientRect().left + 'px';
+            weekdays[i].style.width = ths[i].getBoundingClientRect().width - 8 + 'px';
+            console.log(document.querySelector('td').offsetHeight)
+        }              
+        
+        
         tasks.forEach(task => {
-            const div = document.createElement('div'),
-                p = document.createElement('p'),
-                dayTask = new Date(task.date).getDay(),
-                dayConverted = dayTask === 0 ? 6 : dayTask - 1,
-                divWeekday = weekdays[dayConverted],
-                height = task.height,
-                minsTotal =  parseInt(task.timeStart.slice(0,2))*60 + parseInt(task.timeStart.slice(3,5))  
-            
-            p.innerHTML = `${task.eventName} </br> <span>${task.timeStart}-${task.timeEnd}</span>`;
-            div.classList.add('task-div');
-            div.style.height = height * 35/30 + 'px';
-            div.style.top = minsTotal  * 35/30 + 2 + 'px';
-            div.appendChild(p)
+        //console.log(ths.find(th => th.id == task.cellDetails.title))
+        ths.forEach(th => {
+            if(th.id === new Date(task.date).toString().slice(0,15)){
 
-            divWeekday.appendChild(div);
-            setWidthDay(divWeekday.children)
+                const div = document.createElement('div'),
+                    p = document.createElement('p'),
+                    dayTask = new Date(task.date).getDay(),
+                    dayConverted = dayTask === 0 ? 6 : dayTask - 1,
+                    divWeekday = weekdays[dayConverted],
+                    height = task.height,
+                    minsTotal =  parseInt(task.timeStart.slice(0,2))*60 + parseInt(task.timeStart.slice(3,5))  
+                   
+                p.innerHTML = `${task.eventName} </br> <span>${task.timeStart}-${task.timeEnd}</span>`;
+                div.classList.add('task-div');
+                div.setAttribute('id', task.id);
+                div.style.height = height * 35/30 + 'px';
+                div.style.top = minsTotal  * 35/30 + 2 + 'px';
+                div.appendChild(p)
+    
+                divWeekday.appendChild(div);
+                removeIdenticalDivs()
+                setWidthDay(divWeekday.children)
+
+
+            }
+            
+        })
         })
     }
 
     render(){
         const {day, daysInWeek, weekDaysShort, hours} = this.state,
             month = day.toLocaleString('default', {month: 'long'}),
-            year = day.getFullYear()
-        
-            // setTimeout(() => {
-            //     const th = document.querySelectorAll('th'),
-            //         div = document.querySelector('.div-parent')
-            //     console.log(th[4].getBoundingClientRect());
-            //     div.style.left = th[4].getBoundingClientRect().left - 120 + 'px'
-            //     div.style.top = th[4].getBoundingClientRect().top - 22 + 'px'
-            // }, 100);
-            
+            year = day.getFullYear(),
+            {modalEnable, openModal} = this.props
+                    
         return(
             <div className="week">
                 
@@ -171,12 +182,16 @@ class Week extends React.Component{
                                     <tr>
                                         <th rowSpan='2'>{hour}</th>
                                         {[...Array(7)].map(() => 
-                                            <td></td>
+                                            <td 
+                                                onClick={openModal}
+                                            ></td>
                                         )}
                                     </tr>
                                     <tr>
                                         {[...Array(7)].map(() => 
-                                            <td></td>
+                                            <td
+                                                onClick={openModal}
+                                            ></td>
                                         )}
                                     </tr>
                                 </>
@@ -193,6 +208,13 @@ class Week extends React.Component{
                     </div>
                     
                 )}
+
+                {modalEnable ?
+                    <Modal
+                        // startTime={startTime}
+                        cellDetails={day}
+                    /> : null
+                }
 
             </div>
         )

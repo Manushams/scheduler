@@ -89,7 +89,7 @@ class Week extends React.Component{
     displayTasks = () => {
         const {tasks} = this.props,
             weekdays = Array.from(document.querySelectorAll('.weekday'))                           
-        let ths = Array.from(document.querySelectorAll('th'))
+        let ths = Array.from(document.querySelectorAll('th'));
             //weekdays = Array.from(document.querySelectorAll('.weekday'))
 
         ths = ths.filter(th => th.id)

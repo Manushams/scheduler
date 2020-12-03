@@ -125,9 +125,8 @@ class MonthTable extends React.Component{
                         <input id='top-bar-calendar' type="date" onChange={this.handleMonthChange}/>
                     </div>
                         <ul>
-                            <li><a href="#!">Today</a></li>
-                            <li><a href="/">Week</a></li>
-                            <li><a href="#!">Work Week</a></li>
+                            <li><a href="/day">Day</a></li>
+                            <li><a href="/week">Week</a></li>
                             <li><a href="/month">Month</a></li>
                         </ul>
                 </div>

@@ -6,14 +6,15 @@ import MonthTable from './components/table/monthTable'
 import Navbar from './components/layout/navbar'
 import Today from './components/table/today'
 import Day from './components/table/day'
-import Week from './components/table/week'
+import Week from './components/table/week';
+import Ham from './components/layout/hamButton'
 
 function App() {
   return (
     <div className="App">
       <Router>
+      <Ham />
       <Navbar/>
-      
         <Switch>
           <Route exact path='/' component={Weektable2} />
           <Route path='/dateTo' component={Weektable} />

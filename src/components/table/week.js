@@ -146,10 +146,9 @@ class Week extends React.Component{
                         <input id='top-bar-calendar' type="date" onChange={this.dateOnChange} />
                     </div>
                     <ul>
-                        <li><a href="/day">Today</a></li>
-                        <li><a href="#!">Week</a></li>
-                        <li><a href="#!">Work Week</a></li>
-                        <li><a href="#!">Month</a></li>
+                        <li><a href="/day">Day</a></li>
+                        <li><a href="/week">Week</a></li>
+                        <li><a href="/month">Month</a></li>
                     </ul>
                 </div>
 

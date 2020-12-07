@@ -62,9 +62,10 @@ class Week extends React.Component{
         const {day} = this.state,
             date = day.getDate(),
             weekDay = day.getDay(),
-            month = day.getMonth(),
             year = day.getFullYear()
-        let dateOnMonday = weekDay > 0 ? date - weekDay + 1 : date - 6;
+        let month = day.getMonth(),
+            dateOnMonday = weekDay > 0 ? date - weekDay + 1 : date - 6,
+            daysInWeek = []
 
         if(dateOnMonday < 1){
             if(dateOnMonday === 0){
@@ -73,9 +74,8 @@ class Week extends React.Component{
                 dateOnMonday = this.totalDaysInMonth(month) + dateOnMonday 
             }
         }         
-                
-        let daysInWeek = []
-
+        if(dateOnMonday > date)month--;        
+            
         for(let i=0; i<7; i++){
             daysInWeek.push(new Date(year, month, dateOnMonday+i))
         }
@@ -136,7 +136,6 @@ class Week extends React.Component{
             year = day.getFullYear(),
             {modalEnable, openModal} = this.props
                     
-
         return(
             <div className="week">
                 

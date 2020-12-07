@@ -427,8 +427,8 @@ td{
 }
 
 .td-parent:hover{
-cursor: unset;
-background-color: white;
+  cursor: unset;
+  background-color: white;
 }
 
 .td-parent th{
@@ -458,7 +458,6 @@ background-color: white;
   margin: 0;
   width: 93%;
   overflow: hidden;
-
   text-align: center;
 }
 
@@ -502,11 +501,12 @@ background-color: white;
 }
 
 
+
 @media screen and (max-width: 550px){
   .navbar{
     display: none;
     z-index: 5;
-    width: 100vw;
+    width: 100%;
     opacity: 0.8;
     background-color: #000000;
   }
@@ -521,6 +521,8 @@ background-color: white;
 
   .nav-item{
     background-color: #000;
+    margin: 0;
+    padding: 0;
   }
 
   .day, .week, .monthtable{
@@ -561,6 +563,16 @@ background-color: white;
     height: .2rem;
     background-color: #000000;
     margin-bottom: 3px;
+    transition: all ease-in 0.3s;
   }
+
+  .table-heading-today:first-child{
+    width: 2.5rem;
+  }
+}
+
+.div-parent{
+  width: calc(100% - 2.5rem);
+  margin-left: 3rem;
 }
 

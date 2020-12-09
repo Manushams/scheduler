@@ -4,12 +4,14 @@ class Navbar extends React.Component {
 
     componentDidMount(){
         this.toggleNavbar();
+        this.toggleTimeScale()
     }
 
     toggleNavbar = () => {
         const ham = document.querySelector('.ham'),
             navbar = document.querySelector('.navbar'),
-            lines = document.querySelectorAll('.line')
+            lines = document.querySelectorAll('.line'),
+            ul = document.querySelector('.top-bar').querySelector('ul');
             
         if(window.innerWidth <= 550){
             navbar.style.display = 'none'
@@ -38,11 +40,42 @@ class Navbar extends React.Component {
         window.addEventListener('resize', () => {
             if(window.innerWidth > 550){
                 navbar.style.display = 'flex'
+                ul.style.display = 'unset'            
             }else{
                 navbar.style.display = 'none';
                 lines.forEach(line => line.style.backgroundColor = '#000');
+                ul.style.display = 'none'            
             }
         })
+    }
+
+    toggleTimeScale = () => {
+        const dots = document.querySelector('.three-dots'),
+            ul = document.querySelector('.top-bar').querySelector('ul');
+        let isShown = false
+
+        dots.addEventListener('click', () => {
+            if((!ul.style.display) ||
+            (ul.style.display === 'none')){
+                ul.style.display = 'flex';
+                setTimeout(() => {
+                    ul.style.opacity = '1';
+                    ul.style.transform = 'translateY(.5rem)'                   
+                    isShown = true                
+                }, 100);
+            }else{
+                ul.style.display = 'none';
+                ul.style.opacity = '0';
+                ul.style.transform = 'translateY(-3rem)'
+                isShown = false             
+            }   
+        })
+
+        
+        document.addEventListener('click', () => {
+            if(isShown)ul.style.display = 'none';     
+            isShown = false      
+        })    
     }
 
     render() {

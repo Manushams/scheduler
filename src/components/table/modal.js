@@ -48,6 +48,7 @@ class Modal extends React.Component{
 
     return (
         <div className='modal'>
+        <div className='modal-card'>
             <div className='modal-title'>
                 <h3>Add an Event</h3>
                 <i onClick = {this.onCloseModal}
@@ -101,7 +102,7 @@ class Modal extends React.Component{
                     />
                 </div>
             </form>
-            
+            </div>
         </div>
     )
     }

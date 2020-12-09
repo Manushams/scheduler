@@ -190,16 +190,21 @@ th {
 }
 
 .modal{
+  width: 100%;
+  height: 100%;
+}
+
+.modal-card{
   position: fixed;
-  top: 22%;
-  left: 38%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 20rem;
   background: #364F6B;
   text-align: start;
   border-radius: 5px;
   border: 1px solid #2a3f55;
   z-index: 4;
-
 }
 
 .modal-title{
@@ -501,7 +506,6 @@ td{
 }
 
 
-
 @media screen and (max-width: 550px){
   .navbar{
     display: none;
@@ -536,16 +540,64 @@ td{
 
   #top-bar-calendar{
     margin: 0;
-    padding: 1rem;
+    padding: .5rem;
   }
 
   .top-bar ul{
     display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 1.8rem;
+    right: 0rem;
+    width: 5rem;
+    border-radius: .2rem;
+    background-color: #517094;
+    padding: 0rem;
+    transform: translateY(-3rem);
+    opacity: 0;
+    transition: ease-in all 0.3s;
+  }
+
+  .top-bar ul > li{
+    text-align: center;
+    height: 4rem;
+    border-radius: .2rem;
+    width: 100%;
+    display: grid;
+    justify-self: center;
+    align-content: center;
+  }
+
+  .top-bar ul > li:hover{
+    background-color: #6185ad;
+  }
+
+  .top-bar ul > li a{
+    color: #fff;
   }
 
   .top-bar div{
     width: 80%;
     margin-left: 3em;
+  }
+
+  .three-dots{
+    position: fixed;
+    top: 1.5rem;
+    right: 1rem;
+    z-index: 5;
+    height: 1.3rem;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+
+  .dot{
+    width: .3rem;
+    height: .3rem;
+    background-color: #000000;
+    margin-bottom: .1rem;
+    border-radius: 50%;
   }
 
   .ham{
@@ -569,10 +621,43 @@ td{
   .table-heading-today:first-child{
     width: 2.5rem;
   }
+  
+  .div-parent{
+    width: calc(100% - 2.5rem);
+    margin-left: 3rem;
+  }
+
+  .modal form > div{
+    margin-bottom: .5rem;
+  }
+
+  .modal form > input{
+    margin-bottom: 7rem;
+  }
+  
+  .input-field-time{
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .time-field:nth-child(2){
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+
+  .input-field-time .time-field{
+    width: 100%;
+  }
 }
 
-.div-parent{
-  width: calc(100% - 2.5rem);
-  margin-left: 3rem;
-}
 
+@media screen and (max-width: 350px){
+  .modal-card{
+    width: 90%;
+    
+  }
+
+  .modal-card form{
+    padding: 0.8rem;
+  }
+}

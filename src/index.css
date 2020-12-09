@@ -590,6 +590,7 @@ td{
     display: grid;
     place-items: center;
     cursor: pointer;
+    transition: all ease-in 0.3s;
   }
 
   .dot{

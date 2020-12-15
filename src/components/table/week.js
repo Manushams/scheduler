@@ -132,7 +132,7 @@ class Week extends React.Component{
         window.addEventListener('resize', () => this.displayTasks());
         
         const {day, daysInWeek, weekDaysShort, hours} = this.state,
-            month = day.toLocaleString('default', {month: 'long'}),
+            month = day.toLocaleString('default', {month: 'short'}),
             year = day.getFullYear(),
             {modalEnable, openModal} = this.props
                     

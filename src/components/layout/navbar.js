@@ -41,6 +41,8 @@ class Navbar extends React.Component {
             if(window.innerWidth > 550){
                 navbar.style.display = 'flex'
                 ul.style.display = 'unset'            
+                ul.style.opacity = '1';
+                ul.style.transform = 'unset'
             }else{
                 navbar.style.display = 'none';
                 lines.forEach(line => line.style.backgroundColor = '#000');
@@ -51,6 +53,7 @@ class Navbar extends React.Component {
             }
         })
     }
+
 
     toggleTimeScale = () => {
         const dots = document.querySelector('.three-dots'),
@@ -79,6 +82,7 @@ class Navbar extends React.Component {
         
         document.addEventListener('click', () => {
             if(isShown)ul.style.display = 'none';     
+            dots.style.transform = 'perspective(10rem) translateZ(0rem)';
             isShown = false      
         })    
     }

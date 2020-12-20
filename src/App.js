@@ -7,7 +7,9 @@ import Navbar from './components/layout/navbar'
 import Today from './components/table/today'
 import Day from './components/table/day'
 import Week from './components/table/week';
-import Ham from './components/layout/hamButton'
+import Ham from './components/layout/hamButton';
+import 'firebase/firestore' ;
+
 
 function App() {
   return (

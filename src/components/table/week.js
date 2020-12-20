@@ -2,7 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { openModal } from '../../store/actions/toggleModalAction';
 import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask, spanToNum } from './multipleTasks';
-import Modal from './modal'
+import Modal from './modal';
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase'
 
 class Week extends React.Component{
     state = {
@@ -136,6 +138,7 @@ class Week extends React.Component{
             year = day.getFullYear(),
             {modalEnable, openModal} = this.props
                     
+        console.log(this.props)
         return(
             <div className="week">
                 
@@ -220,6 +223,7 @@ const mapStateToProps = state => {
     return{
         tasks: state.addTask.tasks,
         modalEnable: state.toggleModal.modalEnable,
+        test: state.firestore.ordered
     }
 }
 
@@ -228,4 +232,12 @@ const mapDispatchToProps = dispatch => {
         openModal: () => dispatch(openModal())
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Week)
+export default compose(
+    firestoreConnect( props => {
+        return[
+            {collection: 'test '},
+            {collection: 'hey'}
+        ]
+    }),
+    connect(mapStateToProps, mapDispatchToProps),
+    )(Week)

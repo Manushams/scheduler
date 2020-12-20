@@ -4,16 +4,43 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import {rootReducer} from './store/reducers/combinedReducers'
+import { createStore, compose, applyMiddleware } from 'redux'
+import {rootReducer} from './store/reducers/combinedReducers';
+import { ReactReduxFirebaseProvider, getFirebase} from 'react-redux-firebase';
+import {firebaseConfig} from './config/fbconfig';
+import { createFirestoreInstance } from 'redux-firestore';
+import firebase from 'firebase/app';
+import thunk from 'redux-thunk';
+import 'firebase/firestore'
 
-const store = createStore(rootReducer)
+firebase.initializeApp(firebaseConfig);
+firebase.firestore()
+const rrfConfig = {
+  userProfile: 'users',
+  useFirestoreForProfile: true,
+  attachAuthIsReady: true,
+}
+
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk.withExtraArgument(getFirebase))
+  )
+);
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance 
+}
+
 
 ReactDOM.render(
   <Provider store = {store}>
-    <React.StrictMode>
+    <ReactReduxFirebaseProvider {...rrfProps}>
       <App />
-    </React.StrictMode>
+    </ReactReduxFirebaseProvider >
   </Provider>
   ,
   document.getElementById('root')

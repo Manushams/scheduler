@@ -24,7 +24,9 @@ class Navbar extends React.Component {
                 (navbar.style.display === 'none')
             ){
                 navbar.style.display = 'flex'
-                lines.forEach(line => line.style.backgroundColor = '#fff');
+                lines.forEach(line => {
+                    line.style.backgroundColor = '#fff'   
+                });
                 lines[1].style.display = 'none'
                 lines[0].style.transform="rotate(45deg) translate(4px, 4px)"
                 lines[2].style.transform="rotate(-45deg)"

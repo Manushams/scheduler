@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask } from './multipleTasks';
 import { openModal } from '../../store/actions/toggleModalAction';
 import Modal from './modal';
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase'
 
 class Day extends React.Component {
 
@@ -14,7 +16,7 @@ class Day extends React.Component {
 
     componentDidMount() {
         this.setHours();
-        this.displayTasks();
+        this.displayTasks();      
     }
 
     componentDidUpdate() {
@@ -40,19 +42,21 @@ class Day extends React.Component {
     handleDayChange = (e) => {
         this.setState({
             day: new Date(e.target.value)
-        })
+        });
+        removeTaskDivs(document.querySelectorAll('.task-div'))
     }
 
     displayTasks = () => {
-        let { tasks } = this.props
+        let { tasks } = this.props;
         const { day } = this.state,
             divParent = document.querySelector('.td-parent').querySelector('div'),
             taskDivs = document.querySelectorAll('.task-div')
+        if(tasks && tasks.length > 1){
+            tasks = tasks.filter(task => new Date(task.date).toString() === day.toString())
+            tasks.sort((task1, task2) => task2.height - task1.height)    
+        }   
 
-        tasks = tasks.filter(task => new Date(task.date).toString() === day.toString())
-        tasks.sort((task1, task2) => task2.height - task1.height)
-
-        tasks.forEach(task => {
+        tasks && tasks.forEach(task => {
             displayTask(task, divParent)
         })
 
@@ -140,7 +144,7 @@ class Day extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        tasks: state.addTask.tasks,
+        tasks: state.firestore.ordered.tasks,
         modalEnable: state.toggleModal.modalEnable,
     }
 }
@@ -151,4 +155,9 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Day);
+export default compose(
+    firestoreConnect([
+        { collection: 'tasks' },
+    ]),
+    connect(mapStateToProps, mapDispatchToProps),
+)(Day);

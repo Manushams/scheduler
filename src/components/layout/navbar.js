@@ -54,6 +54,7 @@ class Navbar extends React.Component {
                 lines[2].style.transform="rotate(180deg)"            
             }
         })
+        
     }
 
 

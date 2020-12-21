@@ -349,6 +349,7 @@ export const removeIdenticalDivs = () => {
 export const removeTaskDivs = (taskDivs) => {
     taskDivs.forEach(task => {
         task.remove()
+
     })
 }
 

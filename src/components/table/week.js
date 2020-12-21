@@ -1,12 +1,12 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { openModal } from '../../store/actions/toggleModalAction';
 import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask, spanToNum } from './multipleTasks';
 import Modal from './modal';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
 
-class Week extends React.Component{
+class Week extends React.Component {
     state = {
         day: new Date(),
         daysInWeek: '',
@@ -18,21 +18,21 @@ class Week extends React.Component{
     totalDaysInMonth = (month) => {
         return new Date(2020, month, 0).getDate()
     }
-    
-    componentDidMount(){
+
+    componentDidMount() {
         this.setDaysInWeek();
         this.setHours();
         setTimeout(() => {
-            this.displayTasks()            
-        }, );
-    }
-
-    componentDidUpdate(){
-        setTimeout(() => {
-            this.displayTasks()            
+            this.displayTasks()
         });
     }
-    
+
+    componentDidUpdate() {
+        setTimeout(() => {
+            this.displayTasks()
+        });
+    }
+
     setHours = () => {
 
         let hours = []
@@ -61,7 +61,7 @@ class Week extends React.Component{
 
 
     setDaysInWeek = () => {
-        const {day} = this.state,
+        const { day } = this.state,
             date = day.getDate(),
             weekDay = day.getDay(),
             year = day.getFullYear()
@@ -69,43 +69,43 @@ class Week extends React.Component{
             dateOnMonday = weekDay > 0 ? date - weekDay + 1 : date - 6,
             daysInWeek = []
 
-        if(dateOnMonday < 1){
-            if(dateOnMonday === 0){
+        if (dateOnMonday < 1) {
+            if (dateOnMonday === 0) {
                 dateOnMonday = this.totalDaysInMonth(month)
-            }else if(dateOnMonday < 0){
-                dateOnMonday = this.totalDaysInMonth(month) + dateOnMonday 
+            } else if (dateOnMonday < 0) {
+                dateOnMonday = this.totalDaysInMonth(month) + dateOnMonday
             }
-        }         
-        if(dateOnMonday > date)month--;        
-            
-        for(let i=0; i<7; i++){
-            daysInWeek.push(new Date(year, month, dateOnMonday+i))
+        }
+        if (dateOnMonday > date) month--;
+
+        for (let i = 0; i < 7; i++) {
+            daysInWeek.push(new Date(year, month, dateOnMonday + i))
         }
 
         this.setState({
             daysInWeek: [...daysInWeek]
-        })         
+        })
     }
 
 
     displayTasks = () => {
-        const {tasks} = this.props,
-            weekdays = Array.from(document.querySelectorAll('.weekday'))                           
+        const { tasks } = this.props,
+            weekdays = Array.from(document.querySelectorAll('.weekday'))
         let ths = Array.from(document.querySelectorAll('th'));
-            //weekdays = Array.from(document.querySelectorAll('.weekday'))
+        //weekdays = Array.from(document.querySelectorAll('.weekday'))
 
         ths = ths.filter(th => th.id)
-        for(let i=0; i < ths.length; i++){
+        for (let i = 0; i < ths.length; i++) {
             weekdays[i].style.top = ths[i].getBoundingClientRect().bottom + 'px';
             weekdays[i].style.left = ths[i].getBoundingClientRect().left + 'px';
             weekdays[i].style.width = ths[i].getBoundingClientRect().width - 8 + 'px';
-        }              
-        
-        
-        tasks.forEach(task => {
+        }
+
+
+        tasks && tasks.forEach(task => {
 
             ths.forEach(th => {
-                if(th.id === new Date(task.date).toString().slice(0,15)){
+                if (th.id === new Date(task.date).toString().slice(0, 15)) {
 
                     const div = document.createElement('div'),
                         p = document.createElement('p'),
@@ -113,35 +113,35 @@ class Week extends React.Component{
                         dayConverted = dayTask === 0 ? 6 : dayTask - 1,
                         divWeekday = weekdays[dayConverted],
                         height = task.height,
-                        minsTotal =  parseInt(task.timeStart.slice(0,2))*60 + parseInt(task.timeStart.slice(3,5))  
-                    
+                        minsTotal = parseInt(task.timeStart.slice(0, 2)) * 60 + parseInt(task.timeStart.slice(3, 5))
+
                     p.innerHTML = `${task.eventName} </br> <span>${task.timeStart}-${task.timeEnd}</span>`;
                     div.classList.add('task-div');
                     div.setAttribute('id', task.id);
-                    div.style.height = height * 35/30 + 'px';
-                    div.style.top = minsTotal  * 35/30 + 2 + 'px';
+                    div.style.height = height * 35 / 30 + 'px';
+                    div.style.top = minsTotal * 35 / 30 + 2 + 'px';
                     div.appendChild(p)
-        
+
                     divWeekday.appendChild(div);
                     removeIdenticalDivs()
-                    setWidthDay(divWeekday.children)    
+                    setWidthDay(divWeekday.children)
                 }
             })
         })
     }
 
-    render(){
+    render() {
         window.addEventListener('resize', () => this.displayTasks());
-        
-        const {day, daysInWeek, weekDaysShort, hours} = this.state,
-            month = day.toLocaleString('default', {month: 'short'}),
+
+        const { day, daysInWeek, weekDaysShort, hours } = this.state,
+            month = day.toLocaleString('default', { month: 'short' }),
             year = day.getFullYear(),
-            {modalEnable, openModal} = this.props
-                    
+            { modalEnable, openModal } = this.props
+
         console.log(this.props)
-        return(
+        return (
             <div className="week">
-                
+
                 <div className="top-bar">
                     <div>
                         <h3>{month} {daysInWeek && daysInWeek[0].getDate()}-{daysInWeek && daysInWeek[6].getDate()}, {year}</h3>
@@ -155,15 +155,15 @@ class Week extends React.Component{
                 </div>
 
                 <table>
-                    
+
                     <thead>
                         <tr className='tr-heading'>
                             <th></th>
                             {daysInWeek && daysInWeek.map(day => {
-                                return(
+                                return (
                                     <>
                                         <th
-                                            id = {day.toString().slice(0, 15)}
+                                            id={day.toString().slice(0, 15)}
                                         >
                                             {day.toLocaleDateString('locale', { weekday: 'short' })}
                                             <br />
@@ -177,18 +177,18 @@ class Week extends React.Component{
 
                     <tbody>
                         {hours && hours.map(hour => {
-                            return(
+                            return (
                                 <>
                                     <tr>
                                         <th rowSpan='2'>{hour}</th>
-                                        {[...Array(7)].map(() => 
-                                            <td 
+                                        {[...Array(7)].map(() =>
+                                            <td
                                                 onClick={openModal}
                                             ></td>
                                         )}
                                     </tr>
                                     <tr>
-                                        {[...Array(7)].map(() => 
+                                        {[...Array(7)].map(() =>
                                             <td
                                                 onClick={openModal}
                                             ></td>
@@ -200,9 +200,9 @@ class Week extends React.Component{
                     </tbody>
                 </table>
 
-                {weekDaysShort.map(day => 
+                {weekDaysShort.map(day =>
                     <div
-                        className={day +' weekday' }
+                        className={day + ' weekday'}
                     >
                     </div>
                 )}
@@ -213,17 +213,15 @@ class Week extends React.Component{
                         cellDetails={day}
                     /> : null
                 }
-
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
-    return{
-        tasks: state.addTask.tasks,
+    return {
         modalEnable: state.toggleModal.modalEnable,
-        test: state.firestore.ordered
+        tasks: state.firestore.ordered.tasks
     }
 }
 
@@ -233,11 +231,9 @@ const mapDispatchToProps = dispatch => {
     }
 }
 export default compose(
-    firestoreConnect( props => {
-        return[
-            {collection: 'test '},
-            {collection: 'hey'}
-        ]
-    }),
+    firestoreConnect([
+        { collection: 'tasks' },
+    ]
+    ),
     connect(mapStateToProps, mapDispatchToProps),
-    )(Week)
+)(Week)

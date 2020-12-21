@@ -2,7 +2,9 @@ import React from 'react';
 import {TaskMonth} from './task';
 import {connect} from 'react-redux';
 import Modal from './modal';
-import { openModal } from '../../store/actions/toggleModalAction'
+import { openModal } from '../../store/actions/toggleModalAction';
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase'
 
 class MonthTable extends React.Component{
 
@@ -86,9 +88,9 @@ class MonthTable extends React.Component{
     displayTasks = () => {
         const tds = document.querySelectorAll('td'),
             {tasks} = this.props;
-        console.log('qewr')
+
         tds.forEach(td => {
-            tasks.forEach(task => {
+            tasks && tasks.forEach(task => {
                 if(td.title === new Date(task.date).toString().slice(0,15)
                     && td.childElementCount < 4
                 ){
@@ -156,7 +158,7 @@ class MonthTable extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        tasks: state.addTask.tasks,
+        tasks: state.firestore.ordered.tasks,
         modalEnable: state.toggleModal.modalEnable,
     }
 }
@@ -167,4 +169,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MonthTable)
+export default compose(
+    firestoreConnect([
+        { collection: 'tasks' },
+    ]
+    ),
+    connect(mapStateToProps, mapDispatchToProps),
+)(MonthTable)

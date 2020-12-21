@@ -16,7 +16,7 @@ class Day extends React.Component {
 
     componentDidMount() {
         this.setHours();
-        this.displayTasks();      
+        this.displayTasks();
     }
 
     componentDidUpdate() {
@@ -51,14 +51,16 @@ class Day extends React.Component {
         const { day } = this.state,
             divParent = document.querySelector('.td-parent').querySelector('div'),
             taskDivs = document.querySelectorAll('.task-div')
-        if(tasks && tasks.length > 1){
-            tasks = tasks.filter(task => new Date(task.date).toString() === day.toString())
-            tasks.sort((task1, task2) => task2.height - task1.height)    
-        }   
 
-        tasks && tasks.forEach(task => {
-            displayTask(task, divParent)
-        })
+        if (tasks) {
+            tasks = tasks.filter(task => new Date(task.date).toString().slice(0, 15) === day.toString().slice(0, 15))
+
+            tasks.length > 1 && tasks.sort((task1, task2) => task2.height - task1.height) 
+            
+            tasks.forEach(task => {
+                displayTask(task, divParent)
+            })
+        }
 
         removeTaskDivs(taskDivs)
         removeIdenticalDivs()
@@ -101,10 +103,10 @@ class Day extends React.Component {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th 
+                                            <th
                                                 className='table-heading table-heading-today'
                                             ></th>
-                                            <th 
+                                            <th
                                                 className='table-heading table-heading-today'
                                             >
                                                 {dayWeek}, {date}
@@ -124,7 +126,7 @@ class Day extends React.Component {
                                         })}
                                     </tbody>
                                 </table>
-                                <div 
+                                <div
                                     className='div-parent'
                                 ></div>
                             </td>

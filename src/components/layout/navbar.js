@@ -57,6 +57,7 @@ class Navbar extends React.Component {
         
     }
     //fix some issues related with dropdown button
+    //when pressed more thna once => does not work
 
 
     toggleTimeScale = () => {

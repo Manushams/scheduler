@@ -18,8 +18,7 @@ function App() {
           <Route path='/month' component={MonthTable} />
           <Route path='/week' component={Week} />
         </Switch>
-      </Router>
-      
+      </Router>      
     </div>
   );
 }

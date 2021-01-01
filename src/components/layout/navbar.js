@@ -56,6 +56,7 @@ class Navbar extends React.Component {
         })
         
     }
+    //fix some issues related with dropdown button
 
 
     toggleTimeScale = () => {
@@ -66,19 +67,22 @@ class Navbar extends React.Component {
         dots.addEventListener('click', () => {
             if((!ul.style.display) ||
             (ul.style.display === 'none')){
+                console.log(ul)
                 ul.style.display = 'flex';
                 setTimeout(() => {
+                    isShown = true                
                     dots.style.transform = 'perspective(10rem) translateZ(2rem)';
                     ul.style.opacity = '1';
                     ul.style.transform = 'translateY(.5rem)'                   
-                    isShown = true                
-                }, 100);
+                    console.log(isShown, 'should be true')
+                });
             }else{
                 dots.style.transform = 'perspective(10rem) translateZ(0rem)';
                 ul.style.display = 'none';
                 ul.style.opacity = '0';
                 ul.style.transform = 'translateY(-3rem)'
                 isShown = false             
+                console.log(isShown, 'should be false')
             }   
         })
 

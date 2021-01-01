@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { openModal } from '../../store/actions/toggleModalAction';
 import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask, spanToNum } from './multipleTasks';
+import {Link} from 'react-router-dom'
 import Modal from './modal';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
@@ -87,6 +88,18 @@ class Week extends React.Component {
         })
     }
 
+    onPress = () => {
+        const all = document.querySelectorAll('.task-div');
+
+        all.forEach(div => {
+            div.addEventListener('click', () => {
+                console.log(this.props)
+            })
+            div.setAttribute('onClick', () => console.log(this.props))
+        })
+
+    }
+
 
     displayTasks = () => {
         const { tasks } = this.props,
@@ -138,7 +151,9 @@ class Week extends React.Component {
             year = day.getFullYear(),
             { modalEnable, openModal } = this.props
 
-        console.log(this.props)
+        setTimeout(() => {
+            this.onPress()
+        }, 5000);
         return (
             <div className="week">
 
@@ -148,9 +163,9 @@ class Week extends React.Component {
                         <input id='top-bar-calendar' type="date" onChange={this.dateOnChange} />
                     </div>
                     <ul>
-                        <li><a href="/day">Day</a></li>
-                        <li><a href="/week">Week</a></li>
-                        <li><a href="/month">Month</a></li>
+                        <li><Link to="/">Day</Link></li>
+                        <li><Link to="/week">Week</Link></li>
+                        <li><Link to="/month">Month</Link></li>
                     </ul>
                 </div>
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask } from './multipleTasks';
+import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask, taskDetails } from './multipleTasks';
 import { openModal } from '../../store/actions/toggleModalAction';
 import Modal from './modal';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
-import {Link} from 'react-router-dom'
+import Details from './details'
 
 class Day extends React.Component {
 
@@ -18,10 +18,12 @@ class Day extends React.Component {
     componentDidMount() {
         this.setHours();
         this.displayTasks();
+        taskDetails()
     }
 
     componentDidUpdate() {
-        this.displayTasks()
+        this.displayTasks();
+        taskDetails()
     }
 
     setHours = () => {
@@ -76,6 +78,8 @@ class Day extends React.Component {
             year = day.getFullYear(),
             dayWeek = day.toLocaleString('default', { weekday: 'short' }),
             { modalEnable, openModal } = this.props
+
+        console.log(this.props)
 
         return (
             <div className='day'>
@@ -140,6 +144,7 @@ class Day extends React.Component {
                     />
                     : null
                 }
+                <Details/>
             </div>
         )
     }
@@ -149,6 +154,7 @@ const mapStateToProps = state => {
     return {
         tasks: state.firestore.ordered.tasks,
         modalEnable: state.toggleModal.modalEnable,
+        detailsEnable: state.toggleModal.detailsEnable
     }
 }
 

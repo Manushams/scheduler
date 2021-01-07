@@ -1,5 +1,6 @@
 const initState = {
-    modalEnable: false
+    modalEnable: false,
+    detailsEnable: false
 }
 
 export const toggleModal = (state = initState, action) => {
@@ -14,6 +15,17 @@ export const toggleModal = (state = initState, action) => {
                 ...state,
                 modalEnable: true
             }    
+        
+        case 'OPEN_DETAILS_MODAL':
+            return{
+                ...state,
+                detailsEnable: true
+            }
+        case 'CLOSE_DETAILS_MODAL':
+            return{
+                ...state,
+                detailsEnable: false
+            }
         default:
             return state   
     }

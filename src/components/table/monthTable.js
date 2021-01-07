@@ -5,7 +5,7 @@ import Modal from './modal';
 import { openModal } from '../../store/actions/toggleModalAction';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
-import {Link} from 'react-router-dom'
+import {taskDetails} from './multipleTasks'
 
 class MonthTable extends React.Component{
 
@@ -19,13 +19,15 @@ class MonthTable extends React.Component{
     componentDidMount(){
         this.idTds();
         this.setDays();
-        this.displayTasks()
+        this.displayTasks();
+        taskDetails()
     }
 
     componentDidUpdate(){
         this.idTds();
         this.setDays();
-        this.displayTasks()
+        this.displayTasks();
+        taskDetails()
     }
 
     onClickHandle = (e) => {
@@ -160,7 +162,7 @@ class MonthTable extends React.Component{
 const mapStateToProps = state => {
     return {
         tasks: state.firestore.ordered.tasks,
-        modalEnable: state.toggleModal.modalEnable,
+        modalEnable: state.toggleModal.modalEnable
     }
 }
 

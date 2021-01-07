@@ -349,7 +349,6 @@ export const removeIdenticalDivs = () => {
 export const removeTaskDivs = (taskDivs) => {
     taskDivs.forEach(task => {
         task.remove()
-
     })
 }
 
@@ -362,7 +361,24 @@ export const displayTask = (task, divParent) => {
     div.style.height = task.height * 2.175 / 60 + 'rem'
     div.style.top = top;
     div.setAttribute('id', task.id)
+    div.setAttribute('data-date', task.date)
+    div.setAttribute('data-start', task.timeStart)
+    div.setAttribute('data-end', task.timeEnd)
+    div.setAttribute('data-name', task.eventName)
     p.innerHTML = `${task.eventName}<br/><span>${task.timeStart}-${task.timeEnd}</span>`
     div.appendChild(p);
     divParent.appendChild(div)
+}
+
+export const taskDetails = () => {
+    const taskDivs = document.querySelectorAll('.task-div'),
+    taskDivsMonth = document.querySelectorAll('.task-month');
+
+    taskDivs.forEach(task  => {
+    task.addEventListener('click', () => console.log(task, 'was clicked'))
+    })
+
+    taskDivsMonth.forEach(task  => {
+    task.addEventListener('click', () => console.log(task, 'was clicked'))
+    })
 }

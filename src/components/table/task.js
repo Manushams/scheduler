@@ -11,13 +11,7 @@ export const Height = (task) => {
 }
 
 const Task = (task) => {
-    // const colors = [
-    //     '#22D1EE',
-    //     '#FC5185',
-    //     '#5D5D5A',
-    //     '#17B978'
-    // ]
-    //const randomColor = colors[Math.floor(Math.random()*10 % 4)]
+    
     const height = Height(task)
     
     if(height > 0){
@@ -80,6 +74,11 @@ export const TaskMonth = (task) => {
         p = document.createElement('p')
     
     div.classList.add('task-month');
+    div.setAttribute('id', task.id)
+    div.setAttribute('data-date', task.date)
+    div.setAttribute('data-start', task.timeStart)
+    div.setAttribute('data-end', task.timeEnd)
+    div.setAttribute('data-name', task.eventName)
     p.innerText = task.eventName;
     div.appendChild(p)   
     

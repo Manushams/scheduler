@@ -5,7 +5,8 @@ import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask, spanToNu
 import {Link} from 'react-router-dom'
 import Modal from './modal';
 import { compose } from 'redux'
-import { firestoreConnect } from 'react-redux-firebase'
+import { firestoreConnect } from 'react-redux-firebase';
+import {taskDetails} from './multipleTasks'
 
 class Week extends React.Component {
     state = {
@@ -26,12 +27,14 @@ class Week extends React.Component {
         setTimeout(() => {
             this.displayTasks()
         });
+        taskDetails()
     }
 
     componentDidUpdate() {
         setTimeout(() => {
             this.displayTasks()
         });
+        taskDetails()
     }
 
     setHours = () => {
@@ -131,6 +134,10 @@ class Week extends React.Component {
                     p.innerHTML = `${task.eventName} </br> <span>${task.timeStart}-${task.timeEnd}</span>`;
                     div.classList.add('task-div');
                     div.setAttribute('id', task.id);
+                    div.setAttribute('data-date', task.date)
+                    div.setAttribute('data-start', task.timeStart)
+                    div.setAttribute('data-end', task.timeEnd)
+                    div.setAttribute('data-name', task.eventName)
                     div.style.height = height * 35 / 30 + 'px';
                     div.style.top = minsTotal * 35 / 30 + 2 + 'px';
                     div.appendChild(p)

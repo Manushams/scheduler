@@ -544,8 +544,9 @@ td{
   }
 
   .top-bar ul{
-    display: none;
+    /* display: none; */
     flex-direction: column;
+    pointer-events: none;
     position: fixed;
     top: 1.8rem;
     right: 0rem;
@@ -556,6 +557,12 @@ td{
     transform: translateY(-3rem);
     opacity: 0;
     transition: ease-in all 0.3s;
+  }
+
+  .top-bar ul.show{
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(.5rem);
   }
 
   .top-bar ul > li{

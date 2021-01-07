@@ -6,7 +6,7 @@ class Navbar extends React.Component {
         this.toggleNavbar();
         this.toggleTimeScale()
     }
-
+    
     toggleNavbar = () => {
         const ham = document.querySelector('.ham'),
             navbar = document.querySelector('.navbar'),
@@ -48,7 +48,7 @@ class Navbar extends React.Component {
             }else{
                 navbar.style.display = 'none';
                 lines.forEach(line => line.style.backgroundColor = '#000');
-                ul.style.display = 'none';
+                ul.classList.remove('show')
                 lines[1].style.display = 'flex'
                 lines[0].style.transform="rotate(180deg) translate(0,0)"
                 lines[2].style.transform="rotate(180deg)"            
@@ -56,9 +56,7 @@ class Navbar extends React.Component {
         })
         
     }
-    //fix some issues related with dropdown button
-    //when pressed more thna once => does not work
-
+   
 
     toggleTimeScale = () => {
         const dots = document.querySelector('.three-dots'),
@@ -66,33 +64,25 @@ class Navbar extends React.Component {
         let isShown = false
 
         dots.addEventListener('click', () => {
-            if((!ul.style.display) ||
-            (ul.style.display === 'none')){
-                console.log(ul)
-                ul.style.display = 'flex';
+            if(!isShown){
+                dots.style.transform = 'perspective(10rem) translateZ(2rem)';
                 setTimeout(() => {
-                    isShown = true                
-                    dots.style.transform = 'perspective(10rem) translateZ(2rem)';
-                    ul.style.opacity = '1';
-                    ul.style.transform = 'translateY(.5rem)'                   
-                    console.log(isShown, 'should be true')
-                });
+                    isShown = true                                    
+                }, 100);
             }else{
                 dots.style.transform = 'perspective(10rem) translateZ(0rem)';
-                ul.style.display = 'none';
-                ul.style.opacity = '0';
-                ul.style.transform = 'translateY(-3rem)'
                 isShown = false             
-                console.log(isShown, 'should be false')
             }   
+            ul.classList.toggle('show')
         })
-
         
         document.addEventListener('click', () => {
-            if(isShown)ul.style.display = 'none';     
+            if(isShown)ul.classList.remove('show');     
             dots.style.transform = 'perspective(10rem) translateZ(0rem)';
             isShown = false      
         })    
+        
+        
     }
 
     render() {

@@ -91,9 +91,9 @@ class Day extends React.Component {
                         />
                     </div>
                     <ul>
-                        <li><Link to="/">Day</Link></li>
-                        <li><Link to="/week">Week</Link></li>
-                        <li><Link to="/month">Month</Link></li>
+                        <li><a href="/">Day</a></li>
+                        <li><a href="/week">Week</a></li>
+                        <li><a href="/month">Month</a></li>
                     </ul>
                 </div>
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Switch, Route, } from "react-router-dom"
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import MonthTable from './components/table/monthTable'
 import Navbar from './components/layout/navbar'
 import Day from './components/table/day'

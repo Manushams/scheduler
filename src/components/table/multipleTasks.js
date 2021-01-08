@@ -365,6 +365,7 @@ export const displayTask = (task, divParent) => {
     div.style.top = top;
     div.setAttribute('id', task.id)
     div.setAttribute('data-date', task.date)
+    div.setAttribute('data-id', task.id)
     div.setAttribute('data-start', task.timeStart)
     div.setAttribute('data-end', task.timeEnd)
     div.setAttribute('data-name', task.eventName)

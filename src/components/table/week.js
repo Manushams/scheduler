@@ -134,6 +134,7 @@ class Week extends React.Component {
                     p.innerHTML = `${task.eventName} </br> <span>${task.timeStart}-${task.timeEnd}</span>`;
                     div.classList.add('task-div');
                     div.setAttribute('id', task.id);
+                    div.setAttribute('data-id', task.id)
                     div.setAttribute('data-date', task.date)
                     div.setAttribute('data-start', task.timeStart)
                     div.setAttribute('data-end', task.timeEnd)

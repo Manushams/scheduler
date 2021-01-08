@@ -1,8 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {closeDetailsModal} from '../../store/actions/toggleModalAction'
+import {closeDetailsModal} from '../../store/actions/toggleModalAction';
+import {} from '../../store/actions/deleteTaskAction'
+import { deleteTask } from '../../store/actions/deleteTaskAction';
 
 class Details extends React.Component{
+
+    deleteTaskHandle = () => {
+        const {task, deleteTask} = this.props;
+        deleteTask(task)
+    }
+
     render(){
         const {task} = this.props
 
@@ -41,8 +49,19 @@ class Details extends React.Component{
                         </div>
 
                         <div className="group-btn">
-                            <button className='btn btn-delete submit-btn'>Delete</button>
-                            <button className='btn btn-cancel submit-btn'>Cancel</button>
+                            <button 
+                                className='btn submit-btn'
+                                onClick = {this.deleteTaskHandle}
+                            >
+                                Delete
+                            </button>
+                           
+                            <button 
+                                className='btn submit-btn'
+                                onClick = {this.props.closeDetailsModal}    
+                            >
+                                Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -59,7 +78,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        closeDetailsModal: () => dispatch(closeDetailsModal())
+        closeDetailsModal: () => dispatch(closeDetailsModal()),
+        deleteTask: (task) => dispatch(deleteTask(task))
     }
 }
 

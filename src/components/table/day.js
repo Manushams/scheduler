@@ -79,8 +79,6 @@ class Day extends React.Component {
             dayWeek = day.toLocaleString('default', { weekday: 'short' }),
             { modalEnable, openModal, detailsEnable } = this.props
 
-        console.log(this.props)
-
         return (
             <div className='day'>
                 <div className="top-bar">

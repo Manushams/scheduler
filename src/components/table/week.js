@@ -91,17 +91,17 @@ class Week extends React.Component {
         })
     }
 
-    onPress = () => {
-        const all = document.querySelectorAll('.task-div');
+    // onPress = () => {
+    //     const all = document.querySelectorAll('.task-div');
 
-        all.forEach(div => {
-            div.addEventListener('click', () => {
-                console.log(this.props)
-            })
-            div.setAttribute('onClick', () => console.log(this.props))
-        })
+    //     all.forEach(div => {
+    //         div.addEventListener('click', () => {
+    //             console.log(this.props)
+    //         })
+    //         div.setAttribute('onClick', () => console.log(this.props))
+    //     })
 
-    }
+    // }
 
 
     displayTasks = () => {

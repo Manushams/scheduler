@@ -175,7 +175,6 @@ const mapDispatchToProps = dispatch => {
 export default compose(
     firestoreConnect([
         { collection: 'tasks' },
-    ]
-    ),
+    ]),
     connect(mapStateToProps, mapDispatchToProps),
 )(MonthTable)

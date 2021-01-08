@@ -77,7 +77,7 @@ class Day extends React.Component {
             month = day.toLocaleString('default', { month: 'long' }),
             year = day.getFullYear(),
             dayWeek = day.toLocaleString('default', { weekday: 'short' }),
-            { modalEnable, openModal } = this.props
+            { modalEnable, openModal, detailsEnable } = this.props
 
         console.log(this.props)
 
@@ -144,7 +144,10 @@ class Day extends React.Component {
                     />
                     : null
                 }
-                <Details/>
+                {detailsEnable ?
+                    <Details/>
+                    : null
+                }
             </div>
         )
     }

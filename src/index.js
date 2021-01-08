@@ -21,7 +21,7 @@ const rrfConfig = {
   attachAuthIsReady: true,
 }
 
-const store = createStore(
+export const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(thunk.withExtraArgument(getFirebase))

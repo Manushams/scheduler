@@ -1,6 +1,7 @@
 const initState = {
     modalEnable: false,
-    detailsEnable: false
+    detailsEnable: false,
+    taskDetails: null
 }
 
 export const toggleModal = (state = initState, action) => {
@@ -19,12 +20,14 @@ export const toggleModal = (state = initState, action) => {
         case 'OPEN_DETAILS_MODAL':
             return{
                 ...state,
-                detailsEnable: true
+                detailsEnable: true,
+                taskDetails: action.details
             }
         case 'CLOSE_DETAILS_MODAL':
             return{
                 ...state,
-                detailsEnable: false
+                detailsEnable: false,
+                taskDetails: null
             }
         default:
             return state   

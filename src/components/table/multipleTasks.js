@@ -1,3 +1,6 @@
+import {openDetailsModal} from '../../store/actions/toggleModalAction';
+import {store} from '../../index'
+
 export const removeWithSameId = (htmlCollection) => {
 
     const items = htmlCollection
@@ -372,13 +375,13 @@ export const displayTask = (task, divParent) => {
 
 export const taskDetails = () => {
     const taskDivs = document.querySelectorAll('.task-div'),
-    taskDivsMonth = document.querySelectorAll('.task-month');
+        taskDivsMonth = document.querySelectorAll('.task-month');
 
     taskDivs.forEach(task  => {
-    task.addEventListener('click', () => console.log(task, 'was clicked'))
+        task.addEventListener('click', () => store.dispatch(openDetailsModal(task.dataset)))
     })
 
     taskDivsMonth.forEach(task  => {
-    task.addEventListener('click', () => console.log(task, 'was clicked'))
+        task.addEventListener('click', () => store.dispatch(openDetailsModal(task.dataset)))
     })
 }

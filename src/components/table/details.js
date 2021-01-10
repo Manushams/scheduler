@@ -8,12 +8,13 @@ class Details extends React.Component{
 
     deleteTaskHandle = () => {
         const {task, deleteTask} = this.props;
+        // document.querySelector('#' + CSS.escape(`${task.id}`)).remove()
         deleteTask(task)
     }
 
     render(){
         const {task} = this.props
-
+        
         return(
             <div className ='modal details'>
                 <div className="modal-card">

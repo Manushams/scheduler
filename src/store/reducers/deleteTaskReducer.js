@@ -1,5 +1,4 @@
 export const deleteTaskReducer = (state = [], action) => {
-    console.log(action)
     switch(action.type){
         case 'TASK_DELETED':
             console.log('task has been deleted')

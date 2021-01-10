@@ -13,8 +13,6 @@ import firebase from 'firebase/app';
 import thunk from 'redux-thunk';
 import 'firebase/firestore'
 
-firebase.initializeApp(firebaseConfig);
-firebase.firestore()
 const rrfConfig = {
   userProfile: 'users',
   useFirestoreForProfile: true,
@@ -25,9 +23,11 @@ export const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(thunk.withExtraArgument(getFirebase))
-  )
-);
-
+    )
+    );
+    
+firebase.initializeApp(firebaseConfig);
+firebase.firestore()
 const rrfProps = {
   firebase,
   config: rrfConfig,

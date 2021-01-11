@@ -545,9 +545,11 @@ td{
   margin-right: .5rem;
 }
 
-.login{
-  width: 100%;
+.login, .signin{
+  margin-left: 5rem;
+  width: calc(100% - 5rem);
   height: 100vh;
+  position: relative;
 }
 
 .auth .card{
@@ -557,7 +559,7 @@ td{
   transform: translate(-50%, -50%);
   border-radius: 1rem;
   background-color: rgb(216, 214, 214);
-  width: clamp(15rem, 50%, 30rem);
+  width: clamp(25rem, 50%, 30rem);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -608,7 +610,30 @@ td{
   box-shadow: .1px 1px #000;
 }
 
+.auth-timescale{
+  display: none;
+}
+
+.auth .top-bar{  
+  border: none;
+  border-bottom: 1px solid #000;
+}
+
 @media screen and (max-width: 550px){
+
+  .auth .card{
+    width: clamp(12rem, 90%, 30rem);
+  }
+
+  .login, .signin{
+    width: 100%;
+    margin: 0;
+  }
+
+  .auth input[type='submit']{
+    width: 100%;
+  }
+
   .navbar{
     display: none;
     z-index: 5;

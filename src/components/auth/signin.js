@@ -20,8 +20,24 @@ class SignIn extends React.Component{
     }
 
     render(){
+        const day = new Date()
         return(
             <div className='auth signin'>
+
+                <div className="top-bar">
+                    <div>
+                        <h3>
+                            {day.getDate()} {day.toLocaleString('default', { month: 'long' })}, {day.getFullYear()}
+                        </h3>
+                        
+                    </div>
+                    <ul className='auth-timescale'>
+                        <li><a href="/">Day</a></li>
+                        <li><a href="/week">Week</a></li>
+                        <li><a href="/month">Month</a></li>
+                    </ul>
+                </div>
+
                 <div className="card">
                     <div className="auth-title">
                         Sign In

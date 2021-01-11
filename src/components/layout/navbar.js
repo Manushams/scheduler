@@ -8,6 +8,8 @@ class Navbar extends React.Component {
     }
     
     toggleNavbar = () => {
+    //   if(document.querySelector('.ham').length){
+
         const ham = document.querySelector('.ham'),
             navbar = document.querySelector('.navbar'),
             lines = document.querySelectorAll('.line'),
@@ -54,11 +56,12 @@ class Navbar extends React.Component {
                 lines[2].style.transform="rotate(180deg)"            
             }
         })
-        
+    //}
     }
    
 
     toggleTimeScale = () => {
+        //if(document.querySelector('.three-dots').length){
         const dots = document.querySelector('.three-dots'),
             ul = document.querySelector('.top-bar').querySelector('ul');
         let isShown = false
@@ -82,7 +85,7 @@ class Navbar extends React.Component {
             isShown = false      
         })    
         
-        
+    // }
     }
 
     render() {

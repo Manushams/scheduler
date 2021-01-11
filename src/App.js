@@ -13,8 +13,8 @@ function App() {
   return (
     <div className="App">
       <Router>
-      {/* <Ham />
-      <Navbar/> */}
+      <Ham />
+      <Navbar/>
         <Switch>
           <Route exact path='/' component={Day} />
           <Route path='/month' component={MonthTable} />

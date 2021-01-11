@@ -1,6 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {createUser} from '../../store/actions/authAction'
 
-class SignIn extends React.Component{
+class SignUp extends React.Component{
 
     state = {
         username: null,
@@ -15,12 +17,14 @@ class SignIn extends React.Component{
     }
 
     onSubmitHandler = (e) => {
-        e.preventDefault()
-        console.log(this.state)
+        e.preventDefault();
+        this.props.createUser(this.state);
     }
 
     render(){
-        const day = new Date()
+        const day = new Date(),
+            {error} = this.props;
+
         return(
             <div className='auth signin'>
 
@@ -40,7 +44,7 @@ class SignIn extends React.Component{
 
                 <div className="card">
                     <div className="auth-title">
-                        Sign In
+                        Sign Up
                     </div>
         
                     <form onSubmit = {this.onSubmitHandler}>
@@ -71,6 +75,14 @@ class SignIn extends React.Component{
                                 onChange = {this.onChangeHandler}     
                             />
                         </div>
+
+                        {error ? 
+                            <div className="message">
+                                {error}
+                            </div>
+                        :
+                             null                        
+                        }
         
                         <input 
                             type="submit"
@@ -84,4 +96,16 @@ class SignIn extends React.Component{
     }
 }
 
-export default SignIn;
+const mapStateToProps = state => {
+    return{
+        error: state.auth.error
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        createUser: (user) => dispatch(createUser(user))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

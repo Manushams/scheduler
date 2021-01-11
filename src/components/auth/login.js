@@ -1,9 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {logIn} from '../../store/actions/authAction'
 
 class LogIn extends React.Component{
 
     state = {
-        username: null,
+        email: null,
         password: null
     }
 
@@ -14,12 +16,13 @@ class LogIn extends React.Component{
     }
 
     onSubmitHandler = (e) => {
-        e.preventDefault()
-        console.log(this.state)
+        e.preventDefault();
+        this.props.logIn(this.state)
     }
 
     render(){
-        const day = new Date()
+        const day = new Date(),
+            {error} = this.props
         return(
             <div className='auth login'>
 
@@ -45,10 +48,10 @@ class LogIn extends React.Component{
                     <form onSubmit = {this.onSubmitHandler}>
 
                         <div className="input-field">
-                            <label htmlFor="username">Username</label>
+                            <label htmlFor="email">Email</label>
                             <input 
-                                type="text"
-                                id='username'   
+                                type="email"
+                                id='email'   
                                 onChange = {this.onChangeHandler} 
                             />
                         </div>
@@ -62,16 +65,37 @@ class LogIn extends React.Component{
                             />
                         </div>
 
+                        {error ? 
+                            <div className="message">
+                                {error}
+                            </div>
+                        :
+                             null                        
+                        }
+
                         <input 
                             type="submit"
                             className='submit-btn'    
                         />
 
                     </form>
+
                 </div>
             </div>
         )
     }
 }
 
-export default LogIn
+const mapStateToProps = state => {
+    return{
+        error: state.auth.error
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        logIn: (user) => dispatch(logIn(user))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn)

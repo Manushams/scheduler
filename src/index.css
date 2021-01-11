@@ -619,6 +619,12 @@ td{
   border-bottom: 1px solid #000;
 }
 
+.message{
+  background-color: rgb(252, 79, 79);
+  color: white;
+  padding: .2rem 1rem;
+}
+
 @media screen and (max-width: 550px){
 
   .auth .card{

@@ -50,9 +50,7 @@ class Day extends React.Component {
     }
 
     displayTasks = () => {
-        let { tasks } = this.props;
-        console.log(tasks)
-        console.log(this.props)
+        let { tasks } = this.props;    
         const { day } = this.state,
             divParent = document.querySelector('.td-parent').querySelector('div'),
             taskDivs = document.querySelectorAll('.task-div')

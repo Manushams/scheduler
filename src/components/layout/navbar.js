@@ -120,7 +120,7 @@ class Navbar extends React.Component {
 
         const loggedOutLinks = () => {
             return(
-                <ul className="navbar-nav">
+                <ul className="navbar-nav logged-out">
                     <li className="nav-item">
                         <a href="#!" className="nav-link">Log In</a>
                     </li>

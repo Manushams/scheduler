@@ -711,6 +711,10 @@ td{
     height: 60%;
   }
 
+  .logged-out{
+    height: 30%;
+  }
+
   .nav-item{
     width: 5rem;
     height: 1.6rem;

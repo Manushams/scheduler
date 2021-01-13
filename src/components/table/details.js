@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {closeDetailsModal} from '../../store/actions/toggleModalAction';
 import {} from '../../store/actions/deleteTaskAction'
 import { deleteTask } from '../../store/actions/deleteTaskAction';
+import { completed } from '../../store/actions/addTaskAction';
 
 class Details extends React.Component{
 
@@ -13,8 +14,8 @@ class Details extends React.Component{
     }
 
     render(){
-        const {task} = this.props
-        
+        const {task, completed} = this.props
+        console.log(task)
         return(
             <div className ='modal details'>
                 <div className="modal-card">
@@ -52,16 +53,15 @@ class Details extends React.Component{
                         <div className="group-btn">
                             <button 
                                 className='btn submit-btn'
+                                onClick = {() => completed(task)}
+                            >
+                                Completed
+                            </button>
+                            <button 
+                                className='btn submit-btn'
                                 onClick = {this.deleteTaskHandle}
                             >
                                 Delete
-                            </button>
-                           
-                            <button 
-                                className='btn submit-btn'
-                                onClick = {this.props.closeDetailsModal}    
-                            >
-                                Cancel
                             </button>
                         </div>
                     </div>
@@ -80,7 +80,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         closeDetailsModal: () => dispatch(closeDetailsModal()),
-        deleteTask: (task) => dispatch(deleteTask(task))
+        deleteTask: (task) => dispatch(deleteTask(task)),
+        completed: task => dispatch(completed(task))
     }
 }
 

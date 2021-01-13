@@ -675,13 +675,18 @@ td{
 .hide-sm{
   display: none;
 }
+
 @media screen and (max-width: 550px){
+
+  .details .btn{
+    width: 100%;
+  }
 
   .hide-sm{
     display: none;
   }
 
-    .auth .card{
+  .auth .card{
     width: clamp(12rem, 90%, 30rem);
   }
 

@@ -72,9 +72,9 @@ export default Task
 export const TaskMonth = (task) => {
     const div = document.createElement('div'),
         p = document.createElement('p')
-    
+
     div.classList.add('task-month');
-    div.setAttribute('id', task.id)
+    div.setAttribute('data-id', task.id)
     div.setAttribute('data-date', task.date)
     div.setAttribute('data-start', task.timeStart)
     div.setAttribute('data-end', task.timeEnd)

@@ -19,6 +19,15 @@ export const addTask = (state = [], action)=>{
                 ...state,
                 error: null
             } 
+        
+        case 'COMPLETED_SUCCESS':
+            console.log('task marked completed')
+            return state
+
+        case 'COMPLETED_ERROR':            
+            console.log('task completed error:', action.err)
+            return state
+
         default:
             return state
     }

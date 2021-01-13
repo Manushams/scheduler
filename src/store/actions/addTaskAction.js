@@ -1,5 +1,3 @@
-import { getFirebase } from "react-redux-firebase"
-
 export const addTask = (task) => {
     const startHour = parseInt(task.timeStart)
     const endHour = parseInt(task.timeEnd)
@@ -15,7 +13,8 @@ export const addTask = (task) => {
             
             firestore.collection('users').doc(uid)
                      .collection('tasks').doc(task.id.toString()).set({
-                ...task
+                ...task,
+                completed: false
             }).then(() =>{
                 console.log(task)
                 dispatch({type: 'ADD_TASK', task})
@@ -25,6 +24,22 @@ export const addTask = (task) => {
         }
     }else{
         return {type: 'ADD_TASK_ERROR', err: 'Wrong Time Input'}
+    }
+}
+
+export const completed = (task) => {
+    return (dispatch, getState, getFirebase) => {
+        const firestore = getFirebase().firestore(),
+            uid = getState().firebase.auth.uid;
+
+        firestore.collection('users').doc(uid).collection('tasks').doc(task.id + '').update({
+            completed: true,
+            completedAt: new Date()
+        }).then(() => {
+            dispatch({type: 'COMPLETED_SUCCESS'})
+        }).catch((err) => {
+            dispatch({type: 'COMPLETED_ERROR', err})
+        } )
     }
 }
 

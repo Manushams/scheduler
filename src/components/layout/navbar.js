@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {logOut} from '../../store/actions/authAction';
 import {withRouter} from 'react-router-dom';
 import {compose} from 'redux';
+import {Link} from 'react-router-dom'
 
 class Navbar extends React.Component {
 
@@ -142,9 +143,9 @@ class Navbar extends React.Component {
                 </div>
                 
                 <ul className='timescale'>
-                    <li><a href="/">Day</a></li>
-                    <li><a href="/week">Week</a></li>
-                    <li><a href="/month">Month</a></li>
+                    <li><Link to="/">Day</Link></li>
+                    <li><Link to="/week">Week</Link></li>
+                    <li><Link to="/month">Month</Link></li>
                 </ul>
             </div>
         )

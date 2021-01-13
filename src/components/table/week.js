@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { openModal } from '../../store/actions/toggleModalAction';
-import { setWidthDay, removeIdenticalDivs, removeTaskDivs, displayTask, spanToNum } from './multipleTasks';
-import {Link} from 'react-router-dom'
+import { setWidthDay, removeIdenticalDivs, removeTaskDivs } from './multipleTasks';
 import Modal from './modal';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
-import {taskDetails} from './multipleTasks'
+import {taskDetails} from './multipleTasks';
 
 class Week extends React.Component {
     state = {
@@ -91,19 +90,6 @@ class Week extends React.Component {
         })
     }
 
-    // onPress = () => {
-    //     const all = document.querySelectorAll('.task-div');
-
-    //     all.forEach(div => {
-    //         div.addEventListener('click', () => {
-    //             console.log(this.props)
-    //         })
-    //         div.setAttribute('onClick', () => console.log(this.props))
-    //     })
-
-    // }
-
-
     displayTasks = () => {
         const { tasks } = this.props,
             weekdays = Array.from(document.querySelectorAll('.weekday'))
@@ -157,11 +143,9 @@ class Week extends React.Component {
         const { day, daysInWeek, weekDaysShort, hours } = this.state,
             month = day.toLocaleString('default', { month: 'short' }),
             year = day.getFullYear(),
-            { modalEnable, openModal } = this.props
+            { modalEnable, openModal, uid } = this.props
 
-        setTimeout(() => {
-            this.onPress()
-        }, 5000);
+        if(!uid)this.props.history.push('/login');
         return (
             <div className="week">
 
@@ -244,7 +228,8 @@ class Week extends React.Component {
 const mapStateToProps = state => {
     return {
         modalEnable: state.toggleModal.modalEnable,
-        tasks: state.firestore.ordered.tasks
+        tasks: state.firestore.ordered.tasks,
+        uid: state.firebase.auth.uid
     }
 }
 

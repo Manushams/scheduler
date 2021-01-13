@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createUser} from '../../store/actions/authAction'
+import {createUser} from '../../store/actions/authAction';
+import {Redirect} from 'react-router-dom';
 
 class SignUp extends React.Component{
 
@@ -23,8 +24,10 @@ class SignUp extends React.Component{
 
     render(){
         const day = new Date(),
-            {error} = this.props;
+            {error, uid} = this.props;
 
+        if(uid)this.props.history.push('/')
+        
         return(
             <div className='auth signin'>
 
@@ -35,7 +38,7 @@ class SignUp extends React.Component{
                         </h3>
                         
                     </div>
-                    <ul className='auth-timescale'>
+                    <ul>
                         <li><a href="/">Day</a></li>
                         <li><a href="/week">Week</a></li>
                         <li><a href="/month">Month</a></li>
@@ -98,7 +101,8 @@ class SignUp extends React.Component{
 
 const mapStateToProps = state => {
     return{
-        error: state.auth.error
+        error: state.auth.error,
+        uid: state.firebase.auth.uid
     }
 }
 

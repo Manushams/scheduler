@@ -5,7 +5,8 @@ import Modal from './modal';
 import { openModal } from '../../store/actions/toggleModalAction';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
-import {taskDetails} from './multipleTasks'
+import {taskDetails} from './multipleTasks';
+import {Redirect} from 'react-router-dom'
 
 class MonthTable extends React.Component{
 
@@ -105,7 +106,7 @@ class MonthTable extends React.Component{
 
     render(){
         const {weekDays, monthTo,cellDetails} = this.state,
-            {modalEnable} = this.props,
+            {modalEnable, uid} = this.props,
             today = monthTo ? monthTo : new Date(),
             td = [...Array(6)].map(() => 
                 <tr key={Math.random()} className='table-row'>
@@ -118,7 +119,9 @@ class MonthTable extends React.Component{
                         </td>
                     )}
                 </tr>
-            )                                  
+            )        
+            
+            if(!uid)this.props.history.push('/login')
     
         return(
             <div className='monthtable'>
@@ -162,7 +165,8 @@ class MonthTable extends React.Component{
 const mapStateToProps = state => {
     return {
         tasks: state.firestore.ordered.tasks,
-        modalEnable: state.toggleModal.modalEnable
+        modalEnable: state.toggleModal.modalEnable,
+        uid: state.firebase.auth.uid
     }
 }
 

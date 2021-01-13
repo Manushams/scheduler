@@ -5,7 +5,8 @@ import { openModal } from '../../store/actions/toggleModalAction';
 import Modal from './modal';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
-import Details from './details'
+import Details from './details';
+import {Redirect} from 'react-router-dom'
 
 class Day extends React.Component {
 
@@ -17,7 +18,7 @@ class Day extends React.Component {
 
     componentDidMount() {
         this.setHours();
-        this.displayTasks();
+        this.displayTasks();            
         taskDetails()
     }
 
@@ -50,7 +51,7 @@ class Day extends React.Component {
     }
 
     displayTasks = () => {
-        let { tasks } = this.props;    
+        let { tasks, uid } = this.props;    
         const { day } = this.state,
             divParent = document.querySelector('.td-parent').querySelector('div'),
             taskDivs = document.querySelectorAll('.task-div')
@@ -77,7 +78,9 @@ class Day extends React.Component {
             month = day.toLocaleString('default', { month: 'long' }),
             year = day.getFullYear(),
             dayWeek = day.toLocaleString('default', { weekday: 'short' }),
-            { modalEnable, openModal, detailsEnable } = this.props
+            { modalEnable, openModal, detailsEnable, uid } = this.props
+
+        if(!uid)this.props.history.push('/login');
 
         return (
             <div className='day'>
@@ -155,7 +158,8 @@ const mapStateToProps = state => {
     return {
         tasks: state.firestore.ordered.tasks,
         modalEnable: state.toggleModal.modalEnable,
-        detailsEnable: state.toggleModal.detailsEnable
+        detailsEnable: state.toggleModal.detailsEnable,
+        uid: state.firebase.auth.uid
     }
 }
 

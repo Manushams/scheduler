@@ -1,15 +1,18 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {logOut} from '../../store/actions/authAction';
+import {withRouter} from 'react-router-dom';
+import {compose} from 'redux';
+import Ham from './hamButton'
 
 class Navbar extends React.Component {
 
     componentDidMount(){
         this.toggleNavbar();
-        this.toggleTimeScale()
-    }
+        this.toggleTimeScale(); 
+    }  
     
     toggleNavbar = () => {
-    //   if(document.querySelector('.ham').length){
-
         const ham = document.querySelector('.ham'),
             navbar = document.querySelector('.navbar'),
             lines = document.querySelectorAll('.line'),
@@ -42,11 +45,9 @@ class Navbar extends React.Component {
             }
         })
         window.addEventListener('resize', () => {
-            if(window.innerWidth > 550){
+            if((window.innerWidth > 550) 
+            ){
                 navbar.style.display = 'flex'
-                ul.style.display = 'unset'            
-                ul.style.opacity = '1';
-                ul.style.transform = 'unset'
             }else{
                 navbar.style.display = 'none';
                 lines.forEach(line => line.style.backgroundColor = '#000');
@@ -56,17 +57,17 @@ class Navbar extends React.Component {
                 lines[2].style.transform="rotate(180deg)"            
             }
         })
-    //}
     }
    
 
     toggleTimeScale = () => {
-        //if(document.querySelector('.three-dots').length){
         const dots = document.querySelector('.three-dots'),
-            ul = document.querySelector('.top-bar').querySelector('ul');
+            ul = document.querySelector('.timescale')
         let isShown = false
 
+
         dots.addEventListener('click', () => {
+            console.log(ul)
             if(!isShown){
                 dots.style.transform = 'perspective(10rem) translateZ(2rem)';
                 setTimeout(() => {
@@ -84,13 +85,11 @@ class Navbar extends React.Component {
             dots.style.transform = 'perspective(10rem) translateZ(0rem)';
             isShown = false      
         })    
-        
-    // }
     }
 
     render() {
-
         return (
+            <div>
             <div className="navbar">
                 <ul className='navbar-nav'>
                     <li className="nav-item">
@@ -110,13 +109,38 @@ class Navbar extends React.Component {
                         {/* Timetable */}
                     </li>
                     <li className="nav-item">
-                        <a href="#!" className="nav-link">link</a>
-                        {/* Log Out */}
+                        <a 
+                            href="#!" 
+                            className="nav-link"
+                            onClick = {this.props.logout}
+                        >Log <br/> Out</a>
                     </li>
                 </ul>
+            </div>
+            
+            <ul className='timescale'>
+                <li><a href="/">Day</a></li>
+                <li><a href="/week">Week</a></li>
+                <li><a href="/month">Month</a></li>
+            </ul>
             </div>
         )
     }
 }
 
-export default Navbar
+const mapStateToProps = state => {
+    return{
+        uid: state.firebase.auth.uid
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        logout: () => dispatch(logOut())
+    }
+}
+
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter
+)(Navbar)

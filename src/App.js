@@ -4,16 +4,16 @@ import MonthTable from './components/table/monthTable'
 import Navbar from './components/layout/navbar'
 import Day from './components/table/day'
 import Week from './components/table/week';
-import Ham from './components/layout/hamButton';
 import LogIn from './components/auth/login'
 import SignUp from './components/auth/signup'
+import Ham from './components/layout/hamButton'
 
 
 function App() {
   return (
     <div className="App">
       <Router>
-      <Ham />
+      <Ham/>
       <Navbar/>
         <Switch>
           <Route exact path='/' component={Day} />

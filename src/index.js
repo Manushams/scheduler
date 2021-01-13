@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { createStore, compose, applyMiddleware } from 'redux'
 import {rootReducer} from './store/reducers/combinedReducers';
-import { ReactReduxFirebaseProvider, getFirebase} from 'react-redux-firebase';
+import { ReactReduxFirebaseProvider, getFirebase, isLoaded} from 'react-redux-firebase';
 import {firebaseConfig} from './config/fbconfig';
 import { createFirestoreInstance } from 'redux-firestore';
 import firebase from 'firebase/app';
@@ -35,11 +35,19 @@ const rrfProps = {
   createFirestoreInstance 
 }
 
+function AuthIsLoaded({ children }) {
+  const auth = useSelector(state => state.firebase.auth)
+  if (!isLoaded(auth)) return <div>splash screen...</div>;
+  return children
+}
+
 
 ReactDOM.render(
   <Provider store = {store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
-      <App />
+      <AuthIsLoaded>
+        <App />
+      </AuthIsLoaded>
     </ReactReduxFirebaseProvider >
   </Provider>
   ,

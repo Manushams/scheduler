@@ -33,6 +33,14 @@ export const authReducer = (state = initState, action) => {
                 error: action.err.message
             } 
 
+        case 'LOGOUT_SUCCESS':
+            console.log('logout success')
+            return state;
+            
+        case 'LOGOUT_ERROR':
+            console.log('logout error:', action.err)
+            return state;
+            
         default:
             return state
     }

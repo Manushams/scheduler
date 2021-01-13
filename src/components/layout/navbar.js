@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {logOut} from '../../store/actions/authAction';
 import {withRouter} from 'react-router-dom';
 import {compose} from 'redux';
-import Ham from './hamButton'
 
 class Navbar extends React.Component {
 
@@ -88,9 +87,9 @@ class Navbar extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-            <div className="navbar">
+
+        const loggedInLinks = () => {
+            return(
                 <ul className='navbar-nav'>
                     <li className="nav-item">
                         <a href="#!" className="nav-link">Link</a> 
@@ -113,16 +112,40 @@ class Navbar extends React.Component {
                             href="#!" 
                             className="nav-link"
                             onClick = {this.props.logout}
-                        >Log <br/> Out</a>
+                        >Log Out</a>
                     </li>
                 </ul>
-            </div>
-            
-            <ul className='timescale'>
-                <li><a href="/">Day</a></li>
-                <li><a href="/week">Week</a></li>
-                <li><a href="/month">Month</a></li>
-            </ul>
+            )
+        }
+
+        const loggedOutLinks = () => {
+            return(
+                <ul className="navbar-nav">
+                    <li className="nav-item">
+                        <a href="#!" className="nav-link">Log In</a>
+                    </li>
+                    <li className="nav-item">
+                        <a href="#!" className="nav-link">Sign Up</a>
+                    </li>
+                </ul>
+            )
+        }
+
+        return (
+            <div>
+                <div className="navbar">
+                    {this.props.uid ?
+                        loggedInLinks()
+                        :
+                        loggedOutLinks()
+                    }        
+                </div>
+                
+                <ul className='timescale'>
+                    <li><a href="/">Day</a></li>
+                    <li><a href="/week">Week</a></li>
+                    <li><a href="/month">Month</a></li>
+                </ul>
             </div>
         )
     }

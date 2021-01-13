@@ -10,9 +10,11 @@ export const addTask = (task) => {
     const height = (endTotalMins - startTotalMins ) * (2/15)
     if(height > 0){
         return (dispatch, getState, getFirebase) => {
-            const firestore = getFirebase().firestore();
+            const firestore = getFirebase().firestore(),
+                uid = getState().firebase.auth.uid
             
-            firestore.collection('tasks').doc(task.id.toString()).set({
+            firestore.collection('users').doc(uid)
+                     .collection('tasks').doc(task.id.toString()).set({
                 ...task
             }).then(() =>{
                 console.log(task)

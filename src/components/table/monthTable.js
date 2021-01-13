@@ -6,7 +6,7 @@ import { openModal } from '../../store/actions/toggleModalAction';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
 import {taskDetails} from './multipleTasks';
-import {Redirect} from 'react-router-dom'
+import Details from './details';
 
 class MonthTable extends React.Component{
 
@@ -106,7 +106,7 @@ class MonthTable extends React.Component{
 
     render(){
         const {weekDays, monthTo,cellDetails} = this.state,
-            {modalEnable, uid} = this.props,
+            {modalEnable, uid, detailsEnable} = this.props,
             today = monthTo ? monthTo : new Date(),
             td = [...Array(6)].map(() => 
                 <tr key={Math.random()} className='table-row'>
@@ -121,7 +121,7 @@ class MonthTable extends React.Component{
                 </tr>
             )        
             
-            if(!uid)this.props.history.push('/login')
+        if(!uid)this.props.history.push('/login')
     
         return(
             <div className='monthtable'>
@@ -157,6 +157,10 @@ class MonthTable extends React.Component{
                         cellDetails={cellDetails}
                     /> : null
                 }
+                {detailsEnable ?
+                    <Details/>
+                    : null
+                }
             </div>
         )
     }
@@ -166,7 +170,8 @@ const mapStateToProps = state => {
     return {
         tasks: state.firestore.ordered.tasks,
         modalEnable: state.toggleModal.modalEnable,
-        uid: state.firebase.auth.uid
+        uid: state.firebase.auth.uid,
+        detailsEnable: state.toggleModal.detailsEnable,
     }
 }
 
@@ -177,8 +182,15 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default compose(
-    firestoreConnect([
-        { collection: 'tasks' },
-    ]),
     connect(mapStateToProps, mapDispatchToProps),
+    firestoreConnect(props => {
+        return [
+            { 
+                collection: 'users',
+                doc: props.uid,
+                subcollections: [{collection: 'tasks'}],
+                storeAs: 'tasks'
+            },
+        ]
+    })
 )(MonthTable)

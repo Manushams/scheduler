@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { openModal } from '../../store/actions/toggleModalAction';
-import { setWidthDay, removeIdenticalDivs, removeTaskDivs } from './multipleTasks';
+import { setWidthDay, removeIdenticalDivs, removeTaskDivs, taskDetails } from './multipleTasks';
 import Modal from './modal';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
-import {taskDetails} from './multipleTasks';
+import Details from './details';
 
 class Week extends React.Component {
     state = {
@@ -25,15 +25,15 @@ class Week extends React.Component {
         this.setHours();
         setTimeout(() => {
             this.displayTasks()
+            taskDetails()
         });
-        taskDetails()
     }
 
     componentDidUpdate() {
         setTimeout(() => {
             this.displayTasks()
+            taskDetails()
         });
-        taskDetails()
     }
 
     setHours = () => {
@@ -143,7 +143,7 @@ class Week extends React.Component {
         const { day, daysInWeek, weekDaysShort, hours } = this.state,
             month = day.toLocaleString('default', { month: 'short' }),
             year = day.getFullYear(),
-            { modalEnable, openModal, uid } = this.props
+            { modalEnable, openModal, uid, detailsEnable } = this.props
 
         if(!uid)this.props.history.push('/login');
         return (
@@ -220,6 +220,11 @@ class Week extends React.Component {
                         cellDetails={day}
                     /> : null
                 }
+
+                {detailsEnable ?
+                    <Details/>
+                    : null
+                }
             </div>
         )
     }
@@ -229,7 +234,8 @@ const mapStateToProps = state => {
     return {
         modalEnable: state.toggleModal.modalEnable,
         tasks: state.firestore.ordered.tasks,
-        uid: state.firebase.auth.uid
+        uid: state.firebase.auth.uid,
+        detailsEnable: state.toggleModal.detailsEnable,
     }
 }
 
@@ -239,8 +245,14 @@ const mapDispatchToProps = dispatch => {
     }
 }
 export default compose(
-    firestoreConnect([
-        { collection: 'tasks' },
-    ]),
     connect(mapStateToProps, mapDispatchToProps),
+    firestoreConnect(props =>  [
+            { 
+                collection: 'users',
+                doc: props.uid,
+                subcollections: [{collection: 'tasks'}],
+                storeAs: 'tasks'
+            },
+        ]
+    ),
 )(Week)

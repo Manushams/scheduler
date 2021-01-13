@@ -6,7 +6,6 @@ import Modal from './modal';
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
 import Details from './details';
-import {Redirect} from 'react-router-dom'
 
 class Day extends React.Component {
 
@@ -171,7 +170,14 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    firestoreConnect([
-        { collection: 'tasks'},
-    ]),
+    firestoreConnect(props => {
+        return [
+            { 
+                collection: 'users',
+                doc: props.uid,
+                subcollections: [{collection: 'tasks'}],
+                storeAs: 'tasks'
+            },
+        ]
+    }),
 )(Day);

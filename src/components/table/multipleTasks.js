@@ -41,33 +41,6 @@ export const setWidth = (td) => {
     return width
 }
 
-// export const Match2 = (tasks) => {
-
-//     let array = []
-
-//     for (let i in tasks) {
-//         const task = tasks[i];
-
-//         tasks.map(taskMap => {
-
-//             if (task.cellDetails.id !== taskMap.cellDetails.id && task.cellDetails.title === taskMap.cellDetails.title) {
-//                 if (Match(taskMap, task)) {
-//                     if (!taskMap.checked || !taskMap.checked) {
-//                         array.push([task, taskMap])
-//                         taskMap.checked = true
-//                         taskMap.direction = 'left'
-//                         task.checked = true
-//                         task.direction = 'right'
-//                     }
-//                 }
-//             }
-
-//         })
-//     }
-
-//     return (array)
-// }
-
 export const Match = (task1, task2) => {
 
     const task1Mins = Count(task1);

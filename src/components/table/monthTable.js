@@ -98,6 +98,7 @@ class MonthTable extends React.Component{
             tasks && tasks.forEach(task => {
                 if(td.title === new Date(task.date).toString().slice(0,15)
                     && td.childElementCount < 4
+                    && !task.completed
                 ){
                     td.append(TaskMonth(task))
                 }

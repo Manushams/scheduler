@@ -57,7 +57,10 @@ class Day extends React.Component {
             taskDivs = document.querySelectorAll('.task-div')
 
         if (tasks) {
-            tasks = tasks.filter(task => new Date(task.date).toString().slice(0, 15) === day.toString().slice(0, 15))
+            tasks = tasks.filter(task => 
+                new Date(task.date).toString().slice(0, 15) === day.toString().slice(0, 15) &&
+                task.completed === false
+                )
 
             tasks.length > 1 && tasks.sort((task1, task2) => task2.height - task1.height) 
 

@@ -31,6 +31,7 @@ class Week extends React.Component {
     }
 
     componentDidUpdate() {
+        removeTaskDivs(document.querySelectorAll('.task-div'))
         setTimeout(() => {
             this.displayTasks()
             taskDetails()
@@ -92,11 +93,11 @@ class Week extends React.Component {
     }
 
     displayTasks = () => {
-        const { tasks } = this.props,
-            weekdays = Array.from(document.querySelectorAll('.weekday'))
-        let ths = Array.from(document.querySelectorAll('th'));
-        //weekdays = Array.from(document.querySelectorAll('.weekday'))
+        const weekdays = Array.from(document.querySelectorAll('.weekday'));
+        let ths = Array.from(document.querySelectorAll('th')),
+            { tasks } = this.props
 
+        console.log(tasks)
         ths = ths.filter(th => th.id)
         for (let i = 0; i < ths.length; i++) {
             weekdays[i].style.top = ths[i].getBoundingClientRect().bottom + 'px';
@@ -106,7 +107,6 @@ class Week extends React.Component {
 
 
         tasks && tasks.forEach(task => {
-
             ths.forEach(th => {
                 if (th.id === new Date(task.date).toString().slice(0, 15)) {
 
@@ -131,8 +131,8 @@ class Week extends React.Component {
                     div.appendChild(p)
 
                     divWeekday.appendChild(div);
-                    removeIdenticalDivs()
-                    setWidthDay(divWeekday.children)
+                    removeIdenticalDivs();
+                    setWidthDay(divWeekday.children);
                 }
             })
         })
@@ -251,7 +251,12 @@ export default compose(
             { 
                 collection: 'users',
                 doc: props.uid,
-                subcollections: [{collection: 'tasks'}],
+                subcollections: [{
+                    collection: 'tasks',
+                    where: [
+                        ['completed', '==', false]
+                    ],
+                }],
                 storeAs: 'tasks'
             },
         ]

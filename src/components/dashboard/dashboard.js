@@ -1,9 +1,23 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import Section from './section';
+import Stats from './stats';
+import {connect} from 'react-redux';
+import {firestoreConnect} from 'react-redux-firebase';
+import {compose} from 'redux'
 
 class Dashboard extends React.Component{
     render(){
-        const today = new Date();
+        const today = new Date(),
+            todayDate = today.getDate(),
+            month = today.getMonth(),
+            year =  today.getFullYear(),
+            dayFromStart = new Date(year, month, todayDate);            
+        let {tasks} = this.props,
+            upcomingTasks = tasks && tasks.filter(task => Date.parse(dayFromStart) <= Date.parse(task.date))
+        
+        upcomingTasks && upcomingTasks.sort((t1, t2) => Date.parse(t1.date) - Date.parse(t2.date))
+
         return(
             <div className="dashboard">
 
@@ -12,11 +26,6 @@ class Dashboard extends React.Component{
                         <h3>
                             {today.toLocaleString('default', {month: 'long'})} {today.getDate()}, {today.getFullYear()}
                         </h3>
-                        <input
-                            id='top-bar-calendar'
-                            type="date"
-                            onChange={this.handleDayChange}
-                        />
                     </div>
                     <ul>
                         <li><Link to="/">Day</Link></li>
@@ -24,57 +33,44 @@ class Dashboard extends React.Component{
                         <li><Link to="/month">Month</Link></li>
                     </ul>
                 </div>
+
                 <main>
                     <div className='agenda'>
-
-                        <div className="section">
-                            <div className="post-day">
-                                <h3>Today</h3>
-                                <p>Jan 15, 2021</p>
-                            </div>
-                            
-                            <div className="post-card">
-                                <div className="circle"></div>
-                                <div className="post-details">
-                                    <h3>Meeting</h3>
-                                    <p>12:00 - 13:00</p>
-                                    <div className="dots">
-                                        <div className="dot"></div>
-                                        <div className="dot"></div>
-                                        <div className="dot"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    
+                        <Section
+                            tasks = {upcomingTasks}
+                        />
                     </div>
 
                     <div className="stats">
-                        <h3 className='stats-title'>Stats</h3>
-                        <div className="stats-content">
-                            <div className="stats-task">
-                                <h3>Tasks</h3>
-                                <div className='info-tasks'>
-                                    <div className="stat">
-                                        <p>Total</p>
-                                        <h4>56</h4>
-                                    </div>
-                                    <div className="stat">
-                                        <p>Completed</p>
-                                        <h4>51</h4>
-                                    </div>
-                                    <div className="stat">
-                                        <p>Overdue</p>
-                                        <h4>2</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <Stats
+                            tasks = {tasks}
+                            upcomingTasks = {upcomingTasks}
+                        />
                     </div>
                 </main>
+
             </div>
         )
     }
 }
-export default Dashboard;
+
+const mapStateToProps = state => {
+    return{
+        tasks: state.firestore.ordered.tasks,
+        uid: state.firebase.auth.uid
+    }
+}
+
+export default compose(
+    connect(mapStateToProps),
+    firestoreConnect(props => {
+        return [
+            { 
+                collection: 'users',
+                doc: props.uid,
+                subcollections: [{collection: 'tasks'}],
+                storeAs: 'tasks'
+            },
+        ]
+    }),
+)(Dashboard);

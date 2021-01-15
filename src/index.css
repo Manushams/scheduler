@@ -682,11 +682,13 @@ td{
 }
 
 .dashboard .agenda{
-  width: 45%
+  width: 45%;
+  margin-right: 1rem;
 }
 
 .section{
   width: clamp(2rem, 100%, 25rem);
+  margin-bottom: 0.8rem;
 }
 
 main{
@@ -695,7 +697,6 @@ main{
   margin: auto;
   margin-top: .5rem;
   display: flex;
-  justify-content: space-between;
 }
 
 
@@ -704,6 +705,7 @@ main{
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: .4rem;
+  padding: 0 1rem;
 }
 
 .dashboard p, .dashboard h3{
@@ -712,8 +714,9 @@ main{
 }
 
 .post-day h3{
-  font-size: 1.9rem;
+  font-size: 1.6rem;
   margin-bottom: -.2rem;
+  font-weight: lighter;
 }
 
 .post-card{
@@ -722,6 +725,7 @@ main{
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
   border-radius: .5rem;
   padding: .5rem 0;
+  margin-bottom: .5rem;
 }
 
 .post-card .circle{
@@ -735,6 +739,7 @@ main{
 
 .post-card .post-details h3{
   font-size: 1.7rem;
+  font-weight: 500;
 }
 
 .post-card .post-details .dots{
@@ -757,7 +762,7 @@ main{
 }
 
 .stats{
-  width: 50%;
+  width: clamp(10rem, 50%, 40rem);
 }
 
 .stats-title{
@@ -767,8 +772,9 @@ main{
 
 .stats-content{
   background-color: #FFF7F7;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: 0 0 0 1px #000000;
   padding: .7rem;
+  border-radius: 1rem;
 }
 
 .stats-task{
@@ -777,6 +783,7 @@ main{
 
 .stats-task h3{
   text-align: center;
+  margin-bottom: .5rem;
 }
 
 .info-tasks{
@@ -799,6 +806,11 @@ main{
 }
 
 @media screen and (max-width: 550px){
+
+  .dashboard{
+    margin: 0;
+    width: 100%;
+  }
 
   .details .btn{
     width: 100%;

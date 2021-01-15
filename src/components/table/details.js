@@ -15,7 +15,7 @@ class Details extends React.Component{
 
     render(){
         const {task, completed} = this.props
-        console.log(task)
+
         return(
             <div className ='modal details'>
                 <div className="modal-card">

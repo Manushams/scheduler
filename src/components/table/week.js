@@ -97,7 +97,6 @@ class Week extends React.Component {
         let ths = Array.from(document.querySelectorAll('th')),
             { tasks } = this.props
 
-        console.log(tasks)
         ths = ths.filter(th => th.id)
         for (let i = 0; i < ths.length; i++) {
             weekdays[i].style.top = ths[i].getBoundingClientRect().bottom + 'px';

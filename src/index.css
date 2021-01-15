@@ -676,6 +676,128 @@ td{
   display: none;
 }
 
+.dashboard{
+  width: calc(100% - 5rem);
+  margin-left: 5rem;
+}
+
+.dashboard .agenda{
+  width: 45%
+}
+
+.section{
+  width: clamp(2rem, 100%, 25rem);
+}
+
+main{
+  padding: 1rem;
+  width: 90%;
+  margin: auto;
+  margin-top: .5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.section .post-day{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: .4rem;
+}
+
+.dashboard p, .dashboard h3{
+  padding: 0;
+  margin: 0;
+}
+
+.post-day h3{
+  font-size: 1.9rem;
+  margin-bottom: -.2rem;
+}
+
+.post-card{
+  display: flex;
+  position: relative;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  border-radius: .5rem;
+  padding: .5rem 0;
+}
+
+.post-card .circle{
+  border-radius: 50%;
+  width: 11px;
+  height: 11px;
+  align-self: center;
+  margin: -1.2rem 1rem 0 1rem;  
+  background-color: #5EDC5C;
+}
+
+.post-card .post-details h3{
+  font-size: 1.7rem;
+}
+
+.post-card .post-details .dots{
+  position:  absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  height: 1.4rem;
+  justify-content: space-evenly;
+}
+
+.post-card .post-details .dot{
+  width: .3rem;
+  height: .3rem;
+  background-color: black;
+  border-radius: 50%;
+  margin-bottom: .1rem;
+}
+
+.stats{
+  width: 50%;
+}
+
+.stats-title{
+  font-size: 1.9rem;
+  margin-bottom: -.2rem;
+}
+
+.stats-content{
+  background-color: #FFF7F7;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: .7rem;
+}
+
+.stats-task{
+  width: 100%;
+}
+
+.stats-task h3{
+  text-align: center;
+}
+
+.info-tasks{
+  display: flex;
+  justify-content: center;
+}
+
+.stat{
+  border-radius: .4rem;
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  margin-left: 1rem;
+  padding: .2rem 1rem;
+  text-align: center;
+}
+
+.stat h4{
+  padding: 0;
+  margin: 0;
+  font-size: 2rem;
+}
+
 @media screen and (max-width: 550px){
 
   .details .btn{

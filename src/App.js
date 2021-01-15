@@ -6,7 +6,8 @@ import Day from './components/table/day'
 import Week from './components/table/week';
 import LogIn from './components/auth/login'
 import SignUp from './components/auth/signup'
-import Ham from './components/layout/hamButton'
+import Ham from './components/layout/hamButton';
+import Dashboard from './components/dashboard/dashboard'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path='/week' component={Week} />
           <Route path='/login' component={LogIn} />
           <Route path='/signup' component={SignUp} />
+          <Route path='/dashboard' component={Dashboard} />
         </Switch>
       </Router>      
     </div>

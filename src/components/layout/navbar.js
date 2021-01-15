@@ -67,7 +67,6 @@ class Navbar extends React.Component {
 
 
         dots.addEventListener('click', () => {
-            console.log(ul)
             if(!isShown){
                 dots.style.transform = 'perspective(10rem) translateZ(2rem)';
                 setTimeout(() => {

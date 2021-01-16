@@ -768,6 +768,7 @@ main{
 .stats-title{
   font-size: 1.9rem;
   margin-bottom: -.2rem;
+  font-weight: 500;
 }
 
 .stats-content{

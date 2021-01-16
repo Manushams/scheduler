@@ -13,7 +13,7 @@ class Stats extends React.Component{
                     align: 'center',
                     margin: 10,
                     style: {
-                        fontWeight: 'lighter',
+                        fontWeight: 'bold',
                     }
                 }
             },
@@ -107,7 +107,7 @@ class Stats extends React.Component{
                             options={this.details(this.chartSeries(), this.chartData())[0]}
                             series={this.details(this.chartSeries(), this.chartData())[1]}
                             type="bar"
-                            width="400"
+                            width="100%"
                             className='chart'
                         /> : null                
                     }

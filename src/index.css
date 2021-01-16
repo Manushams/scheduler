@@ -682,7 +682,7 @@ td{
 }
 
 .dashboard .agenda{
-  width: 45%;
+  width: clamp(8rem, 45%, 40rem);
   margin-right: 1rem;
 }
 
@@ -769,6 +769,9 @@ main{
   font-size: 1.9rem;
   margin-bottom: -.2rem;
   font-weight: 500;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 .stats-content{
@@ -780,6 +783,7 @@ main{
 
 .stats-task{
   width: 100%;
+  padding: .5rem 0;
 }
 
 .stats-task h3{
@@ -795,10 +799,15 @@ main{
 .stat{
   border-radius: .4rem;
   box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
-  margin-left: 1rem;
-  padding: .2rem 1rem;
+  padding: .2rem .5rem;
   text-align: center;
   overflow: hidden;
+  width: 20%;
+}
+
+.stat:nth-child(2){
+  margin: 0 .5rem 0 .5rem;
+  padding: 0;
 }
 
 .stat h4{
@@ -817,6 +826,21 @@ main{
   width: 100%;
 }
 
+.apexcharts-menu-icon{
+  display: none
+}
+
+.chart{
+  width: 95%;
+}
+.apexchartstaskStats{
+  width: 100%;
+}
+
+.chart svg{
+  width: 100%;
+}
+
 @media screen and (max-width: 765px){
 
   main{
@@ -825,6 +849,13 @@ main{
 
   .dashboard .agenda, .stats{
     width: 100%;
+  }
+
+  .dashboard .agenda{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 

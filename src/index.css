@@ -798,12 +798,34 @@ main{
   margin-left: 1rem;
   padding: .2rem 1rem;
   text-align: center;
+  overflow: hidden;
 }
 
 .stat h4{
   padding: 0;
   margin: 0;
   font-size: 2rem;
+}
+
+.chart{
+  display: flex;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.apexcharts-svg{
+  width: 100%;
+}
+
+@media screen and (max-width: 765px){
+
+  main{
+    display: block;
+  }
+
+  .dashboard .agenda, .stats{
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 550px){

@@ -7,7 +7,15 @@ class Stats extends React.Component{
         const chartDetails = {
             option: {
                 chart: {id: 'taskStats'},
-                xaxis: {categories: categ}
+                xaxis: {categories: categ},
+                title: {
+                    text: 'Number of Completed Tasks per Day',
+                    align: 'center',
+                    margin: 10,
+                    style: {
+                        fontWeight: 'lighter',
+                    }
+                }
             },
             series: [
                 {
@@ -20,9 +28,9 @@ class Stats extends React.Component{
     } 
 
      chartSeries = () => {
-        const {tasks} = this.props,
+        const {tasks} = this.props;
+        let completedTasks = tasks && tasks.filter(task => task.completed === true),
             categories = []
-        let completedTasks = tasks && tasks.filter(task => task.completed === true);
 
         completedTasks && completedTasks.sort((t1, t2) => 
             Date.parse(t1.date) - Date.parse(t2.date)  
@@ -37,6 +45,7 @@ class Stats extends React.Component{
             categories.push(`${month} ${day}, ${year}`)
         })
         //remove identical ones
+        categories = Array.from(new Set(categories))
         return categories
     }
 
@@ -92,17 +101,18 @@ class Stats extends React.Component{
                             </div>
                         </div>
                     </div>
+
+                    {tasks ?
+                        <Chart
+                            options={this.details(this.chartSeries(), this.chartData())[0]}
+                            series={this.details(this.chartSeries(), this.chartData())[1]}
+                            type="bar"
+                            width="400"
+                            className='chart'
+                        /> : null                
+                    }
+
                 </div>
-                
-                {tasks ?
-                    <Chart
-                        options={this.details(this.chartSeries(), this.chartData())[0]}
-                        series={this.details(this.chartSeries(), this.chartData())[1]}
-                        type="bar"
-                        width="400"
-                        className='chart'
-                    /> : null                
-                }
             </>
         )
     }

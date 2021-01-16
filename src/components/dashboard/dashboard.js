@@ -14,7 +14,9 @@ class Dashboard extends React.Component{
             year =  today.getFullYear(),
             dayFromStart = new Date(year, month, todayDate);            
         let {tasks} = this.props,
-            upcomingTasks = tasks && tasks.filter(task => Date.parse(dayFromStart) <= Date.parse(task.date))
+            upcomingTasks = tasks && tasks.filter(task => 
+                Date.parse(dayFromStart) <= Date.parse(task.date) &&
+                task.completed === false)
         
         upcomingTasks && upcomingTasks.sort((t1, t2) => Date.parse(t1.date) - Date.parse(t2.date))
 

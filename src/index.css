@@ -50,11 +50,15 @@ a{
 
 .nav-link{
   position: absolute;
-  font-size: 1.2rem;
+  font-size: 1rem;
   top: 50%;
   left: 50%;
   text-align: center;
   transform: translate(-50%, -50%);
+}
+
+.nav-add{
+  font-size: 1.2rem;
 }
 
 .dashboard-link{
@@ -731,6 +735,10 @@ main{
   margin-bottom: .5rem;
 }
 
+.post-card .dots{
+  all: initial;
+}
+
 .post-card .circle{
   border-radius: 50%;
   width: 11px;
@@ -916,16 +924,24 @@ main{
   }
 
   .nav-item{
-    width: 5rem;
+    width: 7rem;
     height: 1.6rem;
     background-color: unset;
     padding: 0;
+    text-align: center;
+    margin: 0;
   }
 
   .nav-link{
     width: 100%;
     height: 100%;
     font-size: 1.5rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-add::after{
+    content: ' Add';
   }
 
   .day, .week, .monthtable{

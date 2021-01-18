@@ -100,16 +100,29 @@ class Navbar extends React.Component {
                         </Link> 
                     </li>
                     <li className="nav-item">
-                        <a href="#!" className="nav-link">link</a>
-                        {/* Add Item/Event */}
+                        <a 
+                            href="#!" 
+                            className="nav-link nav-add"
+                        >
+                            +
+                        </a>
                     </li>
                     <li className="nav-item">
-                        <a href="#!" className="nav-link">link</a>
-                        {/* Agenda */}
+                        <Link
+                            href="all" 
+                            className="nav-link"
+                        >
+                            All Tasks
+                        </Link>
+
                     </li>
                     <li className="nav-item">
-                        <a href="#!" className="nav-link">link</a>
-                        {/* Timetable */}
+                        <Link
+                            href="overdue" 
+                            className="nav-link"
+                        >
+                            Overdue
+                        </Link>
                     </li>
                     <li className="nav-item">
                         <Link 

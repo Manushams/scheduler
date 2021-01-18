@@ -59,26 +59,26 @@ class Stats extends React.Component{
         tasks && categ && categ.forEach(cat => {
             let matches = 0;
             tasks.forEach(task => {
-                if(convertToDate(cat) === convertToDate(task.date)){
+                if(task.completed && convertToDate(cat) === convertToDate(task.date)){
                     matches++;
                 }
             })
             data.push(matches)
-
         })
 
-        return data
+        return data;
     }
 
     render(){
         const {tasks, upcomingTasks} = this.props,
-            overdue = tasks && upcomingTasks && tasks.length - upcomingTasks.length,
             total = tasks && tasks.length;
         let completed = 0;
 
-        upcomingTasks && upcomingTasks.forEach(task => {
+        tasks && tasks.forEach(task => {
             if(task.completed)completed++;
         })
+        
+        let overdue = tasks && upcomingTasks && tasks.length - upcomingTasks.length - completed;
 
         return(
             <>

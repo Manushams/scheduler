@@ -244,12 +244,13 @@ const mapDispatchToProps = dispatch => {
         openModal: () => dispatch(openModal())
     }
 }
+
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect(props =>  [
             { 
                 collection: 'users',
-                doc: props.uid,
+                doc: props.uid ? props.uid : ' ',
                 subcollections: [{
                     collection: 'tasks',
                     where: [

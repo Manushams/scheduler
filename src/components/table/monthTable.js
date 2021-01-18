@@ -189,7 +189,7 @@ export default compose(
         return [
             { 
                 collection: 'users',
-                doc: props.uid,
+                doc: props.uid ? props.uid : ' ',
                 subcollections: [{collection: 'tasks'}],
                 storeAs: 'tasks'
             },

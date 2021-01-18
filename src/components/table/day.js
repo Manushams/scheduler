@@ -51,7 +51,7 @@ class Day extends React.Component {
     }
 
     displayTasks = () => {
-        let { tasks, uid } = this.props;    
+        let { tasks } = this.props;    
         const { day } = this.state,
             divParent = document.querySelector('.td-parent').querySelector('div'),
             taskDivs = document.querySelectorAll('.task-div')
@@ -60,7 +60,7 @@ class Day extends React.Component {
             tasks = tasks.filter(task => 
                 new Date(task.date).toString().slice(0, 15) === day.toString().slice(0, 15) &&
                 task.completed === false
-                )
+            )
 
             tasks.length > 1 && tasks.sort((task1, task2) => task2.height - task1.height) 
 
@@ -178,8 +178,15 @@ export default compose(
         return [
             { 
                 collection: 'users',
-                doc: props.uid,
-                subcollections: [{collection: 'tasks'}],
+                doc: props.uid ? props.uid : ' ',
+                subcollections: [
+                    {
+                        collection: 'tasks',
+                        where: [
+                            ['completed', '==', false]
+                        ],
+                    },                    
+                ],
                 storeAs: 'tasks'
             },
         ]

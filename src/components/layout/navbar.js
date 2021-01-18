@@ -92,8 +92,12 @@ class Navbar extends React.Component {
             return(
                 <ul className='navbar-nav'>
                     <li className="nav-item">
-                        <a href="#!" className="nav-link">Link</a> 
-                        {/* Dashboard */}
+                        <Link 
+                            to='/dashboard'
+                            className="nav-link dashboard-link"
+                        >
+                            Dashboard
+                        </Link> 
                     </li>
                     <li className="nav-item">
                         <a href="#!" className="nav-link">link</a>
@@ -108,11 +112,11 @@ class Navbar extends React.Component {
                         {/* Timetable */}
                     </li>
                     <li className="nav-item">
-                        <a 
-                            href="#!" 
+                        <Link 
+                            to='/login'
                             className="nav-link"
                             onClick = {this.props.logout}
-                        >Log Out</a>
+                        >Log Out</Link>
                     </li>
                 </ul>
             )
@@ -122,10 +126,10 @@ class Navbar extends React.Component {
             return(
                 <ul className="navbar-nav logged-out">
                     <li className="nav-item">
-                        <a href="#!" className="nav-link">Log In</a>
+                        <Link to='/login' className="nav-link">Log In</Link>
                     </li>
                     <li className="nav-item">
-                        <a href="#!" className="nav-link">Sign Up</a>
+                        <Link to='/signup' className="nav-link">Sign Up</Link>
                     </li>
                 </ul>
             )

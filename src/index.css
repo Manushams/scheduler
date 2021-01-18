@@ -38,7 +38,6 @@ a{
   grid-gap: 1rem;
 }
 
-
 .nav-item{
   width: 4rem;
   height: 4rem;
@@ -56,6 +55,10 @@ a{
   left: 50%;
   text-align: center;
   transform: translate(-50%, -50%);
+}
+
+.dashboard-link{
+  font-size: .8rem;
 }
 
 .main{
@@ -864,6 +867,10 @@ main{
   .dashboard{
     margin: 0;
     width: 100%;
+  }
+
+  .dashboard-link{
+    font-size: 1.2rem;
   }
 
   .details .btn{

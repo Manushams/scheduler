@@ -8,6 +8,8 @@ import LogIn from './components/auth/login'
 import SignUp from './components/auth/signup'
 import Ham from './components/layout/hamButton';
 import Dashboard from './components/dashboard/dashboard'
+import Overdue from './components/tasks/overdue';
+import All from './components/tasks/all';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
           <Route path='/login' component={LogIn} />
           <Route path='/signup' component={SignUp} />
           <Route path='/dashboard' component={Dashboard} />
+          <Route path='/overdue' component={Overdue} />
+          <Route path='/all' component={All} />
         </Switch>
       </Router>      
     </div>

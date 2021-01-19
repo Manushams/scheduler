@@ -109,7 +109,7 @@ class Navbar extends React.Component {
                     </li>
                     <li className="nav-item">
                         <Link
-                            href="all" 
+                            to="all" 
                             className="nav-link"
                         >
                             All Tasks
@@ -118,7 +118,7 @@ class Navbar extends React.Component {
                     </li>
                     <li className="nav-item">
                         <Link
-                            href="overdue" 
+                            to="overdue" 
                             className="nav-link"
                         >
                             Overdue

@@ -6,12 +6,12 @@ import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
 class All extends React.Component{
+
     render(){
         const today = new Date();
         let {tasks} = this.props
 
         let sorted = tasks && tasks.slice().sort((t1, t2) =>  Date.parse(t1.date) -  Date.parse(t2.date))
-        
         return(
             <div className="all">
            

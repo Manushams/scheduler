@@ -4,10 +4,11 @@ import Chart from 'react-apexcharts'
 class Stats extends React.Component{
     
     details = (categ, data) => {
-        const chartDetails = {
+        const categShort = categ && categ.map(c => c.slice(0, 6)),
+        chartDetails = {
             option: {
                 chart: {id: 'taskStats'},
-                xaxis: {categories: categ},
+                xaxis: {categories: categShort},
                 title: {
                     text: 'Number of Completed Tasks per Day',
                     align: 'center',

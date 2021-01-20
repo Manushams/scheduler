@@ -595,7 +595,7 @@ td{
   display: none;
 }
 
-.dashboard, .overdue{
+.dashboard, .overdue, .all{
   width: calc(100% - 5rem);
   margin-left: 5rem;
 }
@@ -649,6 +649,7 @@ main{
 
 .post-card .dots{
   all: initial;
+  cursor: pointer;
 }
 
 .post-card .circle{
@@ -726,6 +727,7 @@ main{
   text-align: center;
   overflow: hidden;
   width: 20%;
+  overflow-wrap: break-word;
 }
 
 .stat:nth-child(2){
@@ -763,7 +765,6 @@ main{
 .chart svg{
   width: 100%;
 }
-
 
 .details .modal-card{
   width: 17rem;
@@ -885,18 +886,18 @@ main{
   align-items: center;
 }
 
-.overdue .post-card{
+.overdue .post-card, .all .post-card{
   height: 5rem;
   padding: 0;
   margin: 0;
   margin-top: 1rem;
 }
 
-.overdue .post-card h3{
+.overdue .post-card h3, .all .post-card h3{
   margin: .6rem 0 0 0;
 }
 
-.overdue .post-card p{
+.overdue .post-card p, .all .post-card p{
   margin: 0;
   padding: 0;
 }
@@ -913,17 +914,25 @@ main{
 
 @media screen and (max-width: 550px){
 
-  .dashboard, .overdue{
+  .dashboard, .overdue, .all{
     margin: 0;
     width: 100%;
   }
 
-  .overdue .section{
+    .overdue .section, .all .section{
     width: 95%;
+  }
+
+  .stat{
+    width: 30%;
   }
 
   .dashboard-link{
     font-size: 1.2rem;
+  }
+
+  .chart{
+    width: 100%;
   }
 
   .details .btn{

@@ -13,7 +13,7 @@ class All extends React.Component{
         let sorted = tasks && tasks.slice().sort((t1, t2) =>  Date.parse(t1.date) -  Date.parse(t2.date))
         
         return(
-            <div className="overdue">
+            <div className="all">
            
                 <div className="top-bar">
                     <div>

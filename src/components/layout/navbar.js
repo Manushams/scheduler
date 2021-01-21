@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {logOut} from '../../store/actions/authAction';
 import {withRouter} from 'react-router-dom';
 import {compose} from 'redux';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import { openModal } from '../../store/actions/toggleModalAction';
 
 class Navbar extends React.Component {
 
@@ -103,6 +104,7 @@ class Navbar extends React.Component {
                         <a 
                             href="#!" 
                             className="nav-link nav-add"
+                            onClick = {this.props.openModal}
                         >
                             +
                         </a>
@@ -176,7 +178,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        logout: () => dispatch(logOut())
+        logout: () => dispatch(logOut()),
+        openModal: () => dispatch(openModal())
     }
 }
 

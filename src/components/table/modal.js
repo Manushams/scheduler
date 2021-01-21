@@ -9,7 +9,27 @@ class Modal extends React.Component{
 
     state = {
         timeStart: '',
-        eventName: 'Untitled'
+        eventName: 'Untitled',
+        date: ''
+    }
+
+    componentDidMount(){
+        if(this.props.date){
+            const {date} = this.props,
+                monthFixed = (month) => {
+                    if(month >= 0 && month < 9)return `0${month+1}`;
+                    else if(month >= 9)return month + 1;
+                },
+                dayFixed = (day) => {
+                    if(day > 0 && day < 10)return `0${day}`;
+                    else if(day >= 10)return day ;
+                },
+                dateValue = `${date.getFullYear()}-${monthFixed(date.getMonth())}-${dayFixed(date.getDate())}`
+
+            this.setState({
+                date: dateValue
+            })
+        }
     }
 
     onChangeHandle = e => {
@@ -43,9 +63,9 @@ class Modal extends React.Component{
     }
 
     render(){    
-    const {  startTime, error } = this.props
-    const { timeStart  } = this.state
-
+    const {  startTime, error } = this.props,
+        { timeStart, date } = this.state
+    
     return (
         <div className='modal'>
         <div className='modal-card'>
@@ -72,7 +92,7 @@ class Modal extends React.Component{
                         <input 
                             type='time'
                             id='timeStart'
-                            value={timeStart ? timeStart : startTime}
+                            value={timeStart !== '' ? timeStart : startTime}
                             onChange = {this.onChangeHandle}
                         />
                     </div>
@@ -90,6 +110,7 @@ class Modal extends React.Component{
                     <input  
                         type="date"
                         id='date'
+                        value = {date}
                         onChange = {this.onChangeHandle}
                     />
                 </div>

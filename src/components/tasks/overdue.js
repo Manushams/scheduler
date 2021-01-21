@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
+import Modal from '../table/addTaskModal'
 
 class Overdue extends React.Component {
     render() {
@@ -47,7 +48,7 @@ class Overdue extends React.Component {
                         )}
                     </div>
                 </div>
-
+                <Modal/>
             </div>
         )
     }

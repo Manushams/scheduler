@@ -13,7 +13,8 @@ class Day extends React.Component {
     state = {
         hours: [],
         day: new Date(),
-        displayed: []
+        displayed: [],
+        startTime: null
     };
 
     componentDidMount() {
@@ -74,14 +75,22 @@ class Day extends React.Component {
         setWidthDay()
     }
 
+    handleClick = (e) => {
+        console.log(e.target.previousSibling.innerText)
+        this.setState({
+            startTime: e.target.previousSibling.innerText
+        })
+        this.props.openModal()
+    }
+
 
     render() {
-        const { day, hours } = this.state,
+        const { day, hours, startTime } = this.state,
             date = day.getDate(),
             month = day.toLocaleString('default', { month: 'long' }),
             year = day.getFullYear(),
             dayWeek = day.toLocaleString('default', { weekday: 'short' }),
-            { modalEnable, openModal, detailsEnable, uid } = this.props
+            { modalEnable, detailsEnable, uid } = this.props
 
         if(!uid)this.props.history.push('/login');
 
@@ -128,7 +137,7 @@ class Day extends React.Component {
                                                 <tr key={i}>
                                                     <th>{hour}</th>
                                                     <td
-                                                        onClick={openModal}
+                                                        onClick={this.handleClick}
                                                     ></td>
                                                 </tr>
                                             )
@@ -144,7 +153,8 @@ class Day extends React.Component {
                 </table>
                 {modalEnable ?
                     <Modal
-                        cellDetails={day}
+                        date={day}
+                        startTime= {startTime}
                     />
                     : null
                 }

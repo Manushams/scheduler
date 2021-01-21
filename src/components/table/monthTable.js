@@ -33,9 +33,10 @@ class MonthTable extends React.Component{
     }
 
     onClickHandle = (e) => {
-        this.props.openModal()
+        this.props.openModal();
+        console.log(new Date(e.target.title))
         this.setState({
-            cellDetails: {title: e.target.title},
+            cellDetails: new Date(e.target.title),
             modalEnable: true
         })
     }
@@ -155,8 +156,7 @@ class MonthTable extends React.Component{
                 </table>
                 {modalEnable ?
                     <Modal
-                        // startTime={startTime}
-                        cellDetails={cellDetails}
+                        date={cellDetails}
                     /> : null
                 }
                 {detailsEnable ?

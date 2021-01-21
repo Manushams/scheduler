@@ -10,9 +10,12 @@ import Ham from './components/layout/hamButton';
 import Dashboard from './components/dashboard/dashboard'
 import Overdue from './components/tasks/overdue';
 import All from './components/tasks/all';
+import Modal from './components/table/modal'
+import { connect } from 'react-redux'
 
 
-function App() {
+function App({modalEnable}) {
+
   return (
     <div className="App">
       <Router>
@@ -29,8 +32,16 @@ function App() {
           <Route path='/all' component={All} />
         </Switch>
       </Router>      
+
+      {/* {modalEnable ? < Modal/> : null} */}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+      modalEnable: state.toggleModal.modalEnable,
+  }
+}
+
+export default connect(mapStateToProps)(App);

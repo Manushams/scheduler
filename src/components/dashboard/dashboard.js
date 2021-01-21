@@ -4,7 +4,8 @@ import Section from './section';
 import Stats from './stats';
 import {connect} from 'react-redux';
 import {firestoreConnect} from 'react-redux-firebase';
-import {compose} from 'redux'
+import {compose} from 'redux';
+import Modal from '../table/addTaskModal'
 
 class Dashboard extends React.Component{
     render(){
@@ -50,7 +51,7 @@ class Dashboard extends React.Component{
                         />
                     </div>
                 </main>
-
+                <Modal/>
             </div>
         )
     }

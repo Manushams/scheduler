@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
+import Modal from '../table/addTaskModal'
 
 class All extends React.Component{
 
@@ -39,7 +40,7 @@ class All extends React.Component{
                         )}
                     </div>
                 </div>
-
+                <Modal/>
             </div>
         )
     }

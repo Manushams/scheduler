@@ -4,7 +4,9 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import Modal from '../table/addTaskModal'
+import Modal from '../table/addTaskModal';
+import NoTask from './notask'
+import Todo from '../../images/to-do.svg';
 
 class All extends React.Component{
 
@@ -29,16 +31,23 @@ class All extends React.Component{
                     </ul>
                 </div>
                 <div className="tasks">
-
                     <div className="title">
                         <h3>All</h3>
                     </div>
+                    
+                    {tasks && tasks.length ? 
+                        <div className="section">
+                            {sorted && sorted.map(task => 
+                                <PostCard task = {task} key={task.id} />
+                            )}
+                        </div>
+                        : 
+                        < NoTask 
+                            text='You do not have any tasks' 
+                            img = {Todo}    
+                        /> 
+                    }
 
-                    <div className="section">
-                        {sorted && sorted.map(task => 
-                            <PostCard task = {task} key={task.id} />
-                        )}
-                    </div>
                 </div>
                 <Modal/>
             </div>

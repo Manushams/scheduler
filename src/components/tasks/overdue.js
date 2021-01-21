@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import Modal from '../table/addTaskModal'
-
+import Modal from '../table/addTaskModal';
+import NoTask from './notask';
+import Nodata from '../../images/no_data.svg'
 class Overdue extends React.Component {
     render() {
         const today = new Date(),
@@ -42,11 +43,19 @@ class Overdue extends React.Component {
                         <h3>Overdue</h3>
                     </div>
 
-                    <div className="section">
-                        {overdue && overdue.map(task =>
-                            <PostCard task={task} key={task.id} />
-                        )}
-                    </div>
+                    {tasks && tasks.length ? 
+
+                        <div className="section">
+                            {overdue && overdue.map(task =>
+                                <PostCard task={task} key={task.id} />
+                            )}
+                        </div>
+                        :
+                        < NoTask 
+                            text='You do not have any overdue tasks' 
+                            img = {Nodata}
+                        /> 
+                    }
                 </div>
                 <Modal/>
             </div>

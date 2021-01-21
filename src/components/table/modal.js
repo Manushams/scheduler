@@ -33,9 +33,10 @@ class Modal extends React.Component{
     }
 
     onChangeHandle = e => {
+        const {details} = this.props
         this.setState({
             [e.target.id]: e.target.value,
-            cellDetails: this.props.cellDetails,
+            cellDetails: details ? details : null ,
         })
     }
 

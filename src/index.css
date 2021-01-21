@@ -10,6 +10,11 @@ body {
   box-sizing: border-box;
 }
 
+.App .modal-title{
+  display: flex;
+  align-items: center;
+}
+
 li{
   list-style: none;
   margin: 0;
@@ -855,6 +860,23 @@ main{
   margin-top: 1rem;
 }
 
+.no-task img{
+  width: 40%;
+}
+
+.img-empty{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.svg{
+  width: 80%;
+}
 
 @media screen and (max-width: 765px){
   
@@ -917,6 +939,10 @@ main{
   .dashboard, .overdue, .all{
     margin: 0;
     width: 100%;
+  }
+
+  .no-task img{
+    width: 60%;
   }
 
     .overdue .section, .all .section{

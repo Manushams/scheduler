@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {firestoreConnect} from 'react-redux-firebase';
 import {compose} from 'redux';
 import Modal from '../table/addTaskModal'
+import Empty from '../../images/empty.svg'
 
 class Dashboard extends React.Component{
     render(){
@@ -39,9 +40,21 @@ class Dashboard extends React.Component{
 
                 <main>
                     <div className='agenda'>
-                        <Section
-                            tasks = {upcomingTasks}
-                        />
+                        {upcomingTasks && upcomingTasks.length ?
+                            <Section
+                                tasks = {upcomingTasks}
+                            /> 
+                            :
+                            <div className="img-empty">
+                                <h4>You do not have any upcoming tasks for this week!</h4>
+                                <img 
+                                    src={Empty}
+                                    alt="empty"
+                                    className='svg empty'
+
+                                />                         
+                            </div>   
+                        }
                     </div>
 
                     <div className="stats">

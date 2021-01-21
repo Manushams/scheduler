@@ -51,6 +51,17 @@ a{
   margin-left: -2em;
   margin-bottom: 1rem;
   position: relative;
+  transition: all 0.3s ease-in;
+}
+
+.nav-item:hover{
+  color: #000;
+  background:#fff
+}
+
+.nav-item:hover .nav-link{
+  color: #000;
+  font-weight: 600;
 }
 
 .nav-link{
@@ -60,7 +71,9 @@ a{
   left: 50%;
   text-align: center;
   transform: translate(-50%, -50%);
+  transition: all 0.1s ease-in;
 }
+
 
 .nav-add{
   font-size: 1.2rem;
@@ -78,8 +91,6 @@ a{
   width: 100%;
   padding: 1rem;
   white-space: nowrap;
-  /* table-layout: fixed;
-  height: 4rem; */
 }
 
 table, th {
@@ -236,6 +247,10 @@ input:focus{
 
 .modal form > div:last-child{
   width: 6rem;
+}
+
+i{
+  -webkit-tap-highlight-color: transparent
 }
 
 .submit-btn{
@@ -874,8 +889,13 @@ main{
   text-align: center;
 }
 
+main .img-empty{
+  width: 45%;
+  height: 100%;
+}
+
 .svg{
-  width: 80%;
+  width: clamp(4rem, 80%, 30rem);
 }
 
 @media screen and (max-width: 765px){
@@ -888,7 +908,12 @@ main{
     width: 100%;
   }
 
-.dashboard .agenda{
+  main .img-empty{
+    width: 100%;
+  }
+
+
+  .dashboard .agenda{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -941,6 +966,17 @@ main{
     width: 100%;
   }
 
+  main .img-empty{
+    width: 100%;
+  }
+
+  .no-task img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   .no-task img{
     width: 60%;
   }
@@ -986,8 +1022,7 @@ main{
     display: none;
     z-index: 5;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-
+    background-color: rgba(0, 0, 0, 0.9);
   }
 
   .navbar-nav{
@@ -1018,6 +1053,16 @@ main{
     font-size: 1.5rem;
     padding: 0;
     margin: 0;
+    -webkit-tap-highlight-color: transparent
+  }
+
+  .nav-item:hover{
+    background-color: unset
+  }
+  
+  .nav-item:hover .nav-link{
+    color: #fff;
+    font-weight: 600;
   }
 
   .nav-add::after{
@@ -1039,7 +1084,6 @@ main{
   }
 
   .top-bar ul{
-    /* display: none; */
     flex-direction: column;
     pointer-events: none;
     position: fixed;
@@ -1053,30 +1097,6 @@ main{
     opacity: 0;
     transition: ease-in all 0.3s;
   }
-/* 
-  .top-bar ul.show{
-    opacity: 1;
-    pointer-events: all;
-    transform: translateY(.5rem);
-  }
-
-  .top-bar ul > li{
-    text-align: center;
-    height: 4rem;
-    border-radius: .2rem;
-    width: 100%;
-    display: grid;
-    justify-self: center;
-    align-content: center;
-  }
-
-  .top-bar ul > li:hover{
-    background-color: #6185ad;
-  }
-
-  .top-bar ul > li a{
-    color: #fff;
-  } */
 
   .top-bar div{
     width: 80%;

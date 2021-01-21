@@ -39,23 +39,23 @@ class Dashboard extends React.Component{
                 </div>
 
                 <main>
-                    <div className='agenda'>
-                        {upcomingTasks && upcomingTasks.length ?
+                    {upcomingTasks && upcomingTasks.length ?
+                        <div className='agenda'>
                             <Section
                                 tasks = {upcomingTasks}
                             /> 
-                            :
-                            <div className="img-empty">
-                                <h4>You do not have any upcoming tasks for this week!</h4>
-                                <img 
-                                    src={Empty}
-                                    alt="empty"
-                                    className='svg empty'
+                        </div>
+                        :
+                        <div className="img-empty">
+                            <h4>You do not have any upcoming tasks for this week!</h4>
+                            <img 
+                                src={Empty}
+                                alt="empty"
+                                className='svg empty'
 
-                                />                         
-                            </div>   
-                        }
-                    </div>
+                            />                         
+                        </div>   
+                    }
 
                     <div className="stats">
                         <Stats
@@ -63,6 +63,7 @@ class Dashboard extends React.Component{
                             upcomingTasks = {upcomingTasks}
                         />
                     </div>
+                    
                 </main>
                 <Modal/>
             </div>
